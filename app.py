@@ -197,8 +197,8 @@ with tab_pupils:
             "Note: the output Excel stores O1 and O2 both as 'O', so all "
             "'on track' grades will import as O1. You can correct them in the Score tab."
         )
-        out_f = st.file_uploader("Output Excel (required)", type=["xlsx"], key="imp_out")
-        in_f  = st.file_uploader("Input template (optional)", type=["xlsx"], key="imp_in")
+        out_f = st.file_uploader("Previous reports Excel — IM_Y4_Reports_2025-26.xlsx", type=["xlsx"], key="imp_out")
+        in_f  = st.file_uploader("Scores template — Y4_Reports_Input_Template.xlsx (optional)", type=["xlsx"], key="imp_in")
 
         if st.button("Import", type="primary", key="do_import"):
             if out_f is None:
