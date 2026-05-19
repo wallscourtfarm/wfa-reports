@@ -176,14 +176,19 @@ def set_sel(pid):
 
 
 # ── Tabs ───────────────────────────────────────────────────────────────────────
-tab_pupils, tab_score, tab_comments, tab_generate, tab_photos, tab_settings = st.tabs(
-    ["👥 Pupils", "📋 Score", "💬 Comments", "✍️ Generate", "📸 Photos", "⚙️ Settings"]
+NAV_PAGES = ["👥 Pupils", "📋 Score", "💬 Comments", "✍️ Generate", "📸 Photos", "⚙️ Settings"]
+if "nav_page" not in st.session_state:
+    st.session_state.nav_page = "👥 Pupils"
+
+nav = st.radio(
+    "nav", NAV_PAGES, horizontal=True,
+    key="nav_page", label_visibility="collapsed"
 )
 
 # ╔══════════════════════════════════════════════════════════════════════════════╗
 # ║  PUPILS TAB                                                                ║
 # ╚══════════════════════════════════════════════════════════════════════════════╝
-with tab_pupils:
+if nav == "👥 Pupils":
 
     # ── Import panel ──────────────────────────────────────────────────────────
     with st.expander("📥 Import from Excel", expanded=not pupils):
@@ -227,18 +232,15 @@ with tab_pupils:
         for c, lbl in zip(hcols, ["Name", "R", "W", "M", "Scored", "Photo"]):
             c.markdown(f"<small><b>{lbl}</b></small>", unsafe_allow_html=True)
 
-        if get_sel():
-            sel_name = p_map[get_sel()]["full_name"] if get_sel() in p_map else ""
-            st.info(f"**{sel_name}** selected — click the 📋 Score tab to edit their scores, or 💬 Comments to review.")
-
         for p in sorted_pupils:
             cols = st.columns([5, 1, 1, 1, 3, 1])
 
             with cols[0]:
                 btn_col, name_col = st.columns([1, 8])
                 with btn_col:
-                    if st.button("📋", key=f"sel_{p['id']}", help="Select this pupil"):
+                    if st.button("📋", key=f"sel_{p['id']}", help="Open in Score tab"):
                         set_sel(p["id"])
+                        st.session_state.nav_page = "📋 Score"
                         st.rerun()
                 with name_col:
                     st.markdown(f"<div style='padding-top:6px;'>{p['first_name']} {p['last_name']}</div>",
@@ -275,7 +277,7 @@ with tab_pupils:
 # ╔══════════════════════════════════════════════════════════════════════════════╗
 # ║  SCORE TAB                                                                 ║
 # ╚══════════════════════════════════════════════════════════════════════════════╝
-with tab_score:
+if nav == "📋 Score":
     if not pupils:
         st.info("Import pupils first from the Pupils tab.")
         st.stop()
@@ -430,7 +432,7 @@ with tab_score:
 # ╔══════════════════════════════════════════════════════════════════════════════╗
 # ║  COMMENTS TAB                                                              ║
 # ╚══════════════════════════════════════════════════════════════════════════════╝
-with tab_comments:
+if nav == "💬 Comments":
     if not pupils:
         st.info("Import pupils first from the Pupils tab.")
     else:
@@ -498,7 +500,7 @@ with tab_comments:
 # ╔══════════════════════════════════════════════════════════════════════════════╗
 # ║  GENERATE TAB                                                              ║
 # ╚══════════════════════════════════════════════════════════════════════════════╝
-with tab_generate:
+if nav == "✍️ Generate":
     if not pupils:
         st.info("Import pupils first from the Pupils tab.")
     else:
@@ -586,7 +588,7 @@ with tab_generate:
 # ╔══════════════════════════════════════════════════════════════════════════════╗
 # ║  PHOTOS TAB                                                                ║
 # ╚══════════════════════════════════════════════════════════════════════════════╝
-with tab_photos:
+if nav == "📸 Photos":
     st.markdown(f"""
 **Naming convention:** `firstname_lastname.jpg`  
 Lowercase, underscores between words. Hyphens preserved in hyphenated names.
@@ -647,7 +649,7 @@ Select all photos at once — the app matches them by filename.
 # ╔══════════════════════════════════════════════════════════════════════════════╗
 # ║  SETTINGS TAB                                                              ║
 # ╚══════════════════════════════════════════════════════════════════════════════╝
-with tab_settings:
+if nav == "⚙️ Settings":
     settings = load_settings()
 
     st.markdown("### Year & class")
