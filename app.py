@@ -773,6 +773,16 @@ if nav == "⚙️ Settings":
         height=220, label_visibility="collapsed",
     )
 
+    st.markdown("### School cover photo")
+    st.caption("Building/school photo shown on the report cover. Upload once, reused every year.")
+    cover_f = st.file_uploader("School cover photo", type=["jpg","jpeg","png"], key="cover_photo")
+    if cover_f:
+        img_bytes = cover_f.read()
+        if save_photo(class_id, "school_photo.jpg", img_bytes):
+            st.image(img_bytes, width=300, caption="Cover photo saved ✓")
+        else:
+            st.error("Upload failed")
+
     st.markdown("### Enquiry images — Terms 1 to 6")
     st.caption(
         "Upload one image per term. You assemble these from the year's enquiries; "
