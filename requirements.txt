@@ -4,3 +4,4 @@ pandas
 requests
 Pillow
 anthropic
+reportlab
