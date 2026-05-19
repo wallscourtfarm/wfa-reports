@@ -180,6 +180,10 @@ NAV_PAGES = ["👥 Pupils", "📋 Score", "💬 Comments", "✍️ Generate", "�
 if "nav_page" not in st.session_state:
     st.session_state.nav_page = "👥 Pupils"
 
+# Resolve any pending programmatic navigation before the widget renders
+if st.session_state.get("_nav_goto"):
+    st.session_state.nav_page = st.session_state.pop("_nav_goto")
+
 nav = st.radio(
     "nav", NAV_PAGES, horizontal=True,
     key="nav_page", label_visibility="collapsed"
@@ -240,7 +244,7 @@ if nav == "👥 Pupils":
                 with btn_col:
                     if st.button("📋", key=f"sel_{p['id']}", help="Open in Score tab"):
                         set_sel(p["id"])
-                        st.session_state.nav_page = "📋 Score"
+                        st.session_state._nav_goto = "📋 Score"
                         st.rerun()
                 with name_col:
                     st.markdown(f"<div style='padding-top:6px;'>{p['first_name']} {p['last_name']}</div>",
