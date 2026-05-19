@@ -569,7 +569,7 @@ with tab_generate:
                         save_and_confirm()
                         st.success("Generated ✓ — review in the 💬 Comments tab.")
                         # Preview
-                        for key, label, _ in [
+                        for key, label in [
                             ("reader","Reader"),("writer","Writer"),("mathematician","Mathematician"),
                             ("learner_21c","21C Learner"),("rights","R&R"),
                         ]:
