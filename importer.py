@@ -75,7 +75,7 @@ def _blank_pupil(i, fn, ln, gender="M"):
         "grades": {"R": "O1", "W": "O1", "M": "O1"},
         "scores": blank_scores(),
         "other": "",
-        "special": "",
+        "special": [],
         "attendance": "",
         "att_code": "",
         "punctuality": "",
