@@ -226,16 +226,28 @@ def build_prompt(p: dict) -> str:
     # Special flag
     special = str(p.get("special") or "").strip()
     special_notes = {
-        "effort":            "NOTE: Strong effort is a defining quality — emphasise this warmly but specifically",
-        "able_not_engaged":  "NOTE: Able but not always engaged — acknowledge effort when shown, note gap between capability and typical output",
-        "anxiety":           "NOTE: Pupil has anxiety — be especially warm; frame all challenges as achievable; avoid language that could feel pressuring",
-        "low_engagement":    "NOTE: Engagement is an area to develop — name it constructively, not critically",
-        "SEN_selective":     "NOTE: SEN pupil with selective engagement — highlight what captures interest, frame broader engagement as the next step",
-        "quiet":             "NOTE: Quiet, doesn't always contribute — encourage oracy and participation gently",
-        "low_effort":        "NOTE: Effort is an area to develop — be honest and direct but constructive, not discouraging",
+        # Positive
+        "effort":            "NOTE (positive): Strong effort / work ethic is a defining quality — weave this in warmly and specifically",
+        "active_engagement": "NOTE (positive): Actively engaged in learning — participates enthusiastically, name this as a real strength",
+        "stamina_high":      "NOTE (positive): Strong learning stamina — sustains focus well over extended periods, acknowledge this explicitly",
+        "focus_high":        "NOTE (positive): Strong focus and concentration — consistent, name it as a genuine strength",
+        "drive":             "NOTE (positive): Real drive and determination — sets high expectations of themselves, highlight this",
+        # Challenge
+        "able_not_engaged":  "NOTE (challenge): Able but not consistently engaged — acknowledge capability, name gap between potential and typical output, be constructive not critical",
+        "anxiety":           "NOTE (challenge): Pupil has anxiety — be especially warm throughout; frame every challenge as achievable; avoid any language that could feel pressuring or overwhelming",
+        "low_engagement":    "NOTE (challenge): Engagement needs developing — name this honestly but constructively, not harshly",
+        "SEN_selective":     "NOTE (challenge): SEN pupil with selective engagement — highlight what genuinely captures interest, frame broader engagement as the next step",
+        "quiet":             "NOTE (challenge): Quiet, low oracy — doesn't contribute much verbally; encourage participation and oracy gently without making it feel like a criticism",
+        "low_effort":        "NOTE (challenge): Effort is genuinely an area to develop — be honest and direct but constructive and not discouraging",
+        "passive":           "NOTE (challenge): Passive learner — waits to be directed rather than initiating; encourage independence and active participation",
+        "stamina_low":       "NOTE (challenge): Low stamina — finds sustained concentration difficult; acknowledge progress where it exists, name stamina as the key area to build",
+        "presentation":      "NOTE (challenge): Presentation of work is an issue — impacts legibility or clarity of outcomes; name it specifically if relevant to the subject section",
     }
-    if special and special in special_notes:
-        lines.append(special_notes[special])
+    specials = v if isinstance((v := p.get("special") or []), list) else ([v] if v else [])
+    for sp in specials:
+        if sp in special_notes:
+            lines.append(special_notes[sp])
+    if specials:
         lines.append("")
 
     return "\n".join(lines)
