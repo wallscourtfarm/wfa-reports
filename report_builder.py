@@ -50,21 +50,32 @@ ATT_FILL = {
 }
 
 # ── Font setup ─────────────────────────────────────────────────────────────────
-_FDIR = '/usr/share/fonts/truetype/liberation'
 _FONTS_DONE = False
 
+# Font name aliases — resolved at runtime
+_F = {'C':'Helvetica','CB':'Helvetica-Bold','CI':'Helvetica-Oblique','CBI':'Helvetica-BoldOblique'}
+
 def _fonts():
-    global _FONTS_DONE
+    global _FONTS_DONE, _F
     if _FONTS_DONE: return
-    pdfmetrics.registerFont(TTFont('C',   f'{_FDIR}/LiberationSans-Regular.ttf'))
-    pdfmetrics.registerFont(TTFont('CB',  f'{_FDIR}/LiberationSans-Bold.ttf'))
-    pdfmetrics.registerFont(TTFont('CI',  f'{_FDIR}/LiberationSans-Italic.ttf'))
-    pdfmetrics.registerFont(TTFont('CBI', f'{_FDIR}/LiberationSans-BoldItalic.ttf'))
+    fdir = '/usr/share/fonts/truetype/liberation'
+    variants = [('C','Regular'),('CB','Bold'),('CI','Italic'),('CBI','BoldItalic')]
+    try:
+        for alias, variant in variants:
+            path = f'{fdir}/LiberationSans-{variant}.ttf'
+            if not os.path.exists(path):
+                raise FileNotFoundError(f"Font not found: {path}")
+            pdfmetrics.registerFont(TTFont(alias, path))
+        # All registered — update map to use our aliases
+        _F = {k: k for k in _F}
+    except Exception:
+        # Fallback: use ReportLab built-in Helvetica (no registration needed)
+        _F = {'C':'Helvetica','CB':'Helvetica-Bold','CI':'Helvetica-Oblique','CBI':'Helvetica-BoldOblique'}
     _FONTS_DONE = True
 
 # ── Paragraph helpers ──────────────────────────────────────────────────────────
 def _style(size=8, bold=False, italic=False, colour=DARK, align=TA_LEFT, leading_mult=1.25):
-    font = 'CBI' if bold and italic else ('CB' if bold else ('CI' if italic else 'C'))
+    font = _F['CBI'] if bold and italic else ('CB' if bold else ('CI' if italic else 'C'))
     return ParagraphStyle('s', fontName=font, fontSize=size,
                           leading=size*leading_mult, textColor=colour,
                           alignment=align, spaceAfter=0, spaceBefore=0)
@@ -105,8 +116,8 @@ def _badge(c, grade, x_right, y_mid, w=30, h=18):
     bx = x_right - w; by = y_mid - h/2
     c.setFillColor(fill); c.setStrokeColor(MGREY); c.setLineWidth(0.5)
     c.roundRect(bx, by, w, h, 3, fill=1, stroke=1)
-    c.setFillColor(DARK); c.setFont('CB', 8)
-    tw = c.stringWidth(label, 'CB', 8)
+    c.setFillColor(DARK); c.setFont(_F['CB'], 8)
+    tw = c.stringWidth(label, _F['CB'], 8)
     c.drawString(bx+(w-tw)/2, by+h*0.28, label)
 
 def _img(url_or_path, pat=None):
@@ -139,7 +150,7 @@ def _place_img(c, path, x, y_bottom, w, h, preserve=True):
             pass
     c.setFillColor(LGREY); c.setStrokeColor(MGREY); c.setLineWidth(0.5)
     c.rect(x, y_bottom, w, h, fill=1, stroke=1)
-    c.setFillColor(DGREY); c.setFont('CI', 7)
+    c.setFillColor(DGREY); c.setFont(_F['CI'], 7)
     c.drawCentredString(x+w/2, y_bottom+h/2-3, 'Image')
 
 # ── FRONT LEFT — enquiry list ──────────────────────────────────────────────────
@@ -150,7 +161,7 @@ def _front_left(c, lz, settings, class_id, pat):
     c.setFillColor(WHITE)
     c.rect(col*COL_W+BORD, PAGE_H-BORD-32, COL_W-2*BORD, 32, fill=1, stroke=0)
     lz_name = settings.get('class_display', 'Maple Learning Zone')
-    c.setFillColor(lz); c.setFont('CB', 13)
+    c.setFillColor(lz); c.setFont(_F['CB'], 13)
     c.drawCentredString(col*COL_W + COL_W/2, PAGE_H-BORD-20, f'{lz_name} Enquiries')
     y = PAGE_H - BORD - 32
 
@@ -158,7 +169,7 @@ def _front_left(c, lz, settings, class_id, pat):
     band_h = 20
     c.setFillColor(lz)
     c.rect(col*COL_W+BORD, y-band_h, COL_W-2*BORD, band_h, fill=1, stroke=0)
-    c.setFillColor(WHITE); c.setFont('CBI', 7.5)
+    c.setFillColor(WHITE); c.setFont(_F['CBI'], 7.5)
     c.drawCentredString(col*COL_W + COL_W/2, y-band_h+6,
                        "Use this page to help your learner remember the enquiries they have learnt about this year.")
     y -= band_h + 4
@@ -174,9 +185,9 @@ def _front_left(c, lz, settings, class_id, pat):
         # Term label strip (LZ colour)
         c.setFillColor(lz)
         c.rect(x, row_bot, term_label_w, term_h-3, fill=1, stroke=0)
-        c.setFillColor(WHITE); c.setFont('CB', 8)
+        c.setFillColor(WHITE); c.setFont(_F['CB'], 8)
         c.drawCentredString(x + term_label_w/2, row_bot + term_h/2 - 4, 'Term')
-        c.setFont('CB', 11)
+        c.setFont(_F['CB'], 11)
         c.drawCentredString(x + term_label_w/2, row_bot + term_h/2 - 14, str(i+1))
 
         # Enquiry image area
@@ -220,7 +231,7 @@ def _front_right(c, lz, pupil, settings):
     y = cover_y - cover_h - 16
 
     # "Annual Report to Families"
-    c.setFillColor(WFA); c.setFont('CB', 13)
+    c.setFillColor(WFA); c.setFont(_F['CB'], 13)
     c.drawCentredString(cx, y, 'Annual Report to Families')
     y -= 20
 
@@ -233,17 +244,17 @@ def _front_right(c, lz, pupil, settings):
     tw = c.stringWidth(full, 'CB', name_sz)
     if tw > CW - 10:
         name_sz = max(16, int(name_sz * (CW-10)/tw))
-    c.setFillColor(WFA); c.setFont('CB', name_sz)
+    c.setFillColor(WFA); c.setFont(_F['CB'], name_sz)
     c.drawCentredString(cx, y, full)
     y -= name_sz + 6
 
     # Learning zone name — LZ colour
-    c.setFillColor(lz); c.setFont('CB', 17)
+    c.setFillColor(lz); c.setFont(_F['CB'], 17)
     c.drawCentredString(cx, y, lz_name)
     y -= 28
 
     # Date — WFA blue
-    c.setFillColor(WFA); c.setFont('CB', 14)
+    c.setFillColor(WFA); c.setFont(_F['CB'], 14)
     c.drawCentredString(cx, y, f'July {yr}')
 
 # ── BACK LEFT — letter, grade key, RWM sections ────────────────────────────────
@@ -294,7 +305,7 @@ def _back_left(c, pupil, settings):
     y -= 10
 
     # "X as an Author and a Mathematician" — centred, large, WFA blue
-    c.setFillColor(WFA); c.setFont('CB', 14)
+    c.setFillColor(WFA); c.setFont(_F['CB'], 14)
     c.drawCentredString(x+w/2, y, f'{fn} as an Author and a Mathematician')
     y -= 16; _hline(c, col, y, WFA, lw=0.8); y -= 8
 
@@ -316,14 +327,14 @@ def _back_left(c, pupil, settings):
         icon_w = 30
         c.setFillColor(LGREY)
         c.roundRect(x+1, y-hdr_h+1, icon_w-2, hdr_h-2, 3, fill=1, stroke=0)
-        c.setFillColor(DGREY); c.setFont('C', 9)
+        c.setFillColor(DGREY); c.setFont(_F['C'], 9)
         # Simple icon fallback (unicode might not render — use text abbrev)
         abbrev = {'reader':'📖','writer':'✍','mathematician':'🔢'}
-        c.setFont('C', 7.5)
+        c.setFont(_F['C'], 7.5)
         c.drawCentredString(x+icon_w/2, y-hdr_h+7, label.split()[-1][:3].upper())
 
         # Label text
-        c.setFillColor(DARK); c.setFont('CB', 9)
+        c.setFillColor(DARK); c.setFont(_F['CB'], 9)
         c.drawString(x+icon_w+6, y-hdr_h+7, label)
 
         # Grade badge
@@ -353,7 +364,7 @@ def _back_right(c, lz, pupil, settings, class_id, pat):
     y = TOP
 
     # "My time in LZ" — very large, LZ colour, centred
-    c.setFillColor(lz); c.setFont('CB', 17)
+    c.setFillColor(lz); c.setFont(_F['CB'], 17)
     c.drawCentredString(cx_col, y, f'My time in {lz_name}')
     y -= 22
 
@@ -372,12 +383,12 @@ def _back_right(c, lz, pupil, settings, class_id, pat):
     if pv.strip():
         _draw(c, pv, x+photo_w+9, y-5, pv_w-6, size=7.5, align=TA_JUSTIFY, leading_mult=1.3)
     else:
-        c.setFillColor(DGREY); c.setFont('CI', 7)
+        c.setFillColor(DGREY); c.setFont(_F['CI'], 7)
         c.drawCentredString(x+photo_w+6+pv_w/2, y-box_h/2-3, 'Learner voice')
     y -= box_h + 10
 
     # "X as a learner:" — centred, WFA blue
-    c.setFillColor(WFA); c.setFont('CB', 13)
+    c.setFillColor(WFA); c.setFont(_F['CB'], 13)
     c.drawCentredString(cx_col, y, f'{fn} as a learner:')
     y -= 16
 
@@ -391,7 +402,7 @@ def _back_right(c, lz, pupil, settings, class_id, pat):
         dx = x + i*(disp_w+4)
         c.setFillColor(fill); c.setStrokeColor(MGREY); c.setLineWidth(0.4)
         c.roundRect(dx, y-disp_h, disp_w, disp_h, 4, fill=1, stroke=1)
-        c.setFillColor(DARK); c.setFont('CB', 6.5)
+        c.setFillColor(DARK); c.setFont(_F['CB'], 6.5)
         for li, line in enumerate(lbl.split('\n')):
             c.drawCentredString(dx+disp_w/2, y-disp_h+8+(1-li)*9, line)
     y -= disp_h + 8
@@ -405,7 +416,7 @@ def _back_right(c, lz, pupil, settings, class_id, pat):
     # R&R section — simple styled divider
     c.setFillColor(lz); c.setLineWidth(0); 
     c.roundRect(x, y-14, w, 14, 3, fill=1, stroke=0)
-    c.setFillColor(WHITE); c.setFont('CB', 7.5)
+    c.setFillColor(WHITE); c.setFont(_F['CB'], 7.5)
     c.drawCentredString(cx_col, y-10, 'Rights and Responsibilities')
     y -= 20
 
@@ -426,7 +437,7 @@ def _back_right(c, lz, pupil, settings, class_id, pat):
         c.setFillColor(bg); c.setStrokeColor(MGREY); c.setLineWidth(0.3)
         c.rect(hx, y-hdr_h, cw_, hdr_h, fill=1, stroke=1)
         if hdr:
-            c.setFillColor(tc); c.setFont('CB', 7.5)
+            c.setFillColor(tc); c.setFont(_F['CB'], 7.5)
             c.drawCentredString(hx+cw_/2, y-hdr_h+5, hdr)
         hx += cw_
     y -= hdr_h
@@ -448,7 +459,7 @@ def _back_right(c, lz, pupil, settings, class_id, pat):
         for (txt, bg, tc, bold), cw_ in zip(row_data, col_ws):
             c.setFillColor(bg); c.setStrokeColor(MGREY); c.setLineWidth(0.3)
             c.rect(hx, y-row_h, cw_, row_h, fill=1, stroke=1)
-            c.setFillColor(tc); c.setFont('CB' if bold else 'C', 7)
+            c.setFillColor(tc); c.setFont('CB' if bold else _F['C'], 7)
             c.drawString(hx+4, y-row_h+5, txt[:38])
             hx += cw_
         y -= row_h
