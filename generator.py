@@ -11,6 +11,7 @@ import streamlit as st
 SYSTEM_PROMPT = """You write Year 4 end-of-year school report comments for Wallscourt Farm Academy (WFA), Bristol. You write as Innes McLean, Year 4 class teacher.
 
 CRITICAL RULES:
+- The overall tone of every report is POSITIVE. Even when naming areas to develop, frame them as growth points and next steps, never as deficits or failures. Use language like "developing", "growing in", "an important next step", "to build on". Never use "poor", "weak", "struggles with", "fails to", "lacks" or "does not" when describing a gap.
 - Pupils are aged 8–9, in Year 4, moving to Year 5. NEVER reference "KS3", "secondary school" or "Key Stage 3". All forward-looking statements reference "Year 5".
 - British English throughout. No Oxford comma. No em dashes. Use en dashes (–) for parenthetical remarks.
 - Output ONLY valid JSON. No preamble, no explanation, no markdown code fences.
@@ -232,16 +233,16 @@ def build_prompt(p: dict) -> str:
         "stamina_high":      "NOTE (positive): Strong learning stamina — sustains focus well over extended periods, acknowledge this explicitly",
         "focus_high":        "NOTE (positive): Strong focus and concentration — consistent, name it as a genuine strength",
         "drive":             "NOTE (positive): Real drive and determination — sets high expectations of themselves, highlight this",
-        # Challenge
-        "able_not_engaged":  "NOTE (challenge): Able but not consistently engaged — acknowledge capability, name gap between potential and typical output, be constructive not critical",
-        "anxiety":           "NOTE (challenge): Pupil has anxiety — be especially warm throughout; frame every challenge as achievable; avoid any language that could feel pressuring or overwhelming",
-        "low_engagement":    "NOTE (challenge): Engagement needs developing — name this honestly but constructively, not harshly",
-        "SEN_selective":     "NOTE (challenge): SEN pupil with selective engagement — highlight what genuinely captures interest, frame broader engagement as the next step",
-        "quiet":             "NOTE (challenge): Quiet, low oracy — doesn't contribute much verbally; encourage participation and oracy gently without making it feel like a criticism",
-        "low_effort":        "NOTE (challenge): Effort is genuinely an area to develop — be honest and direct but constructive and not discouraging",
-        "passive":           "NOTE (challenge): Passive learner — waits to be directed rather than initiating; encourage independence and active participation",
-        "stamina_low":       "NOTE (challenge): Low stamina — finds sustained concentration difficult; acknowledge progress where it exists, name stamina as the key area to build",
-        "presentation":      "NOTE (challenge): Presentation of work is an issue — impacts legibility or clarity of outcomes; name it specifically if relevant to the subject section",
+        # Challenge — all framed positively as areas to develop, never as deficits
+        "able_not_engaged":  "NOTE: Pupil is capable but engagement is developing — lead with their ability, then frame engagement as something to grow: e.g. 'when fully engaged, [name] shows just how capable they are' rather than implying disengagement is a character flaw",
+        "anxiety":           "NOTE: Pupil has anxiety — warm and encouraging tone throughout; frame every next step as achievable; avoid language that could feel pressuring; emphasise what they have achieved",
+        "low_engagement":    "NOTE: Engagement is an area to develop — use constructive forward-looking language e.g. 'developing their engagement across all areas of learning' or 'growing in confidence to participate', never 'lacks engagement'",
+        "SEN_selective":     "NOTE: SEN pupil — highlight what genuinely captures their interest; frame broader engagement as the positive next step, e.g. 'bringing that same enthusiasm to a wider range of learning'",
+        "quiet":             "NOTE: Pupil is quiet and doesn't contribute much verbally — frame oracy as a growing skill, e.g. 'developing confidence to share ideas' or 'growing in willingness to contribute', never 'does not speak up'",
+        "low_effort":        "NOTE: Effort is an area to develop — frame positively e.g. 'developing a more consistent approach to learning' or 'growing in the effort they bring'; never imply laziness; acknowledge any genuine positives",
+        "passive":           "NOTE: Pupil tends to wait rather than initiate — frame as developing independence e.g. 'developing confidence to take the lead in learning' or 'growing in their willingness to work independently'",
+        "stamina_low":       "NOTE: Stamina is developing — frame constructively e.g. 'developing stamina for longer tasks' or 'building the focus needed for extended periods of learning'; never 'has poor concentration' or 'struggles to focus'",
+        "presentation":      "NOTE: Presentation of work is an area to develop — frame as a next step e.g. 'taking greater care with the presentation of their work' or 'developing the clarity and presentation of their outcomes'",
     }
     specials = v if isinstance((v := p.get("special") or []), list) else ([v] if v else [])
     for sp in specials:
