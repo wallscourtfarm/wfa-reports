@@ -53,7 +53,9 @@
         "r_vocab": 1
       },
       "other": "helpful",
-      "special": "quiet",
+      "special": [
+        "quiet"
+      ],
       "attendance": "",
       "att_code": "",
       "punctuality": "",
@@ -119,7 +121,7 @@
         "r_vocab": null
       },
       "other": "great knowledge of Islam",
-      "special": "",
+      "special": [],
       "attendance": "",
       "att_code": "",
       "punctuality": "",
