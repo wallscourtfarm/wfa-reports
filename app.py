@@ -86,10 +86,32 @@ GRADE_COLOUR  = {
     "Y": AMBER,  "A - Y2": RED, "A - Y3": RED,
 }
 
-SPECIAL_OPTIONS = [
-    "", "effort", "able_not_engaged", "anxiety",
-    "low_engagement", "SEN_selective", "quiet", "low_effort",
+POS_FLAGS = [
+    ("effort",            "Strong effort / work ethic"),
+    ("active_engagement", "Active engagement"),
+    ("stamina_high",      "Strong stamina"),
+    ("focus_high",        "Strong focus"),
+    ("drive",             "Drive / determination"),
 ]
+NEG_FLAGS = [
+    ("able_not_engaged",  "Able but not always engaged"),
+    ("anxiety",           "Anxiety"),
+    ("low_engagement",    "Low engagement"),
+    ("SEN_selective",     "SEN — selective engagement"),
+    ("quiet",             "Quiet / low oracy"),
+    ("low_effort",        "Low effort"),
+    ("passive",           "Passive learner"),
+    ("stamina_low",       "Low stamina"),
+    ("presentation",      "Presentation issues"),
+]
+POS_KEYS  = [k for k, _ in POS_FLAGS]
+NEG_KEYS  = [k for k, _ in NEG_FLAGS]
+ALL_FLAG_LABELS = {k: lbl for k, lbl in POS_FLAGS + NEG_FLAGS}
+
+def _to_list(v):
+    """Migrate legacy string special field to list."""
+    if isinstance(v, list): return v
+    return [v] if v else []
 SCORE_FMT = {None: "—  not scored", 1: "1 · Emerging", 2: "2 · Developing", 3: "3 · Strong"}
 
 # ── Page config ────────────────────────────────────────────────────────────────
@@ -362,13 +384,25 @@ if nav == "📋 Score":
                 key=f"other_{pid}",
             )
         with t2:
-            sp_cur = p.get("special", "")
-            sp_idx = SPECIAL_OPTIONS.index(sp_cur) if sp_cur in SPECIAL_OPTIONS else 0
-            p["special"] = st.selectbox(
-                "Special flag", options=SPECIAL_OPTIONS,
-                index=sp_idx, key=f"special_{pid}",
-                format_func=lambda x: x if x else "— none",
-            )
+            cur_flags = _to_list(p.get("special", []))
+            fc1, fc2 = st.columns(2)
+            with fc1:
+                st.caption("✅ Positive")
+                pos_sel = st.multiselect(
+                    "Positive flags", options=POS_KEYS,
+                    default=[f for f in cur_flags if f in POS_KEYS],
+                    format_func=lambda x: ALL_FLAG_LABELS.get(x, x),
+                    key=f"pos_flags_{pid}", label_visibility="collapsed",
+                )
+            with fc2:
+                st.caption("⚠️ Challenges")
+                neg_sel = st.multiselect(
+                    "Challenge flags", options=NEG_KEYS,
+                    default=[f for f in cur_flags if f in NEG_KEYS],
+                    format_func=lambda x: ALL_FLAG_LABELS.get(x, x),
+                    key=f"neg_flags_{pid}", label_visibility="collapsed",
+                )
+            p["special"] = pos_sel + neg_sel
 
     # ── Score sections ────────────────────────────────────────────────────────
     def score_widget(label, key, pupil_id):
