@@ -227,17 +227,22 @@ with tab_pupils:
         for c, lbl in zip(hcols, ["Name", "R", "W", "M", "Scored", "Photo"]):
             c.markdown(f"<small><b>{lbl}</b></small>", unsafe_allow_html=True)
 
+        if get_sel():
+            sel_name = p_map[get_sel()]["full_name"] if get_sel() in p_map else ""
+            st.info(f"**{sel_name}** selected — click the 📋 Score tab to edit their scores, or 💬 Comments to review.")
+
         for p in sorted_pupils:
             cols = st.columns([5, 1, 1, 1, 3, 1])
 
             with cols[0]:
-                if st.button(
-                    f"{p['first_name']} {p['last_name']}",
-                    key=f"sel_{p['id']}",
-                    use_container_width=True,
-                ):
-                    set_sel(p["id"])
-                    st.rerun()
+                btn_col, name_col = st.columns([1, 8])
+                with btn_col:
+                    if st.button("📋", key=f"sel_{p['id']}", help="Select this pupil"):
+                        set_sel(p["id"])
+                        st.rerun()
+                with name_col:
+                    st.markdown(f"<div style='padding-top:6px;'>{p['first_name']} {p['last_name']}</div>",
+                                unsafe_allow_html=True)
 
             for ci, g in enumerate(["R", "W", "M"], 1):
                 with cols[ci]:
