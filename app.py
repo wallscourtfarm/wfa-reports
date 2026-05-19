@@ -3,6 +3,7 @@ import requests
 import time
 from importer import import_from_files
 from generator import generate_comments, word_count
+from report_builder import generate_reports_pdf
 from data_manager import (
     list_classes, load_class, save_class,
     save_photo, photo_raw_url,
@@ -622,6 +623,71 @@ if nav == "✍️ Generate":
                                 st.write(result.get(key, ""))
                     except Exception as e:
                         st.error(f"Generation failed: {e}")
+
+        # ── Report PDF ────────────────────────────────────────────────────────
+        st.markdown("---")
+        st.markdown("#### Generate report PDFs")
+        st.markdown("Produces the A3 duplex PDF ready to print. "
+                    "Only includes learners who have comments.")
+
+        has_all = [p for p in sorted_pupils
+                   if all(p.get("comments",{}).get(k)
+                          for k in ["reader","writer","mathematician","learner_21c","rights"])]
+        st.caption(f"{len(has_all)}/{len(sorted_pupils)} learners have all five sections complete.")
+
+        lz_colour = "#1798d3"   # Y4 Maple — update per year group
+
+        pr1, pr2 = st.columns(2)
+
+        with pr1:
+            pdf_pupil = st.selectbox(
+                "Single learner PDF",
+                options=[p["id"] for p in sorted_pupils],
+                format_func=lambda x: p_map[x]["full_name"],
+                key="pdf_single_sel",
+            )
+            if st.button("Generate PDF", key="pdf_single_btn"):
+                p = p_map[pdf_pupil]
+                if not any(p.get("comments",{}).get(k)
+                           for k in ["reader","writer","mathematician","learner_21c","rights"]):
+                    st.warning("No comments yet for this learner — generate comments first.")
+                else:
+                    with st.spinner("Building PDF…"):
+                        settings = load_settings()
+                        buf = generate_reports_pdf(
+                            cd, settings, class_id,
+                            pat=st.secrets.get("GITHUB_TOKEN"),
+                            pupil_ids=[pdf_pupil],
+                            lz_colour_hex=lz_colour,
+                        )
+                        st.download_button(
+                            "⬇️ Download PDF",
+                            data=buf,
+                            file_name=f"{p['last_name']}_{p['first_name']}_Report_2025-26.pdf",
+                            mime="application/pdf",
+                            key="dl_single",
+                        )
+
+        with pr2:
+            if st.button("Generate ALL reports PDF", key="pdf_all_btn", type="primary"):
+                if not has_all:
+                    st.warning("No learners have complete comments yet.")
+                else:
+                    with st.spinner(f"Building PDF for {len(has_all)} learners…"):
+                        settings = load_settings()
+                        buf = generate_reports_pdf(
+                            cd, settings, class_id,
+                            pat=st.secrets.get("GITHUB_TOKEN"),
+                            pupil_ids=[p["id"] for p in has_all],
+                            lz_colour_hex=lz_colour,
+                        )
+                        st.download_button(
+                            f"⬇️ Download all reports ({len(has_all)} learners)",
+                            data=buf,
+                            file_name=f"Y4_Maple_Reports_2025-26.pdf",
+                            mime="application/pdf",
+                            key="dl_all",
+                        )
 
 # ╔══════════════════════════════════════════════════════════════════════════════╗
 # ║  PHOTOS TAB                                                                ║
