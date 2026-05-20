@@ -21,6 +21,9 @@ AMBER = "#FFEB9C"
 RED   = "#FFCCCC"
 LTBLUE= "#9DC3E6"
 
+# ── Feature flags ─────────────────────────────────────────────────────────────
+SHOW_ADVANCED = False  # Set True to restore PDF generation, photos and attendance
+
 # ── Score sections + field definitions ─────────────────────────────────────────
 SCORE_SECTIONS = [
     ("21st Century Learner", "🎓", [
@@ -201,7 +204,7 @@ def set_sel(pid):
 
 
 # ── Tabs ───────────────────────────────────────────────────────────────────────
-NAV_PAGES = ["👥 Pupils", "📋 Score", "💬 Comments", "✍️ Generate", "📸 Photos", "📥 Pupil Voice", "⚙️ Settings"]
+NAV_PAGES = ["👥 Pupils", "📋 Score", "💬 Comments", "✍️ Generate", "📥 Pupil Voice", "⚙️ Settings"] if not SHOW_ADVANCED else ["👥 Pupils", "📋 Score", "💬 Comments", "✍️ Generate", "📸 Photos", "📥 Pupil Voice", "⚙️ Settings"]
 if "nav_page" not in st.session_state:
     st.session_state.nav_page = "👥 Pupils"
 
@@ -451,36 +454,37 @@ if nav == "📋 Score":
             return "Cause for Concern"
         except: return ""
 
-    with st.expander("📝 Attendance & pupil voice"):
-        a1, a2, a3, a4 = st.columns(4)
-        with a1:
-            att_val = st.text_input("Attendance %",
-                value=p.get("attendance",""), key=f"att_{pid}", placeholder="e.g. 97.4")
-            p["attendance"] = att_val
-        with a2:
-            auto_att = _att_cat(att_val)
-            if auto_att:
-                p["att_code"] = auto_att
-                st.markdown(f"<small>→ **{auto_att}**</small>", unsafe_allow_html=True)
-            else:
-                cats = ["","Exceptional","Expected","Below Expected","Cause for Concern"]
-                ac = p.get("att_code","")
-                p["att_code"] = st.selectbox("Att category", cats,
-                    index=cats.index(ac) if ac in cats else 0, key=f"attc_{pid}")
-        with a3:
-            punc_val = st.text_input("Lates (count)",
-                value=p.get("punctuality",""), key=f"punc_{pid}", placeholder="e.g. 3")
-            p["punctuality"] = punc_val
-        with a4:
-            auto_punc = _punc_cat(punc_val)
-            if auto_punc:
-                p["punc_code"] = auto_punc
-                st.markdown(f"<small>→ **{auto_punc}**</small>", unsafe_allow_html=True)
-            else:
-                cats2 = ["","Exceptional","Expected","Below Expected","Cause for Concern"]
-                pc = p.get("punc_code","")
-                p["punc_code"] = st.selectbox("Punc category", cats2,
-                    index=cats2.index(pc) if pc in cats2 else 0, key=f"puncc_{pid}")
+    with st.expander("📝 Attendance & pupil voice") if SHOW_ADVANCED else st.expander("📝 Pupil voice"):
+        if SHOW_ADVANCED:
+            a1, a2, a3, a4 = st.columns(4)
+            with a1:
+                att_val = st.text_input("Attendance %",
+                    value=p.get("attendance",""), key=f"att_{pid}", placeholder="e.g. 97.4")
+                p["attendance"] = att_val
+            with a2:
+                auto_att = _att_cat(att_val)
+                if auto_att:
+                    p["att_code"] = auto_att
+                    st.markdown(f"<small>→ **{auto_att}**</small>", unsafe_allow_html=True)
+                else:
+                    cats = ["","Exceptional","Expected","Below Expected","Cause for Concern"]
+                    ac = p.get("att_code","")
+                    p["att_code"] = st.selectbox("Att category", cats,
+                        index=cats.index(ac) if ac in cats else 0, key=f"attc_{pid}")
+            with a3:
+                punc_val = st.text_input("Lates (count)",
+                    value=p.get("punctuality",""), key=f"punc_{pid}", placeholder="e.g. 3")
+                p["punctuality"] = punc_val
+            with a4:
+                auto_punc = _punc_cat(punc_val)
+                if auto_punc:
+                    p["punc_code"] = auto_punc
+                    st.markdown(f"<small>→ **{auto_punc}**</small>", unsafe_allow_html=True)
+                else:
+                    cats2 = ["","Exceptional","Expected","Below Expected","Cause for Concern"]
+                    pc = p.get("punc_code","")
+                    p["punc_code"] = st.selectbox("Punc category", cats2,
+                        index=cats2.index(pc) if pc in cats2 else 0, key=f"puncc_{pid}")
         p["pupil_voice"] = st.text_area("Pupil voice",
             value=p.get("pupil_voice",""), key=f"pv_{pid}", height=80,
             placeholder="To be completed by the pupil")
@@ -679,69 +683,71 @@ if nav == "✍️ Generate":
                 )
 
         # ── Report PDF ────────────────────────────────────────────────────────
-        st.markdown("---")
-        st.markdown("#### Generate report PDFs")
-        st.markdown("Produces the A3 duplex PDF ready to print. "
-                    "Only includes learners who have comments.")
+        if SHOW_ADVANCED:
+         st.markdown("---")
+         st.markdown("#### Generate report PDFs")
+         if SHOW_ADVANCED:
+          st.markdown("Produces the A3 duplex PDF ready to print. "
+                      "Only includes learners who have comments.")
 
-        has_all = [p for p in sorted_pupils
-                   if all(p.get("comments",{}).get(k)
-                          for k in ["reader","writer","mathematician","learner_21c","rights"])]
-        st.caption(f"{len(has_all)}/{len(sorted_pupils)} learners have all five sections complete.")
+          has_all = [p for p in sorted_pupils
+                     if all(p.get("comments",{}).get(k)
+                            for k in ["reader","writer","mathematician","learner_21c","rights"])]
+          st.caption(f"{len(has_all)}/{len(sorted_pupils)} learners have all five sections complete.")
 
-        lz_colour = "#1798d3"   # Y4 Maple — update per year group
+          lz_colour = "#1798d3"
 
-        pr1, pr2 = st.columns(2)
+          pr1, pr2 = st.columns(2)
 
-        with pr1:
-            pdf_pupil = st.selectbox(
-                "Single learner PDF",
-                options=[p["id"] for p in sorted_pupils],
-                format_func=lambda x: p_map[x]["full_name"],
-                key="pdf_single_sel",
-            )
-            if st.button("Generate PDF", key="pdf_single_btn"):
-                p = p_map[pdf_pupil]
-                if not any(p.get("comments",{}).get(k)
-                           for k in ["reader","writer","mathematician","learner_21c","rights"]):
-                    st.warning("No comments yet for this learner — generate comments first.")
-                else:
-                    with st.spinner("Building PDF…"):
-                        settings = load_settings()
-                        buf = generate_reports_pdf(
-                            cd, settings, class_id,
-                            pat=st.secrets.get("GITHUB_TOKEN"),
-                            pupil_ids=[pdf_pupil],
-                            lz_colour_hex=lz_colour,
-                        )
-                        st.download_button(
-                            "⬇️ Download PDF",
-                            data=buf,
-                            file_name=f"{p['last_name']}_{p['first_name']}_Report_2025-26.pdf",
-                            mime="application/pdf",
-                            key="dl_single",
-                        )
+          with pr1:
+              pdf_pupil = st.selectbox(
+                  "Single learner PDF",
+                  options=[p["id"] for p in sorted_pupils],
+                  format_func=lambda x: p_map[x]["full_name"],
+                  key="pdf_single_sel",
+              )
+              if st.button("Generate PDF", key="pdf_single_btn"):
+                  p = p_map[pdf_pupil]
+                  if not any(p.get("comments",{}).get(k)
+                             for k in ["reader","writer","mathematician","learner_21c","rights"]):
+                      st.warning("No comments yet for this learner — generate comments first.")
+                  else:
+                      with st.spinner("Building PDF…"):
+                          settings = load_settings()
+                          buf = generate_reports_pdf(
+                              cd, settings, class_id,
+                              pat=st.secrets.get("GITHUB_TOKEN"),
+                              pupil_ids=[pdf_pupil],
+                              lz_colour_hex=lz_colour,
+                          )
+                          st.download_button(
+                              "⬇️ Download PDF",
+                              data=buf,
+                              file_name=f"{p['last_name']}_{p['first_name']}_Report_2025-26.pdf",
+                              mime="application/pdf",
+                              key="dl_single",
+                          )
 
-        with pr2:
-            if st.button("Generate ALL reports PDF", key="pdf_all_btn", type="primary"):
-                if not has_all:
-                    st.warning("No learners have complete comments yet.")
-                else:
-                    with st.spinner(f"Building PDF for {len(has_all)} learners…"):
-                        settings = load_settings()
-                        buf = generate_reports_pdf(
-                            cd, settings, class_id,
-                            pat=st.secrets.get("GITHUB_TOKEN"),
-                            pupil_ids=[p["id"] for p in has_all],
-                            lz_colour_hex=lz_colour,
-                        )
-                        st.download_button(
-                            f"⬇️ Download all reports ({len(has_all)} learners)",
-                            data=buf,
-                            file_name=f"Y4_Maple_Reports_2025-26.pdf",
-                            mime="application/pdf",
-                            key="dl_all",
-                        )
+          with pr2:
+              if st.button("Generate ALL reports PDF", key="pdf_all_btn", type="primary"):
+                  if not has_all:
+                      st.warning("No learners have complete comments yet.")
+                  else:
+                      with st.spinner(f"Building PDF for {len(has_all)} learners…"):
+                          settings = load_settings()
+                          buf = generate_reports_pdf(
+                              cd, settings, class_id,
+                              pat=st.secrets.get("GITHUB_TOKEN"),
+                              pupil_ids=[p["id"] for p in has_all],
+                              lz_colour_hex=lz_colour,
+                          )
+                          st.download_button(
+                              f"⬇️ Download all reports ({len(has_all)} learners)",
+                              data=buf,
+                              file_name=f"Y4_Maple_Reports_2025-26.pdf",
+                              mime="application/pdf",
+                              key="dl_all",
+                          )
 
 # ╔══════════════════════════════════════════════════════════════════════════════╗
 # ║  PHOTOS TAB                                                                ║
