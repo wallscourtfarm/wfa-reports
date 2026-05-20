@@ -148,9 +148,9 @@ st.markdown(f"""
 
 # ── Header ─────────────────────────────────────────────────────────────────────
 st.markdown(
-    f'''<div style="background:{BLUE};border-radius:10px;padding:14px 20px;margin-bottom:16px;display:flex;align-items:center;gap:16px;">
-      <span style="background:white;color:{BLUE};font-weight:900;font-size:18px;padding:6px 12px;border-radius:6px;">WFA</span>
-      <span style="color:white;font-weight:700;font-size:22px;letter-spacing:0.3px;">Report Manager</span>
+    f'''<div style="display:flex;align-items:center;gap:14px;padding-bottom:12px;border-bottom:3px solid {BLUE};margin-bottom:8px;">
+      <span style="background:{BLUE};color:white;font-weight:900;font-size:17px;padding:6px 13px;border-radius:6px;">WFA</span>
+      <span style="color:{NAVY};font-weight:700;font-size:24px;">Report Manager</span>
     </div>''',
     unsafe_allow_html=True,
 )
