@@ -36,6 +36,14 @@ MGREY = colors.HexColor('#cccccc')
 DGREY = colors.HexColor('#888888')
 CREAM = colors.HexColor('#fffdf5')
 
+MM      = 72 / 25.4           # 1 mm in points
+B_LW    = round(2  * MM, 2)  # border line width: 2mm
+B_OUTER = round(12 * MM, 2)  # outer margin: 12mm
+B_INNER = round(4  * MM, 2)  # inner margin from fold: 4mm
+B_TOP   = round(8  * MM, 2)  # top margin: 8mm
+B_BOT   = round(9  * MM, 2)  # bottom margin: 9mm
+B_PAD   = round(5  * MM, 2)  # content padding inside border: 5mm
+
 GRADE_FILL = {
     'D':colors.HexColor('#9DC3E6'), 'GD':colors.HexColor('#9DC3E6'),
     'O':colors.HexColor('#C6EFCE'), 'O1':colors.HexColor('#C6EFCE'),
@@ -127,11 +135,12 @@ def _render_letter(c, template, x, y, w, pupil_fn, teacher_name):
 
 
 # ── Drawing primitives ─────────────────────────────────────────────────────────
-def _border(c, col, lz, lw=1.5, radius=5):
-    bx = col * COL_W + BORD
+def _border(c, col, lz):
+    bx = B_OUTER if col == 0 else (COL_W + B_INNER)
+    bw = COL_W - B_OUTER - B_INNER
     c.setStrokeColor(lz if col == 0 else WFA)
-    c.setLineWidth(lw)
-    c.roundRect(bx, BORD, COL_W - 2*BORD, PAGE_H - 2*BORD, radius, fill=0, stroke=1)
+    c.setLineWidth(B_LW)
+    c.rect(bx, B_BOT, bw, PAGE_H - B_TOP - B_BOT, fill=0, stroke=1)
 
 def _badge(c, grade, x_right, y_mid, w=30, h=18):
     fill  = GRADE_FILL.get(grade, LGREY)
@@ -244,62 +253,65 @@ def _front_left(c, lz, settings, class_id, pat):
         path = _fetch_img(enq_url, pat)
         _place_img(c, path, img_x, row_bot + 2, img_w, img_h, preserve=True)
 
-# ── FRONT RIGHT — cover ────────────────────────────────────────────────────────
+# ── FRONT RIGHT — cover (exact mm spec) ──────────────────────────────────────
 def _front_right(c, lz, pupil, settings):
-    col = 1
-    fn   = pupil['first_name']; ln = pupil['last_name']
-    full = f"{fn} {ln}"
+    fn      = pupil['first_name']; ln = pupil['last_name']
+    full    = f"{fn} {ln}"
     lz_name = settings.get('class_display', 'Maple Learning Zone')
     yr      = settings.get('academic_year', '2025-26')[:4]
-    cx      = col * COL_W + COL_W/2   # column centre x
+
+    # Right column border geometry (matches _border spec)
+    bx     = COL_W + B_INNER            # border left x
+    bw     = COL_W - B_OUTER - B_INNER  # border width ≈ 550pt
+    col_cx = bx + bw / 2                # column centre x
 
     # White fill inside border
     c.setFillColor(WHITE)
-    c.rect(col*COL_W+BORD, BORD, COL_W-2*BORD, PAGE_H-2*BORD, fill=1, stroke=0)
+    c.rect(bx, B_BOT, bw, PAGE_H - B_TOP - B_BOT, fill=1, stroke=0)
 
-    # ── WFA Logo (sch_logo_rep.png) — 1304×612px, aspect 2.131:1 ─────────────
-    logo_path = _static('sch_logo_rep.png')
-    logo_w = 340; logo_h = round(340 / 2.131)   # = 160pt
-    logo_y_top = TOP - 12
-    _place_img(c, logo_path, cx - logo_w/2, logo_y_top - logo_h,
-               logo_w, logo_h, preserve=False)
-
-    # ── School front photo (school_front.jpg) — 958×645px, aspect 1.485:1 ────
+    # ── School photo: top edge 84mm from page top, 127×86mm, centred ──────────
+    photo_w    = 127 * MM          # = 360pt
+    photo_h    =  86 * MM          # = 244pt
+    photo_top  = PAGE_H - 84 * MM  # y of photo top (from page bottom) = 603.8pt
+    photo_x    = col_cx - photo_w / 2
     school_path = _static('school_front.jpg')
-    photo_w = CW; photo_h = round(CW / 1.485)   # = 371pt
-    photo_y_top = logo_y_top - logo_h - 10
-    _place_img(c, school_path, CX[col], photo_y_top - photo_h,
+    _place_img(c, school_path, photo_x, photo_top - photo_h,
                photo_w, photo_h, preserve=False)
 
-    y = photo_y_top - photo_h - 18  # top of text elements
+    # ── Logo: centred in space above photo, same width as photo ───────────────
+    logo_path  = _static('sch_logo_rep.png')
+    logo_w     = 127 * MM                # 360pt — same as photo
+    logo_h     = round(logo_w / 2.131)  # 169pt — exact aspect ratio
+    space_above = (PAGE_H - B_TOP) - photo_top   # ≈ 215pt
+    logo_gap    = (space_above - logo_h) / 2     # ≈ 23pt margin top and bottom
+    if logo_path:
+        try:
+            c.drawImage(logo_path, col_cx - logo_w/2, photo_top + logo_gap,
+                        logo_w, logo_h, preserveAspectRatio=False, mask='auto')
+        except Exception:
+            pass
 
-    # ── Text elements ──────────────────────────────────────────────────────────
-    # "Annual Report to Families"
-    c.setFillColor(WFA); c.setFont(_F['CB'], 13)
-    c.drawCentredString(cx, y, 'Annual Report to Families')
-    y -= 16
+    # ── Text: Calibri Bold, centred, baselines measured from page bottom ──────
+    # "Annual Report to Families" — 18pt at 116mm from page bottom
+    c.setFillColor(WFA); c.setFont(_F['CB'], 18)
+    c.drawCentredString(col_cx, 116 * MM, 'Annual Report to Families')
 
-    # Rule
-    c.setStrokeColor(WFA); c.setLineWidth(1)
-    c.line(cx - 70, y, cx + 70, y); y -= 20
+    # Pupil name — 24pt at 78mm from page bottom
+    c.setFont(_F['CB'], 24)
+    tw = c.stringWidth(full, _F['CB'], 24)
+    if tw > bw - 2 * B_PAD:
+        fs = round(24 * (bw - 2 * B_PAD) / tw, 1)
+        c.setFont(_F['CB'], max(fs, 14))
+    c.drawCentredString(col_cx, 78 * MM, full)
 
-    # Pupil name — large
-    name_sz = 32
-    tw = c.stringWidth(full, _F['CB'], name_sz)
-    if tw > CW - 8:
-        name_sz = max(18, int(name_sz * (CW - 8) / tw))
-    c.setFillColor(WFA); c.setFont(_F['CB'], name_sz)
-    c.drawCentredString(cx, y, full)
-    y -= name_sz + 8
+    # Learning zone name — 24pt at 53mm from page bottom, LZ colour
+    c.setFont(_F['CB'], 24); c.setFillColor(lz)
+    c.drawCentredString(col_cx, 53 * MM, lz_name)
 
-    # Learning zone name — LZ colour
-    c.setFillColor(lz); c.setFont(_F['CB'], 22)
-    c.drawCentredString(cx, y, lz_name)
-    y -= 30
+    # Date — 18pt at 30mm from page bottom
+    c.setFont(_F['CB'], 18); c.setFillColor(WFA)
+    c.drawCentredString(col_cx, 30 * MM, f'July {yr}')
 
-    # Date
-    c.setFillColor(WFA); c.setFont(_F['CB'], 20)
-    c.drawCentredString(cx, y, f'July {yr}')
 
 # ── BACK LEFT — letter, grade key, RWM ────────────────────────────────────────
 def _back_left(c, pupil, settings):
