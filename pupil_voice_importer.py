@@ -34,7 +34,8 @@ Rules:
 - Include the sense of each question implicitly (e.g. "The enquiry I enjoyed most was..." should be the opening)
 - Do not use bullet points or any formatting — plain prose only
 - Keep it natural and age-appropriate — this is a Year 4 child speaking
-- Output ONLY the narrative paragraph, nothing else — no preamble, no explanation"""
+- Output ONLY the narrative paragraph, nothing else — no preamble, no explanation
+- When children refer to a subject as a noun (e.g. "history", "art", "maths", "science", "geography", "music", "computing", "Spanish", "design"), convert it to the school's "state of being" format: "being a historian", "being an artist", "being a mathematician", "being a scientist", "being a geographer", "being a musician", "being a computing learner", "being a linguist", "being a designer". Apply this consistently throughout — including in the enquiry, confidence and Year 5 sections"""
 
 
 def _build_prompt(row: dict) -> str:
