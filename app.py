@@ -431,26 +431,54 @@ if nav == "📋 Score":
                     score_widget(label, key, pid)
 
     # ── Attendance & pupil voice ───────────────────────────────────────────────
+    def _att_cat(v):
+        try:
+            pct = float(str(v).replace("%","").strip())
+            if pct >= 99: return "Exceptional"
+            if pct >= 96: return "Expected"
+            if pct >= 90: return "Below Expected"
+            return "Cause for Concern"
+        except: return ""
+
+    def _punc_cat(v):
+        try:
+            n = int(str(v).strip())
+            if n == 0:  return "Exceptional"
+            if n <= 5:  return "Expected"
+            if n <= 15: return "Below Expected"
+            return "Cause for Concern"
+        except: return ""
+
     with st.expander("📝 Attendance & pupil voice"):
         a1, a2, a3, a4 = st.columns(4)
-        att_codes  = ["", "Exceptional", "Expected", "Below Expected", "Cause for Concern"]
-        punc_codes = ["", "Always on time", "Very rarely late", "Frequently late", "Persistently late"]
         with a1:
-            p["attendance"] = st.text_input("Attendance %",
-                value=p.get("attendance",""), key=f"att_{pid}")
+            att_val = st.text_input("Attendance %",
+                value=p.get("attendance",""), key=f"att_{pid}", placeholder="e.g. 97.4")
+            p["attendance"] = att_val
         with a2:
-            ac = p.get("att_code","")
-            p["att_code"] = st.selectbox("Code", att_codes,
-                index=att_codes.index(ac) if ac in att_codes else 0,
-                key=f"attc_{pid}")
+            auto_att = _att_cat(att_val)
+            if auto_att:
+                p["att_code"] = auto_att
+                st.markdown(f"<small>→ **{auto_att}**</small>", unsafe_allow_html=True)
+            else:
+                cats = ["","Exceptional","Expected","Below Expected","Cause for Concern"]
+                ac = p.get("att_code","")
+                p["att_code"] = st.selectbox("Att category", cats,
+                    index=cats.index(ac) if ac in cats else 0, key=f"attc_{pid}")
         with a3:
-            p["punctuality"] = st.text_input("Lates #",
-                value=p.get("punctuality",""), key=f"punc_{pid}")
+            punc_val = st.text_input("Lates (count)",
+                value=p.get("punctuality",""), key=f"punc_{pid}", placeholder="e.g. 3")
+            p["punctuality"] = punc_val
         with a4:
-            pc = p.get("punc_code","")
-            p["punc_code"] = st.selectbox("Code ", punc_codes,
-                index=punc_codes.index(pc) if pc in punc_codes else 0,
-                key=f"puncc_{pid}")
+            auto_punc = _punc_cat(punc_val)
+            if auto_punc:
+                p["punc_code"] = auto_punc
+                st.markdown(f"<small>→ **{auto_punc}**</small>", unsafe_allow_html=True)
+            else:
+                cats2 = ["","Exceptional","Expected","Below Expected","Cause for Concern"]
+                pc = p.get("punc_code","")
+                p["punc_code"] = st.selectbox("Punc category", cats2,
+                    index=cats2.index(pc) if pc in cats2 else 0, key=f"puncc_{pid}")
         p["pupil_voice"] = st.text_area("Pupil voice",
             value=p.get("pupil_voice",""), key=f"pv_{pid}", height=80,
             placeholder="To be completed by the pupil")
