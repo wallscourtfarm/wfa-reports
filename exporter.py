@@ -1,16 +1,17 @@
 """
 Export class data to report-data.xlsx format.
-Uses ZIP-level surgery: copies the template verbatim, then replaces only
-the Data sheet XML. This preserves drawings, images and the Set up Report
-sheet exactly as they were — openpyxl cannot safely round-trip embedded
-images, so we never let it touch those parts.
+ZIP-level surgery: copies the template verbatim, then:
+  - replaces Data sheet XML with fresh openpyxl-generated content
+  - replaces styles.xml with fresh one so style IDs are consistent
+  - strips <drawing> element from Set up Report sheet XML
+  - strips calcChain.xml (stale after row changes, Excel rebuilds it)
 """
 import io
 import os
 import re
 import zipfile
 import openpyxl
-from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
+from openpyxl.styles import Font, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
 
 
@@ -23,7 +24,7 @@ GRADE_MAP = {
 def _grade(v): return GRADE_MAP.get(str(v or '').strip(), str(v or ''))
 
 
-# ── Formulas for columns I and K (row-specific) ────────────────────────────────
+# ── Formulas for columns I and K ───────────────────────────────────────────────
 def _att_formula(row):
     r = str(row)
     return (f"=IF(H{r}>='Set up Report'!$B$46,\"A\","
@@ -51,33 +52,31 @@ def _template_path():
     return None
 
 
-# ── Build the Data sheet bytes using a standalone workbook ────────────────────
-WRAP_ALIGN = Alignment(wrap_text=True, vertical='top')
-TOP_ALIGN  = Alignment(vertical='top')
-THIN       = Border(
+# ── Styles ─────────────────────────────────────────────────────────────────────
+WRAP  = Alignment(wrap_text=True, vertical='top')
+TOP   = Alignment(vertical='top')
+THIN  = Border(
     left=Side(style='thin'), right=Side(style='thin'),
     top=Side(style='thin'),  bottom=Side(style='thin'),
 )
-STD_FONT   = Font(name='Calibri', size=10)
-COL_WIDTHS = [16,14,18,24,8,8,8,14,18,20,18,60,60,60,60,60,60]
+BODY  = Font(name='Calibri', size=10, bold=False)
+HDR   = Font(name='Calibri', size=10, bold=True)
+WIDTHS = [16,14,18,24,8,8,8,14,18,20,18,60,60,60,60,60,60]
 
 
-def _build_data_sheet_xml(pupils: list) -> bytes:
-    """
-    Build a minimal workbook containing only the Data sheet,
-    then extract and return its sheet XML bytes.
-    """
+# ── Build workbook with Data sheet only ───────────────────────────────────────
+def _build_data_workbook(pupils):
     wb = openpyxl.Workbook()
     ws = wb.active
     ws.title = 'Data'
 
-    # Row 1 — notes (matching template)
+    # Row 1 notes
     ws.cell(1, 2).value = 'Copy Paste from DOOYA\t\t'
     ws.cell(1, 5).value = 'Copy Paste from DOOYA'
     ws.cell(1, 8).value = 'copy-paste from Welcome Zone Report'
     ws.cell(1, 10).value = 'copy-paste from Welcome Zone Report'
 
-    # Row 2 — headers
+    # Row 2 headers
     headers = [
         'ID', 'First Name', 'Last Name', 'Full Name',
         'R', 'W', 'M',
@@ -87,22 +86,23 @@ def _build_data_sheet_xml(pupils: list) -> bytes:
         'Rights and Responsibilities Teacher comments', 'Pupil Voice',
     ]
     for ci, h in enumerate(headers, 1):
-        cell = ws.cell(2, ci, value=h)
-        cell.font = Font(name='Calibri', size=10, bold=True)
+        c = ws.cell(2, ci, value=h)
+        c.font = HDR
+        c.border = THIN
 
     # Data rows
     for ri, pupil in enumerate(pupils, start=3):
-        fn        = (pupil.get('first_name') or '').strip()
-        ln        = (pupil.get('last_name')  or '').strip()
-        grades    = pupil.get('grades', {})
-        coms      = pupil.get('comments', {})
-        att_raw   = str(pupil.get('attendance')  or '').strip()
-        lates_raw = str(pupil.get('punctuality') or '').strip()
+        fn    = (pupil.get('first_name') or '').strip()
+        ln    = (pupil.get('last_name')  or '').strip()
+        grades = pupil.get('grades', {})
+        coms  = pupil.get('comments', {})
+        att   = str(pupil.get('attendance')  or '').strip()
+        lates = str(pupil.get('punctuality') or '').strip()
 
-        try:    lates_val = int(lates_raw)
-        except: lates_val = None if not lates_raw else lates_raw
+        try:    lates_v = int(lates)
+        except: lates_v = None if not lates else lates
 
-        row_data = {
+        row = {
             1:  f"ch{ri-2:02d}",
             2:  fn,
             3:  ln,
@@ -110,9 +110,9 @@ def _build_data_sheet_xml(pupils: list) -> bytes:
             5:  _grade(grades.get('R','')),
             6:  _grade(grades.get('W','')),
             7:  _grade(grades.get('M','')),
-            8:  float(att_raw) if att_raw else None,
+            8:  float(att) if att else None,
             9:  _att_formula(ri),
-            10: lates_val,
+            10: lates_v,
             11: _punc_formula(ri),
             12: coms.get('reader','')        or '',
             13: coms.get('writer','')        or '',
@@ -122,35 +122,23 @@ def _build_data_sheet_xml(pupils: list) -> bytes:
             17: (pupil.get('pupil_voice') or '').strip(),
         }
 
-        for col, value in row_data.items():
-            cell = ws.cell(row=ri, column=col, value=value)
-            cell.font      = STD_FONT
-            cell.border    = THIN
-            cell.alignment = WRAP_ALIGN if col >= 12 else TOP_ALIGN
+        for col, val in row.items():
+            c = ws.cell(row=ri, column=col, value=val)
+            c.font      = BODY
+            c.border    = THIN
+            c.alignment = WRAP if col >= 12 else TOP
 
         ws.row_dimensions[ri].height = 80
 
-    for ci, w in enumerate(COL_WIDTHS, 1):
+    for ci, w in enumerate(WIDTHS, 1):
         ws.column_dimensions[get_column_letter(ci)].width = w
 
     ws.freeze_panes = 'A3'
-
-    # Save to memory and extract the sheet XML
-    buf = io.BytesIO()
-    wb.save(buf)
-    buf.seek(0)
-    with zipfile.ZipFile(buf) as zf:
-        return zf.read('xl/worksheets/sheet1.xml')
+    return wb
 
 
-# ── Main export: ZIP-level surgery ─────────────────────────────────────────────
+# ── Main export ────────────────────────────────────────────────────────────────
 def export_excel(class_data: dict, settings: dict = None) -> io.BytesIO:
-    """
-    Produce report-data.xlsx by:
-    1. Reading the template ZIP verbatim
-    2. Replacing only the Data sheet XML with freshly generated content
-    3. Leaving every other file (Set up Report, drawings, images, rels) untouched
-    """
     settings = settings or {}
     pupils = sorted(
         class_data.get('pupils', []),
@@ -158,54 +146,72 @@ def export_excel(class_data: dict, settings: dict = None) -> io.BytesIO:
     )
 
     tpl = _template_path()
-
-    # If no template, fall back to pure openpyxl (no images to preserve)
     if not tpl:
-        wb = openpyxl.Workbook()
-        ws = wb.active
-        ws.title = 'Data'
+        wb = _build_data_workbook(pupils)
         buf = io.BytesIO()
         wb.save(buf)
         buf.seek(0)
         return buf
 
-    # Build the replacement Data sheet XML
-    data_sheet_xml = _build_data_sheet_xml(pupils)
+    # Save the fresh workbook and extract what we need from it
+    fresh_wb = _build_data_workbook(pupils)
+    fresh_buf = io.BytesIO()
+    fresh_wb.save(fresh_buf)
+    fresh_buf.seek(0)
+    with zipfile.ZipFile(fresh_buf) as fz:
+        fresh_data_xml  = fz.read('xl/worksheets/sheet1.xml')
+        fresh_styles_xml = fz.read('xl/styles.xml')
+        fresh_strings    = fz.read('xl/sharedStrings.xml') if 'xl/sharedStrings.xml' in fz.namelist() else None
 
-    # Find which zip entry is the Data sheet in the template
+    # Find which entry is the Data sheet in the template
     with open(tpl, 'rb') as f:
         tpl_bytes = f.read()
 
-    with zipfile.ZipFile(io.BytesIO(tpl_bytes)) as tpl_zip:
-        # Identify the Data sheet path from workbook.xml
-        wb_xml = tpl_zip.read('xl/workbook.xml').decode('utf-8')
-        # Find sheet named 'Data' and its r:id
-        # e.g. <sheet name="Data" sheetId="2" r:id="rId2"/>
-        match = re.search(r'<sheet[^>]+name=["\']Data["\'][^>]+r:id=["\'](\w+)["\']', wb_xml)
-        if not match:
-            match = re.search(r'<sheet[^>]+r:id=["\'](\w+)["\'][^>]+name=["\']Data["\']', wb_xml)
+    with zipfile.ZipFile(io.BytesIO(tpl_bytes)) as tz:
+        wb_xml   = tz.read('xl/workbook.xml').decode()
+        wb_rels  = tz.read('xl/_rels/workbook.xml.rels').decode()
 
-        # Find the sheet file from workbook rels
-        wb_rels = tpl_zip.read('xl/_rels/workbook.xml.rels').decode('utf-8')
-        if match:
-            rid = match.group(1)
-            rel_match = re.search(
-                rf'<Relationship[^>]+Id=["\']' + re.escape(rid) + r'["\'][^>]+Target=["\']([^"\']+)["\']',
-                wb_rels
-            )
-            data_sheet_path = 'xl/' + rel_match.group(1).lstrip('/').replace('xl/', '') if rel_match else 'xl/worksheets/sheet2.xml'
+        m = re.search(r'<sheet[^>]+name=["\']Data["\'][^>]+r:id=["\']([\w]+)["\'][^>]*/>', wb_xml)
+        if not m:
+            m = re.search(r'<sheet[^>]+r:id=["\']([\w]+)["\'][^>]+name=["\']Data["\'][^>]*/>', wb_xml)
+        rid = m.group(1) if m else 'rId2'
+
+        rel_m = re.search(
+            r'<Relationship[^>]+Id=["\'' + re.escape(rid) + r'["\'][^>]+Target=["\']([^"\']+ )["\'][^>]*/>',
+            wb_rels
+        )
+        if rel_m:
+            target = rel_m.group(1).strip()
+            data_path = 'xl/' + target.lstrip('./')
         else:
-            # Fallback: assume sheet2
-            data_sheet_path = 'xl/worksheets/sheet2.xml'
+            data_path = 'xl/worksheets/sheet2.xml'
 
-        # Build output ZIP: copy everything, replace only the Data sheet
-        out_buf = io.BytesIO()
-        with zipfile.ZipFile(out_buf, 'w', compression=zipfile.ZIP_DEFLATED) as out_zip:
-            for item in tpl_zip.infolist():
-                if item.filename == data_sheet_path:
-                    out_zip.writestr(item.filename, data_sheet_xml)
+        # Build output
+        out = io.BytesIO()
+        SKIP = {'xl/calcChain.xml'}  # stale — Excel will rebuild
+
+        with zipfile.ZipFile(out, 'w', compression=zipfile.ZIP_DEFLATED) as oz:
+            for item in tz.infolist():
+                if item.filename in SKIP:
+                    continue
+
+                if item.filename == data_path:
+                    oz.writestr(item.filename, fresh_data_xml)
+
+                elif item.filename == 'xl/styles.xml':
+                    oz.writestr(item.filename, fresh_styles_xml)
+
+                elif item.filename == 'xl/sharedStrings.xml' and fresh_strings:
+                    oz.writestr(item.filename, fresh_strings)
+
                 else:
-                    out_zip.writestr(item, tpl_zip.read(item.filename))
+                    raw = tz.read(item.filename)
 
-    out_buf.seek(0)
-    return out_buf
+                    # Strip <drawing.../> from Set up Report sheet XML
+                    if item.filename.startswith('xl/worksheets/') and item.filename.endswith('.xml'):
+                        raw = re.sub(rb'<drawing[^/]*/>', b'', raw)
+
+                    oz.writestr(item.filename, raw)
+
+    out.seek(0)
+    return out
