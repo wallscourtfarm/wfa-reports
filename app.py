@@ -147,6 +147,7 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 
 # ── Header ─────────────────────────────────────────────────────────────────────
+st.markdown("&nbsp;", unsafe_allow_html=True)
 st.markdown(
     f'''<div style="display:flex;align-items:center;gap:14px;padding-bottom:12px;border-bottom:3px solid {BLUE};margin-bottom:8px;">
       <span style="background:{BLUE};color:white;font-weight:900;font-size:17px;padding:6px 13px;border-radius:6px;">WFA</span>
