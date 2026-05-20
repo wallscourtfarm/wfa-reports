@@ -468,23 +468,37 @@ def _back_right(c, lz, pupil, settings, class_id, pat):
         ('Below Expected',   'Attendance falls below 96%',   'Frequently late to school'),
         ('Cause for Concern','Attendance is below 90%',      'Persistently late to school'),
     ]
+    punc_code = str(pupil.get('punc_code') or '')
+
     for cat, att_desc, punc_desc in att_rows:
-        is_cur  = (cat == att_code)
         cat_col = ATT_CAT_FILL.get(cat, LGREY)
-        # Left cell: always category colour
+
+        # Left cell — always coloured by category
         c.setFillColor(cat_col); c.setStrokeColor(MGREY); c.setLineWidth(0.3)
         c.rect(x, y-row_h, col_ws[0], row_h, fill=1, stroke=1)
         c.setFillColor(WHITE); c.setFont(_F['CB'], 7)
         c.drawString(x+3, y-row_h+5, cat)
-        # Middle and right cells: highlighted only if current row
-        for ci, (txt, cw_) in enumerate(zip([att_desc, punc_desc], col_ws[1:])):
-            rx = x + col_ws[0] + (ci * col_ws[1])
-            bg = cat_col if is_cur else WHITE
-            tc = WHITE if is_cur else DARK
-            c.setFillColor(bg); c.setStrokeColor(MGREY); c.setLineWidth(0.3)
-            c.rect(rx, y-row_h, cw_, row_h, fill=1, stroke=1)
-            c.setFillColor(tc); c.setFont(_F['C'] if not is_cur else _F['CB'], 7)
-            c.drawString(rx+3, y-row_h+5, txt[:42])
+
+        # Middle cell — coloured if attendance category matches this row
+        att_match = (cat == att_code)
+        rx_mid = x + col_ws[0]
+        bg_m = cat_col if att_match else WHITE
+        tc_m = WHITE if att_match else DARK
+        c.setFillColor(bg_m); c.setStrokeColor(MGREY); c.setLineWidth(0.3)
+        c.rect(rx_mid, y-row_h, col_ws[1], row_h, fill=1, stroke=1)
+        c.setFillColor(tc_m); c.setFont(_F['CB'] if att_match else _F['C'], 7)
+        c.drawString(rx_mid+3, y-row_h+5, att_desc[:40])
+
+        # Right cell — coloured if punctuality category matches this row
+        punc_match = (cat == punc_code)
+        rx_punc = x + col_ws[0] + col_ws[1]
+        bg_p = cat_col if punc_match else WHITE
+        tc_p = WHITE if punc_match else DARK
+        c.setFillColor(bg_p); c.setStrokeColor(MGREY); c.setLineWidth(0.3)
+        c.rect(rx_punc, y-row_h, col_ws[2], row_h, fill=1, stroke=1)
+        c.setFillColor(tc_p); c.setFont(_F['CB'] if punc_match else _F['C'], 7)
+        c.drawString(rx_punc+3, y-row_h+5, punc_desc[:40])
+
         y -= row_h
 
 # ── Main ───────────────────────────────────────────────────────────────────────
