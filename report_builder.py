@@ -165,6 +165,16 @@ def _place_img(c, path, x, y_bot, w, h, preserve=True):
     c.drawCentredString(x + w/2, y_bot + h/2 - 3.5, 'Image')
     return False
 
+def _static(filename):
+    """Locate a static asset from data/static/ in the repo."""
+    sd = os.path.dirname(os.path.abspath(__file__))
+    return _res_path(
+        os.path.join(sd, 'data', 'static', filename),
+        os.path.join(sd, filename),
+        os.path.join('/mount/src/wfa-reports/data/static', filename),
+        os.path.join('/mount/src/wfa-reports', filename),
+    )
+
 def _fetch_img(url, pat=None):
     if not url: return None
     try:
@@ -247,36 +257,21 @@ def _front_right(c, lz, pupil, settings):
     c.setFillColor(WHITE)
     c.rect(col*COL_W+BORD, BORD, COL_W-2*BORD, PAGE_H-2*BORD, fill=1, stroke=0)
 
-    # ── WFA Logo ───────────────────────────────────────────────────────────────
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    logo_path = _res_path(
-        os.path.join(script_dir, 'wfa_logo.png'),
-        '/mount/src/wfa-reports/wfa_logo.png',
-        'wfa_logo.png',
-    )
-    logo_w = 340; logo_h = int(340 * 226 / 482)   # maintain aspect ratio (482×226)
+    # ── WFA Logo (sch_logo_rep.png) — 1304×612px, aspect 2.131:1 ─────────────
+    logo_path = _static('sch_logo_rep.png')
+    logo_w = 340; logo_h = round(340 / 2.131)   # = 160pt
     logo_y_top = TOP - 12
-    _place_img(c, logo_path, cx - logo_w/2, logo_y_top - logo_h, logo_w, logo_h)
+    _place_img(c, logo_path, cx - logo_w/2, logo_y_top - logo_h,
+               logo_w, logo_h, preserve=False)
 
-    # ── School cover photo ─────────────────────────────────────────────────────
-    cover_path = _res_path(
-        os.path.join(script_dir, 'school_photo.jpg'),
-        '/mount/src/wfa-reports/school_photo.jpg',
-        'school_photo.jpg',
-    )
-    # Also try fetching from GitHub
-    if not cover_path:
-        cover_path = _fetch_img(
-            "https://raw.githubusercontent.com/wallscourtfarm/wfa-reports/main"
-            "/data/photos/school_photo.jpg"
-        )
+    # ── School front photo (school_front.jpg) — 958×645px, aspect 1.485:1 ────
+    school_path = _static('school_front.jpg')
+    photo_w = CW; photo_h = round(CW / 1.485)   # = 371pt
+    photo_y_top = logo_y_top - logo_h - 10
+    _place_img(c, school_path, CX[col], photo_y_top - photo_h,
+               photo_w, photo_h, preserve=False)
 
-    photo_y_top = logo_y_top - logo_h - 12
-    photo_h = 280
-    photo_w = CW   # full usable width
-    _place_img(c, cover_path, CX[col], photo_y_top - photo_h, photo_w, photo_h)
-
-    y = photo_y_top - photo_h - 18
+    y = photo_y_top - photo_h - 18  # top of text elements
 
     # ── Text elements ──────────────────────────────────────────────────────────
     # "Annual Report to Families"
@@ -441,34 +436,24 @@ def _back_right(c, lz, pupil, settings, class_id, pat):
     c.drawCentredString(cx_col, y, f'{fn} as a learner:')
     y -= 18
 
-    # 4 disposition boxes
-    disp = [('Collaboration','#e8f4fb'),('Independence','#eef9ee'),
-            ('Resilience','#fff8e8'),('Curiosity &\nImagination','#fef0f0')]
-    n = len(disp); disp_h = 90
-    disp_w = (w - (n-1)*4) / n
-    for i, (lbl, hex_c) in enumerate(disp):
-        dx = x + i*(disp_w+4)
-        c.setFillColor(colors.HexColor(hex_c))
-        c.setStrokeColor(MGREY); c.setLineWidth(0.4)
-        c.roundRect(dx, y-disp_h, disp_w, disp_h, 4, fill=1, stroke=1)
-        c.setFillColor(DARK); c.setFont(_F['CB'], 7)
-        lines = lbl.split('\n')
-        for li, line in enumerate(reversed(lines)):
-            c.drawCentredString(dx+disp_w/2, y-disp_h+5+(li*10), line)
-    y -= disp_h + 8
+    # 21st Century Learning dispositions — 21st_report.png
+    # 3685×774px, aspect 4.761:1 → at full CW=551pt: height=116pt
+    disp_path = _static('21st_report.png')
+    disp_w = w; disp_h = round(w / 4.761)   # = 116pt
+    _place_img(c, disp_path, x, y - disp_h, disp_w, disp_h, preserve=False)
+    y -= disp_h + 6
 
     # 21C comment
     c21 = coms.get('learner_21c', '')
     if c21.strip():
         y = _draw(c, c21, x, y, w, size=8, align=TA_JUSTIFY, lm=1.25); y -= 8
 
-    # R&R separator band
-    rr_band_h = 16
-    c.setFillColor(lz)
-    c.roundRect(x, y-rr_band_h, w, rr_band_h, 3, fill=1, stroke=0)
-    c.setFillColor(WHITE); c.setFont(_F['CB'], 8)
-    c.drawCentredString(cx_col, y-rr_band_h+4, 'Rights and Responsibilities')
-    y -= rr_band_h + 6
+    # Rights & Responsibilities bunting — rr_report.png
+    # 1164×372px, aspect 3.129:1 → at full CW=551pt: height=176pt
+    rr_path = _static('rr_report.png')
+    rr_w = w; rr_h = round(w / 3.129)   # = 176pt
+    _place_img(c, rr_path, x, y - rr_h, rr_w, rr_h, preserve=False)
+    y -= rr_h + 4
 
     # R&R comment
     rr = coms.get('rights', '')
