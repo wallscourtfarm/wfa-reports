@@ -1,3 +1,4 @@
+import re
 """
 WFA Report Builder v3 — A3 landscape duplex PDF.
 Exactly matches school template (reference: Y5 Hazel 2024-25).
@@ -84,9 +85,10 @@ def _esc(t):
     return str(t).replace('&','&amp;').replace('<','&lt;').replace('>','&gt;').replace('\n','<br/>')
 
 def _draw(c, text, x, y_top, width, size=8, bold=False, italic=False,
-          colour=DARK, align=TA_LEFT, lm=1.25):
+          colour=DARK, align=TA_LEFT, lm=1.25, escape=True):
     if not text or not str(text).strip(): return y_top
-    p = Paragraph(_esc(text), _style(size, bold, italic, colour, align, lm))
+    html = _esc(text) if escape else str(text)
+    p = Paragraph(html, _style(size, bold, italic, colour, align, lm))
     w, h = p.wrap(width, 9999)
     p.drawOn(c, x, y_top - h)
     return y_top - h
@@ -96,6 +98,33 @@ def _h(text, width, size=8, lm=1.25):
     p = Paragraph(_esc(text), _style(size, lm=lm))
     _, h = p.wrap(width, 9999)
     return h
+
+# ── Letter renderer ───────────────────────────────────────────────────────────
+def _render_letter(c, template, x, y, w, pupil_fn, teacher_name):
+    import re as _re_
+    if not template or not str(template).strip():
+        return y
+    text = (str(template)
+            .replace('{pupil}', pupil_fn)
+            .replace('{teacher}', teacher_name)
+            .replace('xxxx', pupil_fn))
+    # Both /// and blank lines act as paragraph breaks
+    sep = chr(10) + chr(10)
+    text = text.replace('///', sep)
+    paras = [p.strip() for p in _re_.split(r'\n{2,}', text)]
+    for para in paras:
+        if not para:
+            y -= 4
+            continue
+        # **bold** markup
+        html = _re_.sub(r'\*\*(.+?)\*\*',
+                        lambda m: '<b>' + m.group(1) + '</b>', para)
+        # Single newlines within para become line breaks
+        html = html.replace(chr(10), '<br/>')
+        y = _draw(c, html, x, y, w, size=8, lm=1.3, escape=False)
+        y -= 5
+    return y
+
 
 # ── Drawing primitives ─────────────────────────────────────────────────────────
 def _border(c, col, lz, lw=1.5, radius=5):
@@ -289,8 +318,8 @@ def _back_left(c, pupil, settings):
     c.rect(col*COL_W+BORD, BORD, COL_W-2*BORD, PAGE_H-2*BORD, fill=1, stroke=0)
 
     # Principal's letter
-    if letter.strip():
-        y = _draw(c, letter.strip(), x, y, w, size=8, lm=1.3); y -= 6
+    teacher = settings.get('teacher_name', 'your class teacher')
+    y = _render_letter(c, letter, x, y, w, fn, teacher); y -= 4
 
     # Attainment note
     y = _draw(c, "Learner's attainment is based on the expectations for their year "
