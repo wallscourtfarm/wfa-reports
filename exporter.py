@@ -79,16 +79,6 @@ def export_excel(class_data: dict, settings: dict = None) -> io.BytesIO:
         wb = openpyxl.Workbook()
         wb.active.title = 'Data'
 
-    # ── Update 'Set up Report' settings cells from app settings ───────────────
-    if 'Set up Report' in wb.sheetnames:
-        sr = wb['Set up Report']
-        if settings.get('class_display'):
-            sr['A5'] = settings['class_display']
-        if settings.get('academic_year'):
-            sr['A6'] = f"July {settings['academic_year'][:4]}"
-        if settings.get('teacher_name'):
-            sr['A7'] = settings['teacher_name']
-
     # ── Populate Data sheet ────────────────────────────────────────────────────
     ws = wb['Data'] if 'Data' in wb.sheetnames else wb.active
 
