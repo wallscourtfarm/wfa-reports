@@ -25,6 +25,13 @@ WFA SCHOOL VOCABULARY — use these terms consistently, never the alternatives:
 - Never use: "Moreover", "Furthermore", "In addition", "showcases", "demonstrates a passion for", "in summary", "overall", "it is worth noting", "pivotal", "nuanced", "delves", "fosters", "underscores", "tapestry", "elevate", "testament".
 - Never use bullet points or lists inside a comment. All prose.
 
+LANGUAGE FOR FAMILIES:
+Reports go directly to parents and carers. Use language they will understand without a teaching background.
+NEVER use: "statutory word list", "statutory assessment", "MTC", "KPIs", "age-related expectations" (use "age-related standard" from the grade opening lines only), "decodable", "phoneme", "grapheme", "segmenting", "blending", "SPAG", "SPaG", "GPS", "SATs" (never referenced anyway as Y4), "SEND provision" (say "additional support"), "scaffolding", "metacognition", "formative assessment".
+Subject-specific terms that ARE acceptable in family reports: fronted adverbials, inverted commas, apostrophes, noun phrases, subordinate clauses, inference, retrieval, fluency, column method, place value, fractions, decimals, perimeter, area, coordinates.
+When referencing spelling: say "key year group spellings" or "her key spelling patterns" — never "the statutory word list" or "word lists".
+When referencing times tables: say "times tables" or "multiplication facts" — never "MTC" or "Multiplication Tables Check".
+
 WRITING STYLE:
 - Warm but direct. Honest. Specific to the child, not generic.
 - Repeat the pupil's first name within each section — not just at the opening.
@@ -53,14 +60,14 @@ If inference score is low, name it explicitly as the key area to develop.
 If fluency is strong, describe it specifically: reading with expression, using punctuation and intonation to support meaning.
 
 Y4 CURRICULUM — WRITING:
-Appropriate skills to reference: fronted adverbials with commas; inverted commas for direct speech; apostrophes (possession and contraction); noun phrases; subordinate clauses; paragraphs and organisation; Y3/Y4 statutory word list spelling; homophones; suffixes (-ation, -ous, -ly); handwriting (joined, fluent, legible); composition (planning, sequencing, editing for accuracy). The reading–writing connection is real at Y4 — drawing on reading for vocabulary and compositional ideas is a genuine expectation.
+Appropriate skills to reference: fronted adverbials with commas; inverted commas for direct speech; apostrophes (possession and contraction); noun phrases; subordinate clauses; paragraphs and organisation; key year group spellings and spelling patterns; homophones; common word endings such as -ation, -ous and -ly; handwriting (joined, fluent, legible); composition (planning, sequencing, editing for accuracy). The reading–writing connection is real at Y4 — drawing on reading for vocabulary and compositional ideas is a genuine expectation.
 If handwriting score is low and it impacts output, name it.
 If fiction and non-fiction scores diverge significantly, note the stronger area and the one to develop.
 NEVER reference: passive voice, subjunctive, modal verbs for effect, pathetic fallacy — these are Y5/6.
 Framing "authorial voice" is appropriate only for D writers, and frame it as emerging/developing.
 
 Y4 CURRICULUM — MATHS:
-Appropriate skills to reference: 12×12 multiplication tables (the Multiplication Tables Check — MTC — is a statutory Y4 assessment, so times table fluency is particularly high-stakes); column addition and subtraction; short multiplication; short division with remainders; equivalent fractions; adding and subtracting fractions with the same denominator; decimals to two decimal places; area and perimeter; coordinates in the first quadrant; 4-digit place value and rounding.
+Appropriate skills to reference: 12×12 multiplication tables (times table fluency is a major focus in Year 4 and directly supports fractions and division — always worth naming specifically); column addition and subtraction; short multiplication; short division with remainders; equivalent fractions; adding and subtracting fractions with the same denominator; decimals to two decimal places; area and perimeter; coordinates in the first quadrant; 4-digit place value and rounding.
 Central Y4 tension: weak times table recall directly limits work on fractions and division. When times tables and fractions scores diverge, name this link explicitly.
 NEVER reference: algebra, BODMAS, long division, ratio, percentage, negative numbers as a Y4 topic.
 
@@ -182,7 +189,7 @@ def build_prompt(p: dict) -> str:
     # Maths
     m_lines = list(filter(None, [
         _line("Maths — overall", scores.get("math_s")),
-        _line("Times tables / MTC", scores.get("tt")),
+        _line("Times tables", scores.get("tt")),
         _line("Written calculation", scores.get("m_calc")),
         _line("Mathematical reasoning", scores.get("m_reason")),
         _line("Problem solving", scores.get("m_prob")),
