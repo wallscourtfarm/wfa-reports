@@ -14,13 +14,13 @@ from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 
 # Forms column names (as they appear after header row)
 COL_NAME       = "Select Name"
-COL_ENQ        = "The enquiry which I enjoyed the most this year was "
-COL_ENQ_WHY   = "because "
-COL_SOB        = "The state of being I enjoy the most is "
+COL_ENQ        = "The enquiry which I enjoyed the most this year was"
+COL_ENQ_WHY   = "because"
+COL_SOB        = "The state of being I enjoy the most is"
 COL_SOB_WHY   = "because 1"
-COL_CONF       = "I want to become more confident with "
+COL_CONF       = "I want to become more confident with"
 COL_CONF_WHY  = "because 2"
-COL_Y5         = "In Year 5 I am looking forward to "
+COL_Y5         = "In Year 5 I am looking forward to"
 
 SYSTEM_PROMPT = """You are a teaching assistant helping tidy up Year 4 pupil (aged 8-9) responses to a school report questionnaire. 
 
@@ -63,6 +63,8 @@ def _clean_narrative(row: dict) -> str:
 def parse_forms_export(file_bytes: bytes) -> pd.DataFrame:
     """Read the Forms Excel and return a tidy DataFrame."""
     df = pd.read_excel(io.BytesIO(file_bytes))
+    # Strip non-breaking spaces and whitespace from column names (Forms export quirk)
+    df.columns = [str(c).replace("\xa0", " ").strip() for c in df.columns]
     # Keep only rows that have a name
     df = df[df[COL_NAME].notna() & (df[COL_NAME].astype(str).str.strip() != "")]
     # Fill NaN answers with empty string
