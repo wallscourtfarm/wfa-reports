@@ -207,9 +207,17 @@ def export_excel(class_data: dict, settings: dict = None) -> io.BytesIO:
                 else:
                     raw = tz.read(item.filename)
 
-                    # Strip <drawing.../> from Set up Report sheet XML
+                    # Strip <drawing.../> elements from all worksheet XML
                     if item.filename.startswith('xl/worksheets/') and item.filename.endswith('.xml'):
                         raw = re.sub(rb'<drawing[^/]*/>', b'', raw)
+
+                    # Remove calcChain relationship from workbook rels
+                    if item.filename == 'xl/_rels/workbook.xml.rels':
+                        raw = re.sub(
+                            rb'<Relationship[^>]+calcChain[^/]*/>',
+                            b'',
+                            raw
+                        )
 
                     oz.writestr(item.filename, raw)
 
