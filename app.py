@@ -3,6 +3,7 @@ import requests
 import time
 from importer import import_from_files
 from generator import generate_comments, word_count
+from exporter import export_excel
 from report_builder import generate_reports_pdf
 from data_manager import (
     list_classes, load_class, save_class,
@@ -651,6 +652,30 @@ if nav == "✍️ Generate":
                                 st.write(result.get(key, ""))
                     except Exception as e:
                         st.error(f"Generation failed: {e}")
+
+        # ── Export Excel ─────────────────────────────────────────────────────────
+        st.markdown("---")
+        st.markdown("#### Export to Excel")
+        st.markdown(
+            "Exports all learner data — grades, attendance, all five generated comment "
+            "sections and pupil voice — in the exact column format of **report-data.xlsx** "
+            "ready for your print workflow."
+        )
+        comments_done = sum(1 for p in sorted_pupils
+                           if any(p.get("comments",{}).get(k)
+                                  for k in ["reader","writer","mathematician",
+                                            "learner_21c","rights"]))
+        st.caption(f"{comments_done}/{len(sorted_pupils)} learners have at least one comment section.")
+        if st.button("📥 Export report-data.xlsx", type="primary", key="export_xlsx"):
+            with st.spinner("Building Excel…"):
+                buf = export_excel(cd)
+                st.download_button(
+                    "⬇️ Download report-data.xlsx",
+                    data=buf,
+                    file_name="report-data.xlsx",
+                    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                    key="dl_xlsx",
+                )
 
         # ── Report PDF ────────────────────────────────────────────────────────
         st.markdown("---")
