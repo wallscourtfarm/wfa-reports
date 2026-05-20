@@ -5,6 +5,7 @@ from importer import import_from_files
 from generator import generate_comments, word_count
 from exporter import export_excel
 from report_builder import generate_reports_pdf
+from pupil_voice_importer import process_forms_export, build_output_excel
 from data_manager import (
     list_classes, load_class, save_class,
     save_photo, photo_raw_url,
@@ -200,7 +201,7 @@ def set_sel(pid):
 
 
 # ── Tabs ───────────────────────────────────────────────────────────────────────
-NAV_PAGES = ["👥 Pupils", "📋 Score", "💬 Comments", "✍️ Generate", "📸 Photos", "⚙️ Settings"]
+NAV_PAGES = ["👥 Pupils", "📋 Score", "💬 Comments", "✍️ Generate", "📸 Photos", "📥 Pupil Voice", "⚙️ Settings"]
 if "nav_page" not in st.session_state:
     st.session_state.nav_page = "👥 Pupils"
 
@@ -802,6 +803,61 @@ Select all photos at once — the app matches them by filename.
             row[1].markdown(f"`{fn}`")
             row[2].write("✅" if found else "❌")
 
+
+
+# ╔══════════════════════════════════════════════════════════════════════════════╗
+# ║  PUPIL VOICE TAB                                                           ║
+# ╚══════════════════════════════════════════════════════════════════════════════╝
+if nav == "📥 Pupil Voice":
+    st.markdown("### Pupil Voice Import")
+    st.markdown(
+        "Upload the Microsoft Forms export Excel. The app will clean each pupil's "
+        "answers and generate a polished narrative paragraph ready to paste into "
+        "your reports Excel."
+    )
+
+    forms_file = st.file_uploader(
+        "Forms export — Year_4_Reports_Pupil_Voice.xlsx",
+        type=["xlsx"],
+        key="pv_upload",
+    )
+
+    if forms_file and st.button("Process and download", type="primary", key="pv_run"):
+        file_bytes = forms_file.read()
+        prog_bar   = st.progress(0.0)
+        status_txt = st.empty()
+
+        def on_progress(done, total, name):
+            prog_bar.progress(done / total)
+            status_txt.markdown(f"Processing: **{name}** ({done}/{total})")
+
+        with st.spinner("Cleaning pupil voice responses…"):
+            try:
+                results, errors = process_forms_export(file_bytes, progress_cb=on_progress)
+            except Exception as e:
+                st.error(f"Failed to read file: {e}")
+                st.stop()
+
+        status_txt.empty()
+        prog_bar.progress(1.0)
+
+        if errors:
+            st.warning("Some pupils failed — check names match exactly:")
+            for err in errors:
+                st.caption(f"⚠️ {err}")
+
+        if results:
+            st.success(f"Processed {len(results)} pupil(s) ✓")
+            xlsx_bytes = build_output_excel(results)
+            st.download_button(
+                "⬇️ Download Pupil_Voice.xlsx",
+                data=xlsx_bytes,
+                file_name="Pupil_Voice.xlsx",
+                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                key="pv_dl",
+            )
+        else:
+            st.error("No results — check the uploaded file has responses.")
 
 # ╔══════════════════════════════════════════════════════════════════════════════╗
 # ║  SETTINGS TAB                                                              ║
