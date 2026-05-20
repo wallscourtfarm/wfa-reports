@@ -281,7 +281,31 @@ def generate_comments(p: dict) -> dict:
     raw = re.sub(r"^```json\s*", "", raw)
     raw = re.sub(r"\s*```$", "", raw)
 
-    result = json.loads(raw)
+    # Attempt parse; on failure clean up common issues and retry once
+    try:
+        result = json.loads(raw)
+    except json.JSONDecodeError:
+        # Replace literal newlines inside JSON string values with \n
+        cleaned = re.sub(r'(?<=: ")(.*?)(?="(?:\s*[,}]))', lambda m: m.group(0).replace("\n", " ").replace("\r", ""), raw, flags=re.DOTALL)
+        try:
+            result = json.loads(cleaned)
+        except json.JSONDecodeError:
+            # Last resort: ask Claude to fix its own output
+            fix_response = client.messages.create(
+                model="claude-sonnet-4-20250514",
+                max_tokens=1800,
+                messages=[{
+                    "role": "user",
+                    "content": (
+                        "The following is almost-valid JSON but has a syntax error. "
+                        "Return only the corrected JSON, nothing else:\n\n" + raw
+                    )
+                }],
+            )
+            fix_raw = fix_response.content[0].text.strip()
+            fix_raw = re.sub(r"^```json\s*", "", fix_raw)
+            fix_raw = re.sub(r"\s*```$", "", fix_raw)
+            result = json.loads(fix_raw)
 
     required = {"reader", "writer", "mathematician", "learner_21c", "rights"}
     missing = required - set(result.keys())
