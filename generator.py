@@ -44,9 +44,8 @@ WRITING STYLE:
 - The "reader", "writer", "mathematician" sections are third person.
 
 TARGET LENGTHS:
-- reader, writer, mathematician: 90–130 words each
-- learner_21c: 80–120 words
-- rights: 60–100 words
+- reader, writer, mathematician, learner_21c, rights: 150–160 words each
+- The example texts in this prompt are shorter — treat them as tone and content guides only, not length targets. Always write to the 150–160 word target.
 
 GRADE OPENING LINES — use these exact formulations:
 - D (Greater Depth): "[Name] has achieved the age-related standard in [subject] and in some aspects has been learning at greater depth."
