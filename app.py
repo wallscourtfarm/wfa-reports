@@ -147,19 +147,13 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 
 # ── Header ─────────────────────────────────────────────────────────────────────
-c1, c2 = st.columns([1, 10])
-with c1:
-    st.markdown(
-        f'<div style="background:{BLUE};color:white;font-weight:800;font-size:20px;'
-        f'padding:10px 14px;border-radius:8px;text-align:center;margin-top:4px;">WFA</div>',
-        unsafe_allow_html=True,
-    )
-with c2:
-    st.markdown(
-        f'<h2 style="margin:0;padding-top:8px;color:{NAVY};">Report Manager</h2>',
-        unsafe_allow_html=True,
-    )
-st.markdown("---")
+st.markdown(
+    f'''<div style="background:{BLUE};border-radius:10px;padding:14px 20px;margin-bottom:16px;display:flex;align-items:center;gap:16px;">
+      <span style="background:white;color:{BLUE};font-weight:900;font-size:18px;padding:6px 12px;border-radius:6px;">WFA</span>
+      <span style="color:white;font-weight:700;font-size:22px;letter-spacing:0.3px;">Report Manager</span>
+    </div>''',
+    unsafe_allow_html=True,
+)
 
 # ── Class selector ─────────────────────────────────────────────────────────────
 classes = list_classes()
