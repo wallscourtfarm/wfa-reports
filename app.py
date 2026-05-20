@@ -785,20 +785,42 @@ if nav == "⚙️ Settings":
     settings = load_settings()
 
     st.markdown("### Year & class")
-    c1, c2 = st.columns(2)
+    c1, c2, c3 = st.columns(3)
     with c1:
-        settings["academic_year"]  = st.text_input(
+        settings["academic_year"] = st.text_input(
             "Academic year", value=settings.get("academic_year", "2025-26"))
     with c2:
         settings["class_display"] = st.text_input(
-            "Class display name", value=settings.get("class_display", "Y4 Maple"),
-            help="Shown on the report cover — e.g. 'Y4 Maple'")
+            "Class display name", value=settings.get("class_display", "Maple Learning Zone"),
+            help="e.g. 'Maple Learning Zone'")
+    with c3:
+        settings["teacher_name"] = st.text_input(
+            "Teacher name", value=settings.get("teacher_name", "Mr McLean"),
+            help="Used in the principal's letter — e.g. 'Mr McLean'")
 
     st.markdown("### Principal's letter")
-    st.caption("This text appears on every report. Update it each year.")
+    st.caption(
+        "Use `{pupil}` for the learner's name and `{teacher}` for the teacher's name. "
+        "Leave a blank line (or type `///`) to start a new paragraph. "
+        "Wrap text in `**double asterisks**` to make it bold."
+    )
+    default_letter = (
+        "Dear Families,\n\n"
+        "It\'s a pleasure to share this annual report celebrating {pupil}\'s journey "
+        "at WFA for 2025\u201326. This year has been rich in learning and connection\u2014"
+        "from celebrating Diwali and Eid to deepening inclusive practice through Black History "
+        "Month and anti-prejudice work. We\'ve also strengthened wellbeing support with a "
+        "dedicated Mental Health Practitioner, and learners have thrived through science, oracy "
+        "and leadership experiences. The report highlights {pupil}\'s achievements and next "
+        "steps\u2014I hope it offers a meaningful opportunity to celebrate their progress.\n\n"
+        "If you have any questions, please don\'t hesitate to contact us to arrange a "
+        "conversation with {teacher}.\n\n"
+        "Warm regards,\n"
+        "**Charlotte Black (Principal)**"
+    )
     settings["principals_letter"] = st.text_area(
-        "Letter", value=settings.get("principals_letter", "Dear Families,\n\n"),
-        height=220, label_visibility="collapsed",
+        "Letter", value=settings.get("principals_letter", default_letter),
+        height=260, label_visibility="collapsed",
     )
 
     st.markdown("### School cover photo")
