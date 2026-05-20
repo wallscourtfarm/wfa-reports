@@ -260,12 +260,13 @@ if nav == "👥 Pupils":
         st.markdown(f"**{len(sorted_pupils)} pupils**")
         st.markdown("---")
 
-        hcols = st.columns([5, 1, 1, 1, 3, 1])
-        for c, lbl in zip(hcols, ["Name", "R", "W", "M", "Scored", "Photo"]):
+        hcols = st.columns([5, 1, 1, 1, 3, 1] if SHOW_ADVANCED else [5, 1, 1, 1, 3])
+        labels = ["Name", "R", "W", "M", "Scored", "Photo"] if SHOW_ADVANCED else ["Name", "R", "W", "M", "Scored"]
+        for c, lbl in zip(hcols, labels):
             c.markdown(f"<small><b>{lbl}</b></small>", unsafe_allow_html=True)
 
         for p in sorted_pupils:
-            cols = st.columns([5, 1, 1, 1, 3, 1])
+            cols = st.columns([5, 1, 1, 1, 3, 1] if SHOW_ADVANCED else [5, 1, 1, 1, 3])
 
             with cols[0]:
                 btn_col, name_col = st.columns([1, 8])
@@ -294,14 +295,15 @@ if nav == "👥 Pupils":
                     unsafe_allow_html=True,
                 )
 
-            with cols[5]:
-                url = photo_raw_url(class_id, p.get("photo", ""))
-                try:
-                    r = requests.head(url, timeout=2)
-                    has = r.status_code == 200
-                except Exception:
-                    has = False
-                st.markdown("✅" if has else "❌")
+            if SHOW_ADVANCED:
+                with cols[5]:
+                    url = photo_raw_url(class_id, p.get("photo", ""))
+                    try:
+                        r = requests.head(url, timeout=2)
+                        has = r.status_code == 200
+                    except Exception:
+                        has = False
+                    st.markdown("✅" if has else "❌")
     else:
         st.info("No pupils yet. Use the Import panel above to get started.")
 
@@ -454,7 +456,7 @@ if nav == "📋 Score":
             return "Cause for Concern"
         except: return ""
 
-    with st.expander("📝 Attendance & pupil voice") if SHOW_ADVANCED else st.expander("📝 Pupil voice"):
+    with st.expander("📝 Attendance & pupil voice") if SHOW_ADVANCED else st.expander("📝 Pupil voice", expanded=True):
         if SHOW_ADVANCED:
             a1, a2, a3, a4 = st.columns(4)
             with a1:
@@ -872,26 +874,22 @@ if nav == "⚙️ Settings":
     settings = load_settings()
 
     st.markdown("### Year & class")
-    c1, c2, c3 = st.columns(3)
+    c1, c2 = st.columns(2)
     with c1:
         settings["academic_year"] = st.text_input(
             "Academic year", value=settings.get("academic_year", "2025-26"))
     with c2:
-        settings["class_display"] = st.text_input(
-            "Class display name", value=settings.get("class_display", "Maple Learning Zone"),
-            help="e.g. 'Maple Learning Zone'")
-    with c3:
         settings["teacher_name"] = st.text_input(
-            "Teacher name", value=settings.get("teacher_name", "Mr McLean"),
-            help="Used in the principal's letter — e.g. 'Mr McLean'")
+            "Teacher name", value=settings.get("teacher_name", "Mr McLean"))
 
-    st.markdown("### Principal's letter")
-    st.caption(
-        "Use `{pupil}` for the learner's name and `{teacher}` for the teacher's name. "
+    if SHOW_ADVANCED:
+     st.markdown("### Principal's letter")
+     st.caption(
+         "Use `{pupil}` for the learner's name and `{teacher}` for the teacher's name. "
         "Leave a blank line (or type `///`) to start a new paragraph. "
         "Wrap text in `**double asterisks**` to make it bold."
     )
-    default_letter = (
+     default_letter = (
         "Dear Families,\n\n"
         "It\'s a pleasure to share this annual report celebrating {pupil}\'s journey "
         "at WFA for 2025\u201326. This year has been rich in learning and connection\u2014"
@@ -905,42 +903,44 @@ if nav == "⚙️ Settings":
         "Warm regards,\n"
         "**Charlotte Black (Principal)**"
     )
-    settings["principals_letter"] = st.text_area(
+     settings["principals_letter"] = st.text_area(
         "Letter", value=settings.get("principals_letter", default_letter),
         height=260, label_visibility="collapsed",
     )
 
-    st.markdown("### School cover photo")
-    st.caption("Building/school photo shown on the report cover. Upload once, reused every year.")
-    cover_f = st.file_uploader("School cover photo", type=["jpg","jpeg","png"], key="cover_photo")
-    if cover_f:
-        img_bytes = cover_f.read()
-        if save_photo(class_id, "school_photo.jpg", img_bytes):
-            st.image(img_bytes, width=300, caption="Cover photo saved ✓")
-        else:
-            st.error("Upload failed")
+    if SHOW_ADVANCED:
+     st.markdown("### School cover photo")
+     st.caption("Building/school photo shown on the report cover. Upload once, reused every year.")
+     cover_f = st.file_uploader("School cover photo", type=["jpg","jpeg","png"], key="cover_photo")
+     if cover_f:
+         img_bytes = cover_f.read()
+         if save_photo(class_id, "school_photo.jpg", img_bytes):
+             st.image(img_bytes, width=300, caption="Cover photo saved ✓")
+         else:
+             st.error("Upload failed")
 
-    st.markdown("### Enquiry images — Terms 1 to 6")
-    st.caption(
-        "Upload one image per term. You assemble these from the year's enquiries; "
+    if SHOW_ADVANCED:
+     st.markdown("### Enquiry images — Terms 1 to 6")
+     st.caption(
+         "Upload one image per term. You assemble these from the year's enquiries; "
         "the report generator will place them automatically."
     )
-    cols = st.columns(3)
-    for term in range(1, 7):
-        with cols[(term - 1) % 3]:
-            st.markdown(f"**Term {term}**")
-            img_f = st.file_uploader(
-                f"T{term} image", type=["jpg","jpeg","png"],
-                key=f"enq_{term}", label_visibility="collapsed",
-            )
-            if img_f:
-                img_bytes = img_f.read()
-                fname = f"enquiry_T{term}.jpg"
-                if save_photo(class_id, fname, img_bytes):
-                    st.image(img_bytes, use_container_width=True)
-                    st.caption(f"T{term} saved ✓")
-                else:
-                    st.error("Upload failed")
+     cols = st.columns(3)
+     for term in range(1, 7):
+      with cols[(term - 1) % 3]:
+          st.markdown(f"**Term {term}**")
+          img_f = st.file_uploader(
+              f"T{term} image", type=["jpg","jpeg","png"],
+              key=f"enq_{term}", label_visibility="collapsed",
+          )
+          if img_f:
+              img_bytes = img_f.read()
+              fname = f"enquiry_T{term}.jpg"
+              if save_photo(class_id, fname, img_bytes):
+                  st.image(img_bytes, use_container_width=True)
+                  st.caption(f"T{term} saved ✓")
+              else:
+                  st.error("Upload failed")
 
     st.markdown("---")
     if st.button("Save settings", type="primary"):
