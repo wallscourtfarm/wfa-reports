@@ -1,9 +1,14 @@
 """
 Export class data to report-data.xlsx format.
-Loads report_template.xlsx as the base (preserving the 'Set up Report' sheet
-and its formulas for columns I and K), then populates the Data sheet.
+Uses ZIP-level surgery: copies the template verbatim, then replaces only
+the Data sheet XML. This preserves drawings, images and the Set up Report
+sheet exactly as they were — openpyxl cannot safely round-trip embedded
+images, so we never let it touch those parts.
 """
-import io, os
+import io
+import os
+import re
+import zipfile
 import openpyxl
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
@@ -46,7 +51,7 @@ def _template_path():
     return None
 
 
-# ── Styles ─────────────────────────────────────────────────────────────────────
+# ── Build the Data sheet bytes using a standalone workbook ────────────────────
 WRAP_ALIGN = Alignment(wrap_text=True, vertical='top')
 TOP_ALIGN  = Alignment(vertical='top')
 THIN       = Border(
@@ -57,37 +62,35 @@ STD_FONT   = Font(name='Calibri', size=10)
 COL_WIDTHS = [16,14,18,24,8,8,8,14,18,20,18,60,60,60,60,60,60]
 
 
-# ── Main export function ───────────────────────────────────────────────────────
-def export_excel(class_data: dict, settings: dict = None) -> io.BytesIO:
+def _build_data_sheet_xml(pupils: list) -> bytes:
     """
-    Populate the report template with class data.
-    Preserves the 'Set up Report' sheet and its formulas.
-    Updates LZ name, year and teacher name from settings if provided.
-    Returns BytesIO of the completed workbook.
+    Build a minimal workbook containing only the Data sheet,
+    then extract and return its sheet XML bytes.
     """
-    settings = settings or {}
-    pupils = sorted(
-        class_data.get('pupils', []),
-        key=lambda p: (p.get('last_name',''), p.get('first_name',''))
-    )
+    wb = openpyxl.Workbook()
+    ws = wb.active
+    ws.title = 'Data'
 
-    # Load template or create minimal fallback
-    tpl = _template_path()
-    if tpl:
-        wb = openpyxl.load_workbook(tpl)
-    else:
-        wb = openpyxl.Workbook()
-        wb.active.title = 'Data'
+    # Row 1 — notes (matching template)
+    ws.cell(1, 2).value = 'Copy Paste from DOOYA\t\t'
+    ws.cell(1, 5).value = 'Copy Paste from DOOYA'
+    ws.cell(1, 8).value = 'copy-paste from Welcome Zone Report'
+    ws.cell(1, 10).value = 'copy-paste from Welcome Zone Report'
 
-    # ── Populate Data sheet ────────────────────────────────────────────────────
-    ws = wb['Data'] if 'Data' in wb.sheetnames else wb.active
+    # Row 2 — headers
+    headers = [
+        'ID', 'First Name', 'Last Name', 'Full Name',
+        'R', 'W', 'M',
+        'Attendance', 'Att Code', 'Punctuality (Lates) #', 'Punc Code',
+        'Reader Teacher comments', 'Writer Teacher comments',
+        'Mathematician Teacher comments', '21st C learner Teacher comments',
+        'Rights and Responsibilities Teacher comments', 'Pupil Voice',
+    ]
+    for ci, h in enumerate(headers, 1):
+        cell = ws.cell(2, ci, value=h)
+        cell.font = Font(name='Calibri', size=10, bold=True)
 
-    # Clear existing data rows (keep rows 1 and 2 — notes and headers)
-    for row in range(3, ws.max_row + 1):
-        for col in range(1, 18):
-            ws.cell(row, col).value = None
-
-    # Write pupil rows
+    # Data rows
     for ri, pupil in enumerate(pupils, start=3):
         fn        = (pupil.get('first_name') or '').strip()
         ln        = (pupil.get('last_name')  or '').strip()
@@ -96,7 +99,6 @@ def export_excel(class_data: dict, settings: dict = None) -> io.BytesIO:
         att_raw   = str(pupil.get('attendance')  or '').strip()
         lates_raw = str(pupil.get('punctuality') or '').strip()
 
-        # Convert lates to int if possible
         try:    lates_val = int(lates_raw)
         except: lates_val = None if not lates_raw else lates_raw
 
@@ -109,9 +111,9 @@ def export_excel(class_data: dict, settings: dict = None) -> io.BytesIO:
             6:  _grade(grades.get('W','')),
             7:  _grade(grades.get('M','')),
             8:  float(att_raw) if att_raw else None,
-            9:  _att_formula(ri),          # formula — keeps link to Set up Report
+            9:  _att_formula(ri),
             10: lates_val,
-            11: _punc_formula(ri),         # formula — keeps link to Set up Report
+            11: _punc_formula(ri),
             12: coms.get('reader','')        or '',
             13: coms.get('writer','')        or '',
             14: coms.get('mathematician','') or '',
@@ -122,19 +124,88 @@ def export_excel(class_data: dict, settings: dict = None) -> io.BytesIO:
 
         for col, value in row_data.items():
             cell = ws.cell(row=ri, column=col, value=value)
-            cell.font   = STD_FONT
-            cell.border = THIN
+            cell.font      = STD_FONT
+            cell.border    = THIN
             cell.alignment = WRAP_ALIGN if col >= 12 else TOP_ALIGN
 
         ws.row_dimensions[ri].height = 80
 
-    # Column widths
-    for ci, w in enumerate(COL_WIDTHS, start=1):
+    for ci, w in enumerate(COL_WIDTHS, 1):
         ws.column_dimensions[get_column_letter(ci)].width = w
 
     ws.freeze_panes = 'A3'
 
+    # Save to memory and extract the sheet XML
     buf = io.BytesIO()
     wb.save(buf)
     buf.seek(0)
-    return buf
+    with zipfile.ZipFile(buf) as zf:
+        return zf.read('xl/worksheets/sheet1.xml')
+
+
+# ── Main export: ZIP-level surgery ─────────────────────────────────────────────
+def export_excel(class_data: dict, settings: dict = None) -> io.BytesIO:
+    """
+    Produce report-data.xlsx by:
+    1. Reading the template ZIP verbatim
+    2. Replacing only the Data sheet XML with freshly generated content
+    3. Leaving every other file (Set up Report, drawings, images, rels) untouched
+    """
+    settings = settings or {}
+    pupils = sorted(
+        class_data.get('pupils', []),
+        key=lambda p: (p.get('last_name',''), p.get('first_name',''))
+    )
+
+    tpl = _template_path()
+
+    # If no template, fall back to pure openpyxl (no images to preserve)
+    if not tpl:
+        wb = openpyxl.Workbook()
+        ws = wb.active
+        ws.title = 'Data'
+        buf = io.BytesIO()
+        wb.save(buf)
+        buf.seek(0)
+        return buf
+
+    # Build the replacement Data sheet XML
+    data_sheet_xml = _build_data_sheet_xml(pupils)
+
+    # Find which zip entry is the Data sheet in the template
+    with open(tpl, 'rb') as f:
+        tpl_bytes = f.read()
+
+    with zipfile.ZipFile(io.BytesIO(tpl_bytes)) as tpl_zip:
+        # Identify the Data sheet path from workbook.xml
+        wb_xml = tpl_zip.read('xl/workbook.xml').decode('utf-8')
+        # Find sheet named 'Data' and its r:id
+        # e.g. <sheet name="Data" sheetId="2" r:id="rId2"/>
+        match = re.search(r'<sheet[^>]+name=["\']Data["\'][^>]+r:id=["\'](\w+)["\']', wb_xml)
+        if not match:
+            match = re.search(r'<sheet[^>]+r:id=["\'](\w+)["\'][^>]+name=["\']Data["\']', wb_xml)
+
+        # Find the sheet file from workbook rels
+        wb_rels = tpl_zip.read('xl/_rels/workbook.xml.rels').decode('utf-8')
+        if match:
+            rid = match.group(1)
+            rel_match = re.search(
+                rf'<Relationship[^>]+Id=["\']' + re.escape(rid) + r'["\'][^>]+Target=["\']([^"\']+)["\']',
+                wb_rels
+            )
+            data_sheet_path = 'xl/' + rel_match.group(1).lstrip('/').replace('xl/', '') if rel_match else 'xl/worksheets/sheet2.xml'
+        else:
+            # Fallback: assume sheet2
+            data_sheet_path = 'xl/worksheets/sheet2.xml'
+
+        # Build output ZIP: copy everything, replace only the Data sheet
+        out_buf = io.BytesIO()
+        with zipfile.ZipFile(out_buf, 'w', compression=zipfile.ZIP_DEFLATED) as out_zip:
+            for item in tpl_zip.infolist():
+                if item.filename == data_sheet_path:
+                    out_zip.writestr(item.filename, data_sheet_xml)
+                else:
+                    out_zip.writestr(item, tpl_zip.read(item.filename))
+
+    out_buf.seek(0)
+    return out_buf
