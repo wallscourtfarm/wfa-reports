@@ -668,7 +668,7 @@ if nav == "✍️ Generate":
         st.caption(f"{comments_done}/{len(sorted_pupils)} learners have at least one comment section.")
         if st.button("📥 Export report-data.xlsx", type="primary", key="export_xlsx"):
             with st.spinner("Building Excel…"):
-                buf = export_excel(cd)
+                buf = export_excel(cd, settings=load_settings())
                 st.download_button(
                     "⬇️ Download report-data.xlsx",
                     data=buf,
