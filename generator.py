@@ -15,7 +15,8 @@ CRITICAL RULES:
 
 WFA SCHOOL VOCABULARY — use these terms consistently, never the alternatives:
 - LEARNER / LEARNERS — never "pupil" or "student"
-- LEARNING — never "work" (e.g. "the quality of her learning", "producing learning of real quality", not "her work")
+- LEARNING — never "work" as a noun referring to a learner's output (e.g. "the quality of her learning" not "her work"; "producing learning of real quality" not "producing work")
+- AVOID "work" as a verb in learning contexts wherever possible. Never write "you work well with others" — say "you collaborate well with others" or "you learn well with others". Never write "working with others" — say "collaborating with others". For effort, avoid "has worked hard" — instead say "has put real effort into", "has built", "has developed through consistent effort", "has committed to". The word "work" should be treated as a last resort — if a natural alternative exists, use it.
 - MAPLE LEARNING ZONE — the name for Year 4 (use when referencing the class/year group by name)
 - LEARNING ZONE — generic term for a year group class (e.g. "in their learning zone")
 - Do NOT use "class", "year group" or "classroom" as standalone terms Even when naming areas to develop, frame them as growth points and next steps, never as deficits or failures. Use language like "developing", "growing in", "an important next step", "to build on". Never use "poor", "weak", "struggles with", "fails to", "lacks" or "does not" when describing a gap.
