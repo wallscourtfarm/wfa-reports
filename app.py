@@ -592,7 +592,7 @@ if nav == "✍️ Generate":
 
         with c1:
             st.markdown("#### Generate for all pupils")
-            st.caption("Generates all 5 sections for every pupil. Takes ~1–2 min for a class of 30.")
+            st.caption("Generates all 5 sections for every pupil. Takes ~10 minutes for a class of 30.")
             overwrite = st.checkbox("Overwrite existing comments", value=False, key="gen_overwrite")
             if st.button("Generate all", type="primary", key="gen_all"):
                 to_generate = sorted_pupils if overwrite else [
