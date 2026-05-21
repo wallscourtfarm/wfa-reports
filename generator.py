@@ -279,7 +279,7 @@ def generate_comments(p: dict) -> dict:
 
     response = client.messages.create(
         model="claude-sonnet-4-20250514",
-        max_tokens=1800,
+        max_tokens=4000,
         system=SYSTEM_PROMPT,
         messages=[{"role": "user", "content": build_prompt(p)}],
     )
@@ -300,7 +300,7 @@ def generate_comments(p: dict) -> dict:
             # Last resort: ask Claude to fix its own output
             fix_response = client.messages.create(
                 model="claude-sonnet-4-20250514",
-                max_tokens=1800,
+                max_tokens=4000,
                 messages=[{
                     "role": "user",
                     "content": (
