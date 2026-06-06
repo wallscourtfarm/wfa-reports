@@ -2246,7 +2246,23 @@
         "mathematician": "Madison has not yet achieved the age-related standard in mathematics and is having additional support and provision to develop her skills. She is working to build the foundational skills that underpin Year 4 mathematics, particularly her recall of multiplication facts. Madison's times table fluency is the key area that will unlock progress across other mathematical topics — without secure multiplication facts, work on fractions, division and problem solving remains challenging. She is developing her understanding of written calculation methods and is growing in confidence with column addition and subtraction. Madison responds well to support and is beginning to show more persistence when tackling mathematical challenges. Building times table fluency through regular practice will be the most important focus for Madison's mathematical progress in Year 5.",
         "learner_21c": "Madison, you have made solid progress as a 21st Century Learner throughout Year 4 and it has been wonderful to see your confidence growing. You are developing your curiosity and are becoming more willing to contribute your ideas in class discussions. Your independence is developing well and you are becoming more capable of directing your own learning. Building your resilience will be an important focus in Year 5 — the more you push through when things feel challenging, the more you will discover what you are truly capable of. Your collaboration with others is something to continue developing, as working with classmates often brings out the best in your learning. Keep believing in yourself, Madison. There is so much more for you to achieve.",
         "rights": "Madison, you show a good understanding of your rights and responsibilities as a learner and this is developing consistently. You are growing in your ability to listen carefully to others and to respect different viewpoints in discussions. The effort you bring to your learning is developing and you are becoming more focused during lessons, especially when topics capture your interest. You contribute thoughtfully when you feel confident and your ideas are valued by those around you. An important next step is developing a more consistent approach to your learning — bringing the same enthusiasm you show in subjects like PE and Spanish to all areas of the Maple Learning Zone. Keep building on these positive qualities in Year 5, Madison."
-      }
+      },
+      "states_of_being": [
+        {
+          "state": "Scientist",
+          "enquiry": "How sound travels",
+          "skills": [
+            "Curiosity & Imagination"
+          ]
+        },
+        {
+          "state": "Computer Scientist",
+          "enquiry": "How computers are connected",
+          "skills": [
+            "Collaboration"
+          ]
+        }
+      ]
     },
     {
       "id": "ch29",
@@ -2315,7 +2331,8 @@
         "mathematician": "Rory has achieved the age-related standard in mathematics and in some aspects has been learning at greater depth. He is an accomplished mathematician who demonstrates excellent fluency across all areas of the Year 4 curriculum. Rory's mastery of his times tables underpins his confident work with fractions, decimals and division, and his written calculation methods are both accurate and efficient. His mathematical reasoning is particularly strong – he can explain his thinking clearly and tackle complex problems with enthusiasm and persistence. Rory approaches unfamiliar mathematical challenges with confidence and demonstrates real skill in identifying the most effective strategies to use. His problem-solving abilities are excellent and he contributes meaningfully to mathematical discussions. In Year 5, Rory will be ready to explore more sophisticated mathematical concepts and continue developing his reasoning skills across an increasingly challenging curriculum.",
         "learner_21c": "Rory, you have shown excellent commitment to your learning throughout Year 4 and your effort is truly outstanding. Your learning stamina is remarkable – you sustain focus and concentration over extended periods, which allows you to achieve real depth in your understanding. You bring genuine curiosity to your learning and are always eager to explore ideas further and ask thoughtful questions. Your resilience is excellent and you approach challenges with determination, never giving up when things become difficult. You show strong independence and are very capable of directing your own learning effectively. An important focus for Year 5 will be developing your collaboration skills – learning to work more effectively with others and valuing different perspectives will strengthen your learning even further. Keep setting those high expectations of yourself, Rory. Your drive and determination will take you far.",
         "rights": "Rory, you show a developing understanding of your rights and responsibilities as a learner in the Maple Learning Zone. Your commitment to your own learning is excellent and you approach every challenge with real determination. You are growing in your ability to listen carefully to others and to contribute thoughtfully to discussions, though this remains an area to continue building. Your focus during learning time is strong and you demonstrate good self-regulation in managing your learning dispositions. An important next step is developing your appreciation for the different strengths and perspectives that others bring to your learning community. Keep working on being an even more supportive learning partner to those around you in Year 5. You have many qualities to be proud of and much more to show."
-      }
+      },
+      "states_of_being": []
     },
     {
       "id": "ch30",
