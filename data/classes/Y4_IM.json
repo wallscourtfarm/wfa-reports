@@ -630,7 +630,16 @@
         "mathematician": "Carena has achieved the age-related standard in mathematics. She is developing her mathematical skills across the range of topics covered in Year 4 and shows growing confidence in her calculations. Carena is building her fluency with multiplication tables, which will be important for supporting her understanding of fractions and division as she progresses. Her written calculation methods are developing well, particularly in addition and subtraction. The key areas for Carena to focus on are mathematical reasoning and problem solving — developing her ability to explain her thinking and approach unfamiliar problems with confidence. Her understanding of fractions and decimals is an important area to strengthen, building on the multiplication facts she is developing. With continued practice in reasoning through problems step by step, Carena will grow in her mathematical confidence and capability in Year 5.",
         "learner_21c": "Carena, you have made steady progress as a 21st Century Learner this year and there are many positive qualities to build on. Your independence in learning is developing well — you are becoming more confident in managing your own tasks and taking ownership of your learning. Your character shines through in the Maple Learning Zone and your good sense of humour brings lightness to our learning community. The key areas for you to focus on in Year 5 are building your resilience when learning feels challenging and growing your curiosity to ask questions and explore ideas further. Your effort and spoken contributions are areas where small steps forward will make a big difference to your learning. Remember that every challenge you meet is an opportunity to grow stronger. Keep building on the foundations you have established this year, Carena.",
         "rights": "Carena, you show a developing understanding of your rights and responsibilities as a learner and are growing in your consistency each day. You are becoming more thoughtful in how you listen to others and contribute to our learning community. Your ability to focus during learning is developing and you are building your confidence in tackling new challenges. The way you support others with your natural warmth and humour is noticed and valued. An important next step for you in Year 5 will be to continue building your confidence to speak up and share your ideas — your contributions are always welcome and valued. Keep developing these qualities, Carena. You have much to be proud of and there is so much more for you to show."
-      }
+      },
+      "states_of_being": [
+        {
+          "state": "Scientist",
+          "enquiry": "How electricity flows in a circuit",
+          "skills": [
+            "Collaboration"
+          ]
+        }
+      ]
     },
     {
       "id": "ch09",
