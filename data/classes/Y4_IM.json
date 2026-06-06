@@ -1917,7 +1917,17 @@
         "mathematician": "Sam has not yet achieved the age-related standard in mathematics and is having additional support and provision to develop his skills. Sam shows developing mathematical reasoning and can explain his thinking when working through problems with support. He is beginning to understand mathematical concepts when they are broken down into smaller steps. The key areas for Sam to focus on are his multiplication facts and written calculation methods, as these foundational skills will support his progress across all areas of mathematics. Sam's work on times tables requires consistent daily practice, as fluency with these facts will unlock his ability to tackle fractions and division work more confidently. Building his stamina for mathematical tasks and developing his independence in applying taught methods will be important next steps in Year 5.",
         "learner_21c": "Sam, you have made progress as a 21st Century Learner throughout Year 4 and there are some real strengths to build on. Your curiosity is developing well and you show genuine interest when topics connect with what you enjoy. You are beginning to ask questions and follow ideas that capture your attention. Your character is growing stronger and you are becoming more confident in sharing your vocabulary knowledge, which is impressive. An important next step for you is developing your resilience and stamina for learning — the more you push through when tasks feel challenging, the more you will achieve. Building your independence and bringing that same enthusiasm you show for topics that interest you to a wider range of learning will help you show even more of what you are capable of in Year 5.",
         "rights": "Sam, you show a developing understanding of your rights and responsibilities as a learner in the Maple Learning Zone. You are growing in your ability to listen to others and contribute when you feel confident about the topic. Your respect for others is clear and you work well alongside your classmates when given the right support. You are developing the focus needed for extended periods of learning and this is something to be proud of. An important next step for you in Year 5 is building your confidence to participate more regularly in discussions and collaborative tasks. Remember that your voice and ideas matter, Sam — keep working on sharing them more often with the class."
-      }
+      },
+      "states_of_being": [
+        {
+          "state": "Computer Scientist",
+          "enquiry": "How computers are connected",
+          "skills": [
+            "Resilience",
+            "Curiosity & Imagination"
+          ]
+        }
+      ]
     },
     {
       "id": "ch25",
