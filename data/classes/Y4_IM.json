@@ -1034,7 +1034,23 @@
         "mathematician": "Max has achieved the age-related standard in mathematics and in some aspects has been learning at greater depth. He is an accomplished mathematician who approaches every aspect of the curriculum with confidence and precision. Max's fluency with multiplication tables up to 12×12 is excellent and underpins his strong performance in fractions, decimals and division work. His written calculation methods are accurate and efficient, and he demonstrates excellent understanding of place value concepts. Max excels in mathematical reasoning and problem-solving, approaching unfamiliar challenges with enthusiasm and systematic thinking. He can explain his mathematical reasoning clearly and often identifies multiple approaches to solve complex problems. Max's understanding of fractions and decimals is particularly strong, and he makes connections between different areas of mathematics confidently. Exploring more open-ended mathematical investigations and extending his problem-solving into multi-step challenges will provide the right level of stretch for Max in Year 5.",
         "learner_21c": "Max, you have made outstanding progress as a 21st Century Learner throughout Year 4 and your commitment to excellence is truly impressive. Your curiosity drives everything you do – you ask thoughtful questions, explore ideas deeply and bring genuine enthusiasm to every area of learning. Your resilience is exceptional and you approach challenges with determination and a growth mindset that inspires others around you. You demonstrate excellent independence, taking ownership of your learning while also being a generous collaborator who supports and challenges your peers. Your contributions to class discussions are always thoughtful and well-reasoned, and you listen to others with genuine interest and respect. The breadth of your knowledge and your enthusiasm for learning across all subjects makes you a real asset to the Maple Learning Zone. Keep pushing yourself to explore new challenges in Year 5, Max. Your potential is limitless.",
         "rights": "Max, you have an exemplary understanding of your rights and responsibilities as a learner and this foundation supports everything you achieve. You consistently demonstrate respect for others, listening carefully to different viewpoints and contributing to discussions with thoughtfulness and maturity. Your commitment to your own learning is unwavering and you approach every task with focus and determination. You are generous in supporting others and show real appreciation for the diverse strengths that everyone brings to our learning community. The way you balance confidence in your own abilities with genuine humility and willingness to learn from others is remarkable. You set an excellent example for your peers and contribute to the positive learning environment we all share. These qualities will serve you exceptionally well as you move into Year 5 and beyond."
-      }
+      },
+      "states_of_being": [
+        {
+          "state": "Scientist",
+          "enquiry": "How scientists classifying animals into mammals, fish, birds, reptiles and amphibians",
+          "skills": [
+            "Collaboration"
+          ]
+        },
+        {
+          "state": "Historian",
+          "enquiry": "Legacy of the Mayan Civilisation",
+          "skills": [
+            "Independence"
+          ]
+        }
+      ]
     },
     {
       "id": "ch14",
