@@ -546,7 +546,23 @@
         "mathematician": "Cody has achieved the age-related standard in mathematics and in some aspects has been learning at greater depth. He is an accomplished mathematician with strong fluency across all areas of the Year 4 curriculum. His times table recall is excellent and this underpins his confident work with fractions, decimals and division calculations. Cody demonstrates secure understanding of written calculation methods and applies these accurately in a range of contexts. His mathematical reasoning is particularly strong – he explains his thinking clearly and approaches unfamiliar problems with systematic thinking. Cody's problem-solving skills are impressive and he shows real capability when tackling more complex, multi-step challenges. His strong independence in mathematics allows him to work through problems methodically and check his own reasoning. The depth of understanding Cody has built across all mathematical topics provides an excellent foundation for the increased demands of Year 5, where he will be ready to tackle more sophisticated mathematical concepts and reasoning tasks.",
         "learner_21c": "Cody, you have developed well as a 21st Century Learner throughout Year 4 and your independence is one of your greatest strengths. You are capable of directing your own learning very effectively and this serves you well across all subjects. Your effort and resilience are developing – when you apply yourself fully to a challenge, you show just how much you can achieve. Growing your curiosity will be an important focus in Year 5 – your breadth of knowledge is impressive, and channeling this into deeper questioning and exploration will unlock even more of your potential. You are developing your collaboration skills and are becoming more willing to contribute your ideas in group discussions. Your spoken contributions in learning are growing in confidence, which is great to see. Keep building on your natural ability, Cody, and remember that the more you engage with your learning, the more you will discover what you are truly capable of achieving.",
         "rights": "Cody, you show a good understanding of your rights and responsibilities as a learner and are developing consistency in how you apply these in the Maple Learning Zone. You listen respectfully to others and are growing in your confidence to share your own ideas and contributions. Your focus during learning is developing well and you are becoming more reliable in maintaining your attention throughout lessons. You show respect for the learning environment and understand the importance of creating conditions where everyone can succeed. Keep building on these foundations in Year 5, Cody. Your natural capability combined with stronger engagement will help you become an even more positive influence on the learning community around you."
-      }
+      },
+      "states_of_being": [
+        {
+          "state": "Scientist",
+          "enquiry": "How electricity flows in a circuit",
+          "skills": [
+            "Independence"
+          ]
+        },
+        {
+          "state": "Computer Scientist",
+          "enquiry": "How computers are connected",
+          "skills": [
+            "Curiosity & Imagination"
+          ]
+        }
+      ]
     },
     {
       "id": "ch08",
