@@ -2417,7 +2417,23 @@
         "mathematician": "Cecilia has achieved the age-related standard in mathematics. She is a capable mathematician who demonstrates particular strength in her times table fluency — her secure recall of multiplication facts up to 12×12 provides an excellent foundation for more complex work. Cecilia's written calculation methods are accurate and she applies these confidently across addition, subtraction and multiplication. Her mathematical reasoning is strong and she explains her thinking clearly, showing real understanding of the concepts she is learning. Cecilia approaches problem-solving with determination and can identify effective strategies to tackle unfamiliar challenges. Her understanding of fractions and decimals is developing well and, with her strong multiplication knowledge, she is well-positioned to make excellent progress in this area in Year 5. Building stamina for longer mathematical tasks will help Cecilia to show the full extent of her mathematical thinking.",
         "learner_21c": "Cecilia, you have made good progress as a 21st Century Learner throughout Year 4 and there is much to celebrate about your development. Your good sense of humour brings lightness to the Maple Learning Zone and you contribute to the positive atmosphere in our learning community. You are growing in your curiosity and are becoming more willing to ask questions and explore ideas further. Your resilience is developing well — when you meet challenges, you are beginning to show more persistence and determination. You collaborate appropriately with others and are respectful in your interactions. Building your independence and developing the stamina needed for extended periods of learning will be important focuses in Year 5. When you are fully engaged, Cecilia, you show just how capable you are. Keep pushing yourself to maintain that focus and effort consistently.",
         "rights": "Cecilia, you show a good understanding of your rights and responsibilities as a learner and this is evident in your interactions with others in the Maple Learning Zone. You listen respectfully to your classmates and teachers and are growing in your confidence to contribute your own ideas to discussions. Your learning dispositions are developing well and you are becoming more consistent in your approach to challenges. You show care for others and contribute positively to our learning community. Developing your ability to maintain focus during longer periods of learning will be an important next step, as will taking greater ownership of your learning outcomes. You have strong foundations to build on in Year 5, Cecilia. Keep developing these qualities with the same determination you have shown this year."
-      }
+      },
+      "states_of_being": [
+        {
+          "state": "Geographer",
+          "enquiry": "Physical and Human geography of South America",
+          "skills": [
+            "Resilience"
+          ]
+        },
+        {
+          "state": "Computer Scientist",
+          "enquiry": "How computers are connected",
+          "skills": [
+            "Curiosity & Imagination"
+          ]
+        }
+      ]
     }
   ]
 }
