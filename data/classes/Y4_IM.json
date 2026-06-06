@@ -67,7 +67,16 @@
         "mathematician": "Asel has achieved the age-related standard in mathematics. She is a developing mathematician who applies herself well in lessons and has made good progress this year. Asel's times table knowledge is excellent — she has strong fluency across the 12×12 multiplication facts, which provides a solid foundation for her work on fractions and division. Her written calculation methods are developing well and she is growing in confidence with column methods and short multiplication. The main areas for Asel to develop are her mathematical reasoning and problem-solving skills — building her ability to explain her thinking and approach unfamiliar problems with confidence. Her work on fractions and decimals is progressing well and will benefit from her strong times table foundation. Continuing to develop her mathematical communication will be an important focus in Year 5.",
         "learner_21c": "Asel, you have made good progress as a 21st Century Learner this year and there are many qualities to celebrate. Your character is excellent and you show real care for others in the Maple Learning Zone. Your independence is outstanding — you are very capable of directing your own learning and managing your tasks effectively. You collaborate beautifully with others and bring a helpful approach to group learning. Your effort is developing well and you are building your resilience when facing challenges. An important area for you to focus on is developing your curiosity — pushing yourself to ask more questions and explore ideas further. You are also growing in confidence to share your ideas aloud, which is wonderful to see. Keep building on these strengths in Year 5, Asel.",
         "rights": "Asel, you have an excellent understanding of your rights and responsibilities as a learner and this is evident in everything you do. You consistently show respect for others and create a positive learning environment through your thoughtful and helpful approach. You listen carefully and show real appreciation for the contributions of your classmates. Your learning dispositions are strong and you approach each day with a positive attitude. You are developing your confidence to share your own ideas and contribute to discussions, which is great progress. These qualities — your respect for others, your positive approach and your growing confidence — will serve you very well in Year 5. Keep building on this strong foundation, Asel."
-      }
+      },
+      "states_of_being": [
+        {
+          "state": "Historian",
+          "enquiry": "Legacy of the Mayan Civilisation",
+          "skills": [
+            "Collaboration"
+          ]
+        }
+      ]
     },
     {
       "id": "ch02",
