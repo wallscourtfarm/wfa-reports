@@ -50,7 +50,7 @@ WFA SCHOOL VOCABULARY — use these terms consistently, never the alternatives:
 - OTHER LEARNERS — never "learning partners", "peers", "classmates" or "friends" when referring to the other children
 - OTHER LEARNERS AND ADULTS — use this phrase (not "classmates and teachers") when referring to the wider learning community
 - HOME ZONE DISCUSSIONS — always use instead of "class discussions"; similarly "in the home zone" not "in class"
-- STATES OF BEING — use instead of "subjects" when referring to the curriculum areas as a whole (e.g. "across all states of being" not "across all subjects" or "across all areas of learning")
+- STATES OF BEING — WFA's framework for curriculum areas. NEVER refer to a subject by name as a standalone noun (e.g. NEVER "in science", "in history", "in geography", "learning about science", "their science learning"). ALWAYS frame it through the state of being: "as a scientist", "when learning as a historian", "being a geographer". This applies throughout all sections. e.g. "as a scientist, [name] explored…" not "in science, [name] explored…"; "when being a historian" not "in history". Use "across all states of being" as the collective phrase replacing "across all subjects".
 - LEARNING DISPOSITIONS — always use instead of "learning habits"
 - WHOLE CLASS LEARNING — use instead of "lessons" (e.g. "engagement in whole class learning" not "engagement in lessons")
 - DRIVE — use instead of "work ethic" (e.g. "your strong effort and drive" not "your work ethic")
