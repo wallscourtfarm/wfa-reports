@@ -1670,7 +1670,23 @@
         "mathematician": "Penny has achieved the age-related standard in mathematics. She is developing as a mathematician and shows good understanding across many areas of the Year 4 curriculum. Penny's times table knowledge is building steadily and she is becoming more confident with written calculation methods, including column addition and subtraction. Her mathematical reasoning is developing well and she can explain her thinking with growing clarity. The key areas for Penny to focus on are problem-solving strategies and fractions work, where her developing times table fluency will increasingly support her understanding. Building confidence in tackling multi-step problems and working with equivalent fractions will be important next steps in Year 5.",
         "learner_21c": "Penny, you are developing well as a 21st Century Learner and it has been great to see your progress throughout Year 4. Your curiosity about learning is growing and you ask thoughtful questions that show you are thinking deeply about new ideas. You are building your resilience when facing challenges and are becoming more willing to keep trying when things feel difficult. Your collaboration with others is developing nicely and you contribute well to group learning. You have a lovely way of bringing lightness to learning situations, which your classmates really appreciate. Keep pushing yourself to be more independent in your learning in Year 5, Penny. There is so much more for you to discover and achieve.",
         "rights": "Penny, you show a good understanding of your rights and responsibilities as a learner in the Maple Learning Zone. You listen respectfully to others and are developing your ability to contribute thoughtfully in class discussions. Your focus during learning time is growing stronger and you are becoming more consistent in your learning habits. An important next step for you is taking greater care with the presentation of your learning — this will help you show the full extent of your understanding and creativity. Keep building on these positive foundations in Year 5, Penny. You have a great deal to be proud of and much more to show."
-      }
+      },
+      "states_of_being": [
+        {
+          "state": "Historian",
+          "enquiry": "Anglo Saxons invasion creating kingdoms of England",
+          "skills": [
+            "Curiosity & Imagination"
+          ]
+        },
+        {
+          "state": "Scientist",
+          "enquiry": "How sound travels",
+          "skills": [
+            "Resilience"
+          ]
+        }
+      ]
     },
     {
       "id": "ch22",
