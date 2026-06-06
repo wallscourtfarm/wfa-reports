@@ -462,7 +462,23 @@
         "mathematician": "Daisy has achieved the age-related standard in mathematics. She is a developing mathematician who shows real commitment to her learning and applies herself consistently in every lesson. Daisy has made good progress with her times tables knowledge and her written calculation methods, building confidence across the range of topics covered in Year 4. Her systematic approach to learning mathematical concepts is a real strength. The key area for Daisy to develop further is her mathematical reasoning and problem-solving skills — building her ability to explain her thinking and tackle unfamiliar problems with greater independence. Her work on fractions and decimals is emerging and will benefit from continued reinforcement of her times tables fluency. Continuing to build her confidence in explaining her mathematical thinking and approaching problems step by step will support her well as she moves into Year 5.",
         "learner_21c": "Daisy, the progress you have made as a 21st Century Learner throughout Year 4 is clear to everyone and really pleasing to see. Your effort and commitment to your learning is absolutely outstanding — you approach every challenge with determination and this is one of your greatest strengths. Your resilience is excellent and when you meet difficulties, you do not give up, which shows real maturity and growth. You are developing your independence and are becoming more confident in directing your own learning, while also collaborating well with others in the Maple Learning Zone. Building your curiosity — asking more questions and following ideas further — will be an important focus in Year 5. Your wonderful sense of humour brings real warmth to our learning community. Keep building on these qualities, Daisy. There is a great deal more for you to show and I know you will rise to every challenge.",
         "rights": "Daisy, you show a good understanding of your rights and responsibilities as a learner and are consistent in your learning dispositions throughout the day. You listen with care and respect to others and contribute thoughtfully when sharing your ideas with the class. Your ability to focus during learning is developing well and you are becoming more confident in tackling challenges independently, showing real determination when things become difficult. You treat everyone around you with kindness and respect, creating a positive learning environment for all. The commitment and effort you bring to your learning every day is noticed and appreciated by everyone in the Maple Learning Zone. Keep developing these qualities in Year 5, Daisy. You have a lot to be proud of and your positive approach makes a real difference to our learning community."
-      }
+      },
+      "states_of_being": [
+        {
+          "state": "Scientist",
+          "enquiry": "How sound travels",
+          "skills": [
+            "Curiosity & Imagination"
+          ]
+        },
+        {
+          "state": "Historian",
+          "enquiry": "Legacy of the Mayan Civilisation",
+          "skills": [
+            "Collaboration"
+          ]
+        }
+      ]
     },
     {
       "id": "ch07",
