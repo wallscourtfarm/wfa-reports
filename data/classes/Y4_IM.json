@@ -2332,7 +2332,22 @@
         "learner_21c": "Rory, you have shown excellent commitment to your learning throughout Year 4 and your effort is truly outstanding. Your learning stamina is remarkable – you sustain focus and concentration over extended periods, which allows you to achieve real depth in your understanding. You bring genuine curiosity to your learning and are always eager to explore ideas further and ask thoughtful questions. Your resilience is excellent and you approach challenges with determination, never giving up when things become difficult. You show strong independence and are very capable of directing your own learning effectively. An important focus for Year 5 will be developing your collaboration skills – learning to work more effectively with others and valuing different perspectives will strengthen your learning even further. Keep setting those high expectations of yourself, Rory. Your drive and determination will take you far.",
         "rights": "Rory, you show a developing understanding of your rights and responsibilities as a learner in the Maple Learning Zone. Your commitment to your own learning is excellent and you approach every challenge with real determination. You are growing in your ability to listen carefully to others and to contribute thoughtfully to discussions, though this remains an area to continue building. Your focus during learning time is strong and you demonstrate good self-regulation in managing your learning dispositions. An important next step is developing your appreciation for the different strengths and perspectives that others bring to your learning community. Keep working on being an even more supportive learning partner to those around you in Year 5. You have many qualities to be proud of and much more to show."
       },
-      "states_of_being": []
+      "states_of_being": [
+        {
+          "state": "Scientist",
+          "enquiry": "How sound travels",
+          "skills": [
+            "Curiosity & Imagination"
+          ]
+        },
+        {
+          "state": "Historian",
+          "enquiry": "Legacy of the Mayan Civilisation",
+          "skills": [
+            "Collaboration"
+          ]
+        }
+      ]
     },
     {
       "id": "ch30",
