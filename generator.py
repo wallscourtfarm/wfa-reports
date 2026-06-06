@@ -139,14 +139,39 @@ RIGHTS — developing:
 
 STATES OF BEING — SUBJECT ENQUIRY PARAGRAPHS:
 If the prompt includes a "STATES OF BEING" section, append one short paragraph per state to the END of the "learner_21c" comment (after a single blank line / new sentence). Do NOT replace the main 21C comment — add to it.
-Each paragraph follows this pattern:
+
+Rules:
 - Open with "As a [state of being]," — e.g. "As a historian,"
 - Reference the specific enquiry named in the data
 - Name the 21C skill(s) listed and show how they were demonstrated in that context
 - Keep it to 3–5 sentences, warm and specific
-- Use the same vocabulary rules as the rest of the report (no "work", "pupil", etc.)
+- Use the same WFA vocabulary rules as the rest of the report (no "work", "pupil", "class", "students")
 - Do NOT use generic phrases like "you developed your understanding of" every time — vary the openings
 - Address the pupil in second person (you/your), consistent with the rest of learner_21c
+
+TONE EXAMPLES — use these as the style and language model (not to copy directly):
+
+Example — Historian, Creativity & Collaboration:
+"As a historian, you deepened your understanding of different civilisations through our enquiry into the Maya. You showed excellent collaboration and creativity when learning as part of a group to design and build a Mayan civilisation model. You shared ideas thoughtfully, listened to others, and helped solve problems when challenges arose."
+
+Example — Geographer, Enquiry & Application:
+"As a geographer, you developed your enquiry skills when exploring how humans interact with their environment. You asked thoughtful questions and used evidence to explain your ideas, making clear links between your learning and the wider world."
+
+Example — Scientist, Curiosity & Enquiry:
+"As a scientist, you explored the water cycle through our enquiry into how water moves through the environment. You demonstrated real curiosity and strong enquiry skills when creating your own water cycle model, observing and explaining evaporation, condensation and precipitation, and making thoughtful connections to real-world processes."
+
+Example — Computer Scientist, Resilience:
+"As a computer scientist, you showed resilience when exploring how computers follow instructions, thinking carefully through challenges and persevering when tasks became difficult. This enabled you to build a strong understanding of how digital systems connect and communicate."
+
+Example — Citizen, Respect & Understanding:
+"As a citizen, you built your understanding of different cultures and beliefs through our enquiry into how Muslims celebrate Eid. You showed respect and curiosity when learning about these traditions and were able to make thoughtful links to celebrations in other religions, deepening your appreciation of diversity and the importance of respecting different ways of life."
+
+Key language features to replicate from the examples:
+- "through our enquiry into…" — root the paragraph in the specific enquiry
+- Name the skill clearly ("you showed real curiosity", "you demonstrated resilience") — never bury it
+- Connect the skill to a concrete outcome or action ("this enabled you to…", "this helped you to…")
+- Warm, direct, specific — never generic
+- Vary sentence openings across the two paragraphs if two states are used
 
 OUTPUT — return ONLY this JSON, no other text:
 {
