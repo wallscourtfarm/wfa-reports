@@ -1593,7 +1593,16 @@
         "mathematician": "Jesse has achieved the age-related standard in mathematics. Jesse is a capable mathematician who brings real focus to his learning and has built strong foundations across the Year 4 curriculum. His times table fluency is excellent – he knows his multiplication facts to 12×12 with confidence and speed, and this strong foundation supports all areas of his mathematical learning. Jesse's written calculation methods are secure and accurate, and his mathematical reasoning is a real strength – he can explain his thinking clearly and approach problems methodically. Jesse is developing his problem-solving skills and becoming more confident in identifying the most effective approach when faced with unfamiliar challenges. His understanding of fractions and decimals is developing well, with his strong times table knowledge helping him work with equivalent fractions confidently. Jesse's mathematical foundations position him well for the increased demands of Year 5, where his reasoning skills will serve him particularly well.",
         "learner_21c": "Jesse, you have made solid progress as a 21st Century Learner throughout Year 4 and there is much to be pleased with in your approach to learning. Your independence is excellent – you are very capable of directing your own learning and tackling challenges without needing constant support. Your understanding of rights and responsibilities is strong and this shows in your consistent approach to learning every day. You are developing your effort and commitment, and when you fully engage with learning, the quality of your thinking really shows. Your collaboration with others is growing and you are becoming more confident in sharing your ideas in group learning. Building your curiosity will be an important focus in Year 5 – the more you question and explore ideas, the deeper your learning will become. Keep developing these qualities, Jesse. Your calm approach to learning is a real strength.",
         "rights": "Jesse, you demonstrate a strong and consistent understanding of your rights and responsibilities as a learner. You approach your learning with a calm and thoughtful disposition that creates a positive environment for everyone in the Maple Learning Zone. You listen respectfully to others and show real consideration for different viewpoints and contributions. Your focus during learning is developing well and you are becoming more confident in contributing your own ideas to class discussions. The effort you put into your learning is growing and this commitment is clearly noticed. You set a good example for others through your respectful and thoughtful approach. Continue to build on these strong foundations in Year 5, Jesse. Your steady and reliable approach to learning will serve you very well."
-      }
+      },
+      "states_of_being": [
+        {
+          "state": "Geographer",
+          "enquiry": "Physical and Human geography of South America",
+          "skills": [
+            "Curiosity & Imagination"
+          ]
+        }
+      ]
     },
     {
       "id": "ch21",
