@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 import time
 from importer import import_from_files
-from generator import generate_comments, word_count
+from generator import generate_comments, word_count, ENQUIRIES, SOB_SKILLS
 from exporter import export_excel
 from report_builder import generate_reports_pdf
 from pupil_voice_importer import process_forms_export, build_output_excel
@@ -431,6 +431,66 @@ if nav == "📋 Score":
             for i, (key, label) in enumerate(fields):
                 with cols[i % ncols]:
                     score_widget(label, key, pid)
+
+    # ── States of Being ───────────────────────────────────────────────────────
+    sob_list = p.get("states_of_being") or [None, None]
+    # Normalise to exactly 2 slots
+    while len(sob_list) < 2:
+        sob_list.append(None)
+    sob_list = sob_list[:2]
+
+    sob_state_options = ["— none —"] + list(ENQUIRIES.keys())
+
+    with st.expander("🌍 States of Being (optional)", expanded=any(sob_list)):
+        st.caption(
+            "Add up to 2 subject-specific paragraphs to the 21C Learner comment. "
+            "Select a state, then the enquiry, then the skills demonstrated."
+        )
+        new_sob_list = []
+        for slot_i in range(2):
+            slot_label = f"State {slot_i + 1}" if slot_i == 0 else "State 2 (optional)"
+            slot_data  = sob_list[slot_i] or {}
+            cur_state  = slot_data.get("state", "")
+            cur_enq    = slot_data.get("enquiry", "")
+            cur_skills = slot_data.get("skills") or []
+
+            s1, s2, s3 = st.columns([2, 3, 3])
+            with s1:
+                state_idx = sob_state_options.index(cur_state) if cur_state in sob_state_options else 0
+                chosen_state = st.selectbox(
+                    slot_label, options=sob_state_options,
+                    index=state_idx, key=f"sob_state_{slot_i}_{pid}",
+                )
+            if chosen_state == "— none —":
+                new_sob_list.append(None)
+            else:
+                enq_opts = ENQUIRIES.get(chosen_state, [])
+                with s2:
+                    if enq_opts:
+                        enq_idx = enq_opts.index(cur_enq) if cur_enq in enq_opts else 0
+                        chosen_enq = st.selectbox(
+                            "Enquiry", options=enq_opts,
+                            index=enq_idx, key=f"sob_enq_{slot_i}_{pid}",
+                        )
+                    else:
+                        chosen_enq = st.text_input(
+                            "Enquiry", value=cur_enq,
+                            key=f"sob_enq_txt_{slot_i}_{pid}",
+                            placeholder="Describe the enquiry…",
+                        )
+                with s3:
+                    chosen_skills = st.multiselect(
+                        "21C skills demonstrated", options=SOB_SKILLS,
+                        default=[s for s in cur_skills if s in SOB_SKILLS],
+                        key=f"sob_skills_{slot_i}_{pid}",
+                    )
+                new_sob_list.append({
+                    "state": chosen_state,
+                    "enquiry": chosen_enq,
+                    "skills": chosen_skills,
+                })
+
+    p["states_of_being"] = [s for s in new_sob_list if s is not None]
 
     # ── Attendance & pupil voice ───────────────────────────────────────────────
     def _att_cat(v):

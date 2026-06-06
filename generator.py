@@ -7,6 +7,34 @@ import re
 import anthropic
 import streamlit as st
 
+# ── Year-group enquiry data (update each year) ────────────────────────────────
+ENQUIRIES = {
+    "Historian": [
+        "Anglo Saxons invasion creating kingdoms of England",
+        "How learning flourished in The Golden Age of Islam",
+        "Legacy of the Mayan Civilisation",
+    ],
+    "Geographer": [
+        "What's the difference between Regions and counties of England",
+        "Physical and Human geography of South America",
+    ],
+    "Scientist": [
+        "How scientists classifying animals into mammals, fish, birds, reptiles and amphibians",
+        "How electricity flows in a circuit",
+        "How sound travels",
+    ],
+    "Computer Scientist": [
+        "How computers are connected",
+    ],
+    "Citizen": [],
+    "Musician": [],
+    "Artist": [],
+    "Designer": [],
+    "Linguist": [],
+}
+
+SOB_SKILLS = ["Curiosity & Imagination", "Resilience", "Independence", "Collaboration"]
+
 # ── System prompt ──────────────────────────────────────────────────────────────
 SYSTEM_PROMPT = """You write Year 4 end-of-year school report comments for Wallscourt Farm Academy (WFA), Bristol. You write as Innes McLean, Year 4 class teacher.
 
@@ -108,6 +136,17 @@ RIGHTS — excellent:
 
 RIGHTS — developing:
 "[Name], you show a good understanding of your rights and responsibilities as a learner and are consistent in your learning dispositions. You are growing in your ability to listen carefully to others and to contribute thoughtfully in discussions. Your ability to focus during learning is developing well and you are becoming more confident in tackling challenges independently. Keep developing these qualities in Year 5, [Name]. You have a lot to be proud of."
+
+STATES OF BEING — SUBJECT ENQUIRY PARAGRAPHS:
+If the prompt includes a "STATES OF BEING" section, append one short paragraph per state to the END of the "learner_21c" comment (after a single blank line / new sentence). Do NOT replace the main 21C comment — add to it.
+Each paragraph follows this pattern:
+- Open with "As a [state of being]," — e.g. "As a historian,"
+- Reference the specific enquiry named in the data
+- Name the 21C skill(s) listed and show how they were demonstrated in that context
+- Keep it to 3–5 sentences, warm and specific
+- Use the same vocabulary rules as the rest of the report (no "work", "pupil", etc.)
+- Do NOT use generic phrases like "you developed your understanding of" every time — vary the openings
+- Address the pupil in second person (you/your), consistent with the rest of learner_21c
 
 OUTPUT — return ONLY this JSON, no other text:
 {
@@ -236,6 +275,20 @@ def build_prompt(p: dict) -> str:
     if other:
         lines.append(f"POSITIVE QUALITY / PERSONALITY NOTE: {other}")
         lines.append("(Weave this naturally into the 21C or R&R section — do not state it bluntly)")
+        lines.append("")
+
+    # States of being
+    sob_list = p.get("states_of_being") or []
+    if sob_list:
+        lines.append("STATES OF BEING:")
+        for sob in sob_list:
+            state    = sob.get("state", "")
+            enquiry  = sob.get("enquiry", "")
+            skills   = sob.get("skills") or []
+            if state and enquiry:
+                skill_str = ", ".join(skills) if skills else "21C skills"
+                lines.append(f"- Being a {state}: enquiry — \"{enquiry}\"; 21C skills demonstrated — {skill_str}")
+        lines.append("(Append one paragraph per state at the end of the learner_21c comment)")
         lines.append("")
 
     # Special flag
