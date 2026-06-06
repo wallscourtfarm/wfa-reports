@@ -1832,7 +1832,23 @@
         "mathematician": "Iris has not yet achieved the age-related standard in mathematics and is having additional support and provision to develop her skills. She is developing her written calculation methods and shows growing understanding in her work with fractions and decimals. Iris's mathematical reasoning is developing and she is becoming more able to explain her thinking when working through problems. The key area for Iris to focus on is building her fluency with multiplication and division facts — her times table recall directly impacts her ability to tackle fractions work and problem-solving with confidence. Iris is also developing her problem-solving skills and learning to identify the approach needed for different types of mathematical challenges. Regular practice with multiplication facts will be central to unlocking her mathematical potential in Year 5, supporting her progress across all areas of mathematics.",
         "learner_21c": "Iris, you have made steady progress as a 21st Century Learner throughout Year 4 and there are many positive qualities to build on. You show real curiosity in your learning and are developing your independence, becoming more confident in directing your own approach to tasks. Your collaboration with others is growing and you are learning to contribute your ideas while listening to those around you. An important area for you to focus on in Year 5 is developing your resilience — when learning feels challenging, keep pushing through rather than stepping back. Building your stamina for longer tasks and growing in confidence to participate more actively in discussions will help you show more of what you are capable of. You have many strengths to draw on, Iris. Keep building your confidence and commitment to learning in Year 5.",
         "rights": "Iris, you show a developing understanding of your rights and responsibilities as a learner and the kindness you show to those around you is really valued by everyone in Maple Learning Zone. You are growing in your ability to listen carefully to others and to contribute your ideas when you feel confident to do so. You are developing the focus and stamina needed for extended periods of learning, and this will become increasingly important as you move into Year 5. An important next step for you is developing your engagement across all areas of learning — the more you participate actively in discussions and activities, the more you will grow as a learner. Keep building on your natural kindness and developing confidence, Iris. You have a great deal to offer in Year 5."
-      }
+      },
+      "states_of_being": [
+        {
+          "state": "Computer Scientist",
+          "enquiry": "How computers are connected",
+          "skills": [
+            "Collaboration"
+          ]
+        },
+        {
+          "state": "Geographer",
+          "enquiry": "Physical and Human geography of South America",
+          "skills": [
+            "Curiosity & Imagination"
+          ]
+        }
+      ]
     },
     {
       "id": "ch24",
