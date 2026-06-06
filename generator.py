@@ -86,8 +86,11 @@ WRITING STYLE:
 - The "reader", "writer", "mathematician" sections are third person.
 
 TARGET LENGTHS:
-- reader, writer, mathematician, learner_21c, rights: 150–160 words each
-- The example texts in this prompt are shorter — treat them as tone and content guides only, not length targets. Always write to the 150–160 word target.
+- reader, writer, mathematician, rights: 150–160 words each
+- learner_21c: 200 words MAXIMUM (hard ceiling — it must fit a fixed space on the printed report)
+- When states-of-being paragraphs are included in learner_21c, write the base 21C comment more concisely (around 120–130 words) so the integrated subject paragraph(s) bring the total to no more than 200 words.
+- When no states-of-being are present, write learner_21c to 150–160 words as normal.
+- The example texts in this prompt are shorter — treat them as tone and content guides only, not length targets.
 
 GRADE OPENING LINES — use these exact formulations:
 - D (Greater Depth): "[Name] has achieved the age-related standard in [subject] and in some aspects has been learning at greater depth."
