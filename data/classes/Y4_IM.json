@@ -1358,7 +1358,16 @@
         "mathematician": "Izzy has achieved the age-related standard in mathematics. She is developing her mathematical understanding across the range of topics covered in Year 4 and her written calculation skills are growing stronger, particularly with column methods for addition and subtraction. Izzy's times table knowledge is developing well and this growing fluency is beginning to support her work in other areas. The key areas for her to focus on are fractions and decimals, where her developing times table knowledge will become increasingly important, and mathematical reasoning — building confidence to explain her thinking and approach problems systematically. When Izzy applies herself fully to mathematical challenges, she shows real capability. Developing her resilience when tackling unfamiliar problems and growing in confidence to share her mathematical thinking will be important focuses for Year 5, alongside continued practice to strengthen her multiplication facts.",
         "learner_21c": "Izzy, you have made good progress as a 21st Century Learner throughout Year 4 and there is much to be proud of in your development this year. Your independence is growing well and you are becoming more confident in directing your own learning and making choices about how to approach tasks. When you are fully engaged in learning, you demonstrate real capability and it is clear how much you have to offer. Your rich vocabulary is a genuine strength that enhances your contributions when you choose to share them. Developing your curiosity and willingness to ask questions will help you access more of your potential, and building your resilience when facing challenges will serve you well. Growing in confidence to take the lead in discussions and collaborative work will be an important focus for Year 5. You have so much talent to share, Izzy — keep building the confidence to show it.",
         "rights": "Izzy, you show a good understanding of your rights and responsibilities as a learner and are developing consistency in how you approach your learning. You listen respectfully to others and show appreciation for different viewpoints when they are shared. Your ability to focus during learning is growing and you are becoming more confident in tackling challenges when you put your mind to it. You are developing your willingness to contribute to class discussions and share your ideas, which is wonderful to see as your insights are always thoughtful. Building your confidence to speak up more regularly and share your excellent thinking with the class will help everyone learn from your perspective. Keep developing these qualities in Year 5, Izzy. You have a great deal to contribute and growing confidence to do so."
-      }
+      },
+      "states_of_being": [
+        {
+          "state": "Scientist",
+          "enquiry": "How sound travels",
+          "skills": [
+            "Curiosity & Imagination"
+          ]
+        }
+      ]
     },
     {
       "id": "ch18",
