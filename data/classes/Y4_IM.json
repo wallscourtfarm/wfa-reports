@@ -952,7 +952,23 @@
         "mathematician": "Arthur has achieved the age-related standard in mathematics and in some aspects has been learning at greater depth. He is a confident and capable mathematician who approaches his learning with focus and determination. Arthur's times tables knowledge is excellent and this strong fluency underpins his success with fractions, decimals and written calculations. He tackles multi-step problems methodically and shows real accuracy in his mathematical methods. Arthur is developing his mathematical reasoning and problem-solving approaches — while he can solve complex problems accurately, explaining his thinking and exploring alternative strategies will deepen his mathematical understanding further. His work with fractions and decimals is particularly strong, demonstrating secure understanding of these challenging concepts. Arthur's mathematical foundations are excellent and will support him well as he encounters the increased demands of Year 5 mathematics. Continuing to articulate his mathematical thinking will be his next important step.",
         "learner_21c": "Arthur, you have made excellent progress as a 21st Century Learner throughout Year 4 and your approach to learning is something to be very proud of. You bring genuine curiosity to every lesson and show real resilience when facing challenges — you never give up and this determination drives your success. Your independence is excellent and you are very capable of directing your own learning while collaborating thoughtfully with others in the Maple Learning Zone. The area for you to focus on developing is your oracy — while your ideas are strong, sharing them more confidently in discussions will help both you and your classmates learn even more effectively. Your effort and character shine through in everything you do, Arthur. Keep building on these excellent foundations and continue to challenge yourself to contribute your thinking more boldly in Year 5.",
         "rights": "Arthur, you demonstrate an excellent understanding of your rights and responsibilities as a learner and this is evident in your daily approach to learning in the Maple Learning Zone. You listen with genuine respect and show real appreciation for the contributions of everyone around you. Your commitment to your learning is consistent and admirable — you bring focus and determination to every lesson. You are developing your confidence in sharing your own ideas and contributing to class discussions, and this growing voice will be valuable in Year 5. The enthusiasm you bring to your learning creates a positive environment for everyone. Keep building on these strong foundations, Arthur. You have every reason to feel proud of what you have achieved this year."
-      }
+      },
+      "states_of_being": [
+        {
+          "state": "Geographer",
+          "enquiry": "What's the difference between Regions and counties of England",
+          "skills": [
+            "Curiosity & Imagination"
+          ]
+        },
+        {
+          "state": "Scientist",
+          "enquiry": "How sound travels",
+          "skills": [
+            "Independence"
+          ]
+        }
+      ]
     },
     {
       "id": "ch13",
