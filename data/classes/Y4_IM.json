@@ -1118,7 +1118,16 @@
         "mathematician": "Bonnie has achieved the age-related standard in mathematics. She is a capable mathematician with particular strengths in her times table knowledge, which is excellent and supports her work across many areas of mathematics. Bonnie's written calculation methods are secure – she can confidently use column addition and subtraction and is developing her multiplication and division skills. Her understanding of fractions and decimals is strong, benefiting directly from her fluent recall of multiplication facts. Bonnie shows excellent mathematical reasoning and can explain her thinking clearly, contributing well to class discussions about mathematical concepts. The area for her to focus on is applying these strong foundational skills to more complex problem-solving situations. When Bonnie engages fully with multi-step problems, her mathematical ability becomes clear. Building confidence in tackling unfamiliar problems and persevering when the approach is not immediately obvious will be key to her continued success in Year 5.",
         "learner_21c": "Bonnie, you have made steady progress as a 21st Century Learner throughout Year 4 and there is much to be proud of in your development. You are naturally helpful and show genuine care for others in the Maple Learning Zone, which is a wonderful quality. Your curiosity about learning is growing and you are becoming more willing to ask questions and explore ideas further. Your resilience is developing well – you are learning to persist when tasks feel challenging rather than giving up too quickly. You show good independence in managing your learning and are becoming more confident in directing your own progress. The key area for you to focus on is collaboration – learning to work more effectively with others and contributing your ideas confidently in group situations. When you fully engage with your learning, Bonnie, your capabilities really shine through. Keep building on these foundations in Year 5 – there is so much more for you to achieve.",
         "rights": "Bonnie, you show a good understanding of your rights and responsibilities as a learner and this is developing consistently throughout the year. You listen respectfully to others and are growing in your confidence to contribute your own thoughts and ideas during discussions. Your focus during learning is improving and you are becoming better at maintaining concentration even when tasks become more challenging. You demonstrate care for others in your learning zone and show consideration for the learning environment. The area for you to continue developing is taking more initiative in your learning – being proactive in seeking help when you need it and pushing yourself to engage fully even when topics feel less immediately interesting. Keep building on these positive qualities in Year 5, Bonnie. You have the foundation to be an excellent learner."
-      }
+      },
+      "states_of_being": [
+        {
+          "state": "Scientist",
+          "enquiry": "How electricity flows in a circuit",
+          "skills": [
+            "Collaboration"
+          ]
+        }
+      ]
     },
     {
       "id": "ch15",
