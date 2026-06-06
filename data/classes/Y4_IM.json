@@ -301,7 +301,23 @@
         "mathematician": "Zeek has achieved the age-related standard in mathematics and in some aspects has been learning at greater depth. He is a confident and capable mathematician who has built excellent fluency with his multiplication tables up to 12×12, which directly supports his strong performance in fractions, decimals and division work. Zeek's written calculation methods are accurate and efficient, and he tackles complex multi-step problems with confidence. His understanding of fractions and decimals is particularly strong, showing he can apply his times table knowledge effectively in more challenging contexts. The areas for Zeek to develop further in Year 5 are his mathematical reasoning – explaining his thinking more clearly – and his problem-solving approaches when faced with unfamiliar or open-ended challenges. Building these skills will allow him to demonstrate the full depth of his mathematical understanding. Zeek's solid computational skills provide an excellent foundation for the more complex mathematical concepts he will encounter in Year 5.",
         "learner_21c": "Zeek, you have made excellent progress as a 21st Century Learner throughout Year 4 and your commitment to learning is clear in everything you do. Your character is strong and you bring real effort to every challenge, which shows in the quality of learning you produce. You contribute confidently in discussions and your independence as a learner is impressive – you can direct your own learning and support others around you effectively. Your collaboration skills are excellent and you work well with everyone in the Maple Learning Zone. The areas for you to continue developing are your curiosity – pushing yourself to ask deeper questions and explore ideas further – and your resilience when faced with really challenging problems. Your active engagement with learning is one of your greatest strengths, Zeek. Keep challenging yourself to go deeper and push your thinking further in Year 5. There is so much more for you to achieve.",
         "rights": "Zeek, you have an excellent understanding of your rights and responsibilities as a learner and this is evident in how you approach every aspect of school life. You show consistent respect for others and listen carefully to different viewpoints and contributions. Your learning dispositions are strong and you bring focus and commitment to your learning every day. You understand the importance of creating a positive learning environment for everyone and you contribute to this through your thoughtful approach and willingness to support others. The effort you put into your learning is noticed and appreciated by everyone in the Maple Learning Zone. These qualities will serve you very well in Year 5, Zeek. Continue to be the positive example you have been throughout Year 4."
-      }
+      },
+      "states_of_being": [
+        {
+          "state": "Geographer",
+          "enquiry": "What's the difference between Regions and counties of England",
+          "skills": [
+            "Independence"
+          ]
+        },
+        {
+          "state": "Scientist",
+          "enquiry": "How sound travels",
+          "skills": [
+            "Curiosity & Imagination"
+          ]
+        }
+      ]
     },
     {
       "id": "ch05",
