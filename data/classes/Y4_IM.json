@@ -1518,7 +1518,16 @@
         "mathematician": "Sohan has achieved the age-related standard in mathematics. He demonstrates excellent fluency with his times tables across the full 12×12 range, and this strong foundation directly supports his outstanding work with fractions and decimals. Sohan's written calculation methods are secure and accurate – he applies column addition and subtraction confidently and is developing his multiplication and division skills well. His strong computational skills provide him with a solid foundation for tackling mathematical challenges. The areas for Sohan to develop are his mathematical reasoning and problem-solving skills. He is becoming more able to explain his thinking and justify his methods, but building confidence in tackling unfamiliar problems will be important in Year 5. Sohan sometimes needs encouragement to persevere when problems require deeper thinking or multiple steps. His excellent number fluency means he is well-positioned to take on the increased mathematical demands of Year 5, particularly as reasoning becomes more central to his learning.",
         "learner_21c": "Sohan, your character and understanding of rights and responsibilities are excellent – you consistently demonstrate respect for others and approach your learning with integrity. Your breadth of knowledge is impressive and you bring valuable insights to discussions across many subjects. You are developing your effort and persistence in learning, and there are clear signs of growth in your willingness to tackle challenges. Building your curiosity will be important – asking more questions and following ideas further will deepen your learning significantly. Your resilience is developing and you are becoming more willing to push through when tasks feel difficult. You collaborate well with others when working in groups and your independence is growing. Your spoken contributions in learning are developing – you have valuable ideas to share and growing confidence to express them. Keep building on these learning dispositions in Year 5, Sohan. There is so much more for you to discover and achieve.",
         "rights": "Sohan, you have an excellent understanding of your rights and responsibilities as a learner and this is evident in your consistent approach to learning every day. You listen respectfully to others and show real appreciation for different viewpoints and contributions. Your knowledge and insights enrich our learning environment and you are generous in sharing what you know with others. You demonstrate strong character and make thoughtful choices about how you engage with your learning and your peers. You are developing your confidence to contribute more frequently in discussions and your willingness to take on challenges is growing. These qualities, combined with your respect for others and your commitment to learning, will serve you very well in Year 5. Keep building on this strong foundation, Sohan."
-      }
+      },
+      "states_of_being": [
+        {
+          "state": "Scientist",
+          "enquiry": "How electricity flows in a circuit",
+          "skills": [
+            "Resilience"
+          ]
+        }
+      ]
     },
     {
       "id": "ch20",
