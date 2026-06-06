@@ -152,6 +152,7 @@ st.markdown(
     f'''<div style="display:flex;align-items:center;gap:14px;padding-bottom:12px;border-bottom:3px solid {BLUE};margin-bottom:8px;">
       <span style="background:{BLUE};color:white;font-weight:900;font-size:17px;padding:6px 13px;border-radius:6px;">WFA</span>
       <span style="color:{NAVY};font-weight:700;font-size:24px;">Report Manager</span>
+      <span style="margin-left:auto;color:#94a3b8;font-size:12px;font-family:monospace;">v26.06.06a</span>
     </div>''',
     unsafe_allow_html=True,
 )
