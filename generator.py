@@ -188,13 +188,18 @@ Key language features:
 - Warm, direct, specific — never generic
 - Vary sentence openings if two states are used
 
-OUTPUT — return ONLY this JSON, no other text:
+OUTPUT — return ONLY valid JSON containing the requested sections. If all sections are requested:
 {
   "reader": "...",
   "writer": "...",
   "mathematician": "...",
   "learner_21c": "...",
   "rights": "..."
+}
+If only specific sections are requested, return only those keys — e.g. if asked for reader and learner_21c only:
+{
+  "reader": "...",
+  "learner_21c": "..."
 }"""
 
 # ── Score labels ───────────────────────────────────────────────────────────────
@@ -362,19 +367,38 @@ def build_prompt(p: dict) -> str:
 
 
 # ── API call ───────────────────────────────────────────────────────────────────
-def generate_comments(p: dict) -> dict:
+ALL_SECTIONS = ["reader", "writer", "mathematician", "learner_21c", "rights"]
+
+
+def generate_comments(p: dict, sections: list | None = None) -> dict:
     """
-    Generate all five report sections for one pupil via Claude API.
-    Returns dict: {reader, writer, mathematician, learner_21c, rights}
+    Generate report sections for one pupil via Claude API.
+    sections: list of keys to generate (default: all five).
+    Returns dict containing only the requested keys.
     Raises ValueError or anthropic.APIError on failure.
     """
+    if sections is None:
+        sections = ALL_SECTIONS
+
     client = anthropic.Anthropic(api_key=st.secrets["ANTHROPIC_API_KEY"])
+
+    prompt = build_prompt(p)
+    if set(sections) != set(ALL_SECTIONS):
+        section_labels = {
+            "reader": "Being a reader",
+            "writer": "Being a writer",
+            "mathematician": "Being a mathematician",
+            "learner_21c": "21st Century Learner",
+            "rights": "Rights & Responsibilities",
+        }
+        requested = ", ".join(section_labels[s] for s in sections if s in section_labels)
+        prompt += f"\n\nONLY generate these sections: {requested}. Return JSON with only those keys."
 
     response = client.messages.create(
         model="claude-sonnet-4-20250514",
         max_tokens=4000,
         system=SYSTEM_PROMPT,
-        messages=[{"role": "user", "content": build_prompt(p)}],
+        messages=[{"role": "user", "content": prompt}],
     )
 
     raw = response.content[0].text.strip()
@@ -407,7 +431,7 @@ def generate_comments(p: dict) -> dict:
             fix_raw = re.sub(r"\s*```$", "", fix_raw)
             result = json.loads(fix_raw)
 
-    required = {"reader", "writer", "mathematician", "learner_21c", "rights"}
+    required = set(sections)
     missing = required - set(result.keys())
     if missing:
         raise ValueError(f"API response missing sections: {missing}")

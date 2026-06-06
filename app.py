@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 import time
 from importer import import_from_files
-from generator import generate_comments, word_count, ENQUIRIES, SOB_SKILLS
+from generator import generate_comments, word_count, ENQUIRIES, SOB_SKILLS, ALL_SECTIONS
 from exporter import export_excel
 from report_builder import generate_reports_pdf
 from pupil_voice_importer import process_forms_export, build_output_excel
@@ -694,24 +694,35 @@ if nav == "✍️ Generate":
                 format_func=lambda x: p_map[x]["full_name"],
                 key="gen_single_sel",
             )
-            if st.button("Generate", key="gen_single"):
+
+            SECTION_LABELS = {
+                "reader":        "📖 Being a reader",
+                "writer":        "✏️ Being a writer",
+                "mathematician": "🔢 Being a mathematician",
+                "learner_21c":   "🎓 21st Century Learner",
+                "rights":        "⚖️ Rights & Responsibilities",
+            }
+            st.caption("Select sections to generate:")
+            sel_sections = [
+                k for k in ALL_SECTIONS
+                if st.checkbox(SECTION_LABELS[k], value=True, key=f"sec_{k}")
+            ]
+
+            if st.button("Generate", key="gen_single", disabled=not sel_sections):
                 p = p_map[sel_name]
-                with st.spinner(f"Generating for {p['full_name']}…"):
+                with st.spinner(f"Generating {len(sel_sections)} section(s) for {p['full_name']}…"):
                     try:
-                        result = generate_comments(p)
-                        p["comments"] = result
+                        result = generate_comments(p, sections=sel_sections)
+                        comments = p.setdefault("comments", {})
+                        comments.update(result)
                         for j, existing in enumerate(cd["pupils"]):
                             if existing["id"] == p["id"]:
                                 cd["pupils"][j] = p; break
                         st.session_state.cd = cd
                         save_and_confirm()
-                        st.success("Generated ✓ — review in the 💬 Comments tab.")
-                        # Preview
-                        for key, label in [
-                            ("reader","Reader"),("writer","Writer"),("mathematician","Mathematician"),
-                            ("learner_21c","21C Learner"),("rights","R&R"),
-                        ]:
-                            with st.expander(label):
+                        st.success(f"Generated {len(result)} section(s) ✓ — review in the 💬 Comments tab.")
+                        for key in sel_sections:
+                            with st.expander(SECTION_LABELS[key]):
                                 st.write(result.get(key, ""))
                     except Exception as e:
                         st.error(f"Generation failed: {e}")
