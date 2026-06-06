@@ -2076,7 +2076,22 @@
         "learner_21c": "Teddie, you are developing as a 21st Century Learner and there are clear signs of progress throughout Year 4. Your politeness and kindness towards others in the Maple Learning Zone create a positive atmosphere for everyone. You are building your focus and developing the stamina needed for longer periods of learning, which will serve you well in Year 5. An important next step for you is to build your curiosity – asking more questions and showing greater interest in exploring ideas will help accelerate your progress across all subjects. Your collaboration skills are emerging and you are becoming more confident in sharing your thoughts with others. Building your resilience when tasks feel challenging will be crucial in Year 5. Remember that making mistakes is part of learning and pushing through when things feel difficult is how you will grow stronger. Keep working on developing these qualities, Teddie.",
         "rights": "Teddie, you show a developing understanding of your rights and responsibilities as a learner and your kind nature is appreciated by everyone in our learning zone. You are respectful towards others and listen carefully when others are speaking. Your ability to focus during learning is growing and you are becoming more confident in following instructions independently. You show good awareness of how to treat others with kindness and respect, which creates a positive environment for learning. An important next step for you is to contribute more actively to discussions and share your ideas with greater confidence. You have valuable thoughts to offer and others benefit from hearing your perspective. Building your independence in organizing your learning materials and taking pride in the presentation of your outcomes will be important areas to develop in Year 5. You have much to be proud of in how you treat others, Teddie."
       },
-      "states_of_being": []
+      "states_of_being": [
+        {
+          "state": "Computer Scientist",
+          "enquiry": "How computers are connected",
+          "skills": [
+            "Curiosity & Imagination"
+          ]
+        },
+        {
+          "state": "Geographer",
+          "enquiry": "Physical and Human geography of South America",
+          "skills": [
+            "Collaboration"
+          ]
+        }
+      ]
     },
     {
       "id": "ch27",
@@ -2146,7 +2161,23 @@
         "mathematician": "Bailey has not yet achieved the age-related standard in mathematics and is having additional support and provision to develop his skills. He has made progress throughout Year 4 and shows developing understanding in his times tables knowledge and mathematical reasoning. Bailey is growing in confidence when explaining his mathematical thinking and can talk through his approaches with support. The key areas for Bailey to focus on are written calculation methods and problem solving, where building his accuracy and understanding of the steps involved will be important. His developing times table fluency will support him as he continues to work on fractions and division. Bailey shows good mathematical reasoning when discussing problems and this strength will be valuable as he continues to build his skills. Consistent practice with basic calculation methods and times tables will support his progress in Year 5.",
         "learner_21c": "Bailey, the progress you have made as a 21st Century Learner throughout Year 4 is really pleasing to see. Your engagement in learning is one of your greatest strengths — you participate enthusiastically in lessons and bring real energy to the Maple Learning Zone every day. Your strong effort and work ethic are defining qualities that everyone notices and admires. You are developing your curiosity and resilience well and are becoming more willing to push through when challenges arise. Your collaboration with others is growing and you contribute thoughtfully to group activities. Building your independence will be an important focus in Year 5 — the more you take ownership of your learning, the more you will achieve. Keep bringing that wonderful enthusiasm to everything you do, Bailey. Your positive attitude makes a real difference.",
         "rights": "Bailey, you show excellent character and this is evident in your interactions with everyone in the Maple Learning Zone. Your understanding of your rights and responsibilities as a learner is developing well and you are growing in your ability to listen carefully to others and make thoughtful contributions. Your enthusiasm for learning is infectious and you bring positive energy to every lesson. You are becoming more consistent in your learning dispositions and are developing your focus during independent tasks. Your willingness to participate and engage with new ideas shows real maturity. Keep building on these wonderful qualities in Year 5, Bailey. Your positive approach to learning and the respect you show others are qualities that will serve you very well."
-      }
+      },
+      "states_of_being": [
+        {
+          "state": "Historian",
+          "enquiry": "Legacy of the Mayan Civilisation",
+          "skills": [
+            "Collaboration"
+          ]
+        },
+        {
+          "state": "Scientist",
+          "enquiry": "How electricity flows in a circuit",
+          "skills": [
+            "Resilience"
+          ]
+        }
+      ]
     },
     {
       "id": "ch28",
