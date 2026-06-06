@@ -1436,7 +1436,23 @@
         "mathematician": "Louie has achieved the age-related standard in mathematics. He is a thoughtful mathematician who shows particular strength in his times table fluency, which underpins his excellent progress with fractions and decimals. Louie's mathematical reasoning is strong and he approaches problems with clear thinking, often finding effective solutions through careful analysis. His problem-solving skills are excellent and he enjoys tackling more complex challenges that require him to apply multiple skills. Louie is developing his accuracy with written calculation methods and, with continued focus on the column methods for addition, subtraction and short multiplication, will build greater confidence in this area. His strong number sense and fluency provide an excellent foundation for the increased mathematical demands he will meet in Year 5.",
         "learner_21c": "Louie, you have made steady progress as a 21st Century Learner throughout Year 4 and your growing effort in lessons is really positive to see. Your independence is excellent — you are very capable of directing your own learning and tackling challenges without needing constant guidance. You are developing your curiosity and are beginning to ask more questions about the topics that capture your interest, particularly in history, geography and science where your knowledge really shines. Building your resilience will be an important focus in Year 5 — when learning feels challenging, keep pushing through rather than stepping back. Developing your collaboration skills and contributing more actively in group discussions will help you share your knowledge with others. Keep building on your natural curiosity, Louie. There is much more for you to explore and achieve.",
         "rights": "Louie, you show a developing understanding of your rights and responsibilities as a learner in the Maple Learning Zone. You are growing in your ability to focus during learning time and are becoming more consistent in your approach to different subjects. Your independence is strong and you take responsibility for your own learning well. The key areas for you to develop are your collaboration with others and your willingness to contribute your ideas in class discussions — you have valuable knowledge to share. Building your resilience when learning feels difficult will also help you tackle new challenges with greater confidence. These are important qualities to strengthen in Year 5, Louie, and I am certain you can develop them further."
-      }
+      },
+      "states_of_being": [
+        {
+          "state": "Geographer",
+          "enquiry": "Physical and Human geography of South America",
+          "skills": [
+            "Curiosity & Imagination"
+          ]
+        },
+        {
+          "state": "Historian",
+          "enquiry": "Legacy of the Mayan Civilisation",
+          "skills": [
+            "Independence"
+          ]
+        }
+      ]
     },
     {
       "id": "ch19",
