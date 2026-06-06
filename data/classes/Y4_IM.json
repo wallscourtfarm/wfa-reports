@@ -709,7 +709,16 @@
         "mathematician": "Lois has not yet achieved the age-related standard in mathematics and is working within the Year 3 curriculum. She shows real determination in mathematics and her strong focus and concentration help her tackle new concepts with care. Lois is developing her understanding of times tables and written calculation methods, which are important foundations for Year 4 mathematics. Her problem-solving skills are strengthening and she is becoming more systematic in her approach to mathematical challenges. The key areas for Lois to focus on are mathematical reasoning — explaining her thinking clearly — and fractions and decimals, which require secure times table knowledge to access fully. Building her fluency with multiplication and division facts will unlock much of the Year 4 curriculum for her. With continued focus and the strong work habits she already demonstrates, Lois is well-positioned to make good progress in Year 5.",
         "learner_21c": "Lois, you have shown real growth as a 21st Century Learner throughout Year 4 and there is much to celebrate about your approach to learning. Your focus and concentration are genuine strengths — you bring consistent attention to your learning every day and this is noticed and valued. You are developing your independence well and are becoming more confident in directing your own learning. An important area for you to develop is your willingness to share your ideas and contribute to discussions — your thoughts and insights are valuable and growing in confidence to participate will strengthen your learning. Building your resilience when challenges feel difficult will help you push through and achieve more. You are also developing your collaboration skills and learning to work well with others. Keep building on these qualities in Year 5, Lois. Your consistent effort and focus will take you far.",
         "rights": "Lois, you show a developing understanding of your rights and responsibilities as a learner and this is reflected in your consistent approach to learning in the Maple Learning Zone. You listen respectfully to others and are growing in your confidence to contribute your own ideas to discussions. Your ability to focus and concentrate during learning is a real strength and something that supports both your own progress and the learning of those around you. You are developing your willingness to participate more actively in class activities and this growing confidence will serve you well. Keep building on these positive learning dispositions in Year 5, Lois. You have strong foundations to work from and there is much more for you to show and achieve."
-      }
+      },
+      "states_of_being": [
+        {
+          "state": "Geographer",
+          "enquiry": "Physical and Human geography of South America",
+          "skills": [
+            "Curiosity & Imagination"
+          ]
+        }
+      ]
     },
     {
       "id": "ch10",
