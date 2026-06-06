@@ -142,7 +142,23 @@
         "mathematician": "Haris has achieved the age-related standard in mathematics. He is a capable mathematician who shows particular strength in written calculations and his understanding of fractions and decimals. Haris demonstrates excellent mathematical reasoning and contributes thoughtfully to class discussions, explaining his thinking clearly. He is developing his times tables recall, which will be important to secure in Year 5 as it directly supports his work on division and more complex fraction calculations. Haris approaches problems systematically but building his resilience when tackling unfamiliar challenges will help him access the full range of mathematical learning ahead.",
         "learner_21c": "Haris, you have made good progress as a 21st Century Learner throughout Year 4 and your excellent independence is a real strength. You contribute confidently in discussions and your spoken contributions show deep thinking and impressive knowledge. You are developing your curiosity and are becoming more willing to explore ideas further. The area for you to focus on most in Year 5 is building your resilience – when learning feels challenging, push through rather than stepping back. Your collaboration with others is growing and you bring valuable perspectives from your own experiences and understanding to group learning. Keep building on these foundations, Haris. Challenge yourself to persist when things feel difficult.",
         "rights": "Haris, you show a good understanding of your rights and responsibilities as a learner in the Maple Learning Zone. You are growing in your ability to listen carefully to others and to appreciate different viewpoints and experiences. Your contributions to discussions are thoughtful and you show respect for the learning environment. You are developing your ability to focus consistently during independent learning time and to support others when working together. Building your resilience and maintaining effort when tasks become challenging will be important areas for you to develop in Year 5. Keep building on the positive foundations you have established this year."
-      }
+      },
+      "states_of_being": [
+        {
+          "state": "Scientist",
+          "enquiry": "How electricity flows in a circuit",
+          "skills": [
+            "Curiosity & Imagination"
+          ]
+        },
+        {
+          "state": "Geographer",
+          "enquiry": "Physical and Human geography of South America",
+          "skills": [
+            "Independence"
+          ]
+        }
+      ]
     },
     {
       "id": "ch03",
