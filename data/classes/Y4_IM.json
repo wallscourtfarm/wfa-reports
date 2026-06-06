@@ -1195,7 +1195,16 @@
         "mathematician": "Diyan has achieved the age-related standard in mathematics. He shows particular strength in written calculations and approaches column methods with accuracy and confidence. Diyan's understanding of fractions and decimals is excellent – he can work with equivalent fractions and decimal place value with real security. His mathematical reasoning and problem-solving skills are developing well, and he is becoming more able to explain his thinking clearly. The key area for Diyan to focus on is building his fluency with multiplication tables, as this will directly support his work with division and more complex fraction calculations. His willingness to tackle challenging problems is growing, and with continued practice of his times tables, he will be able to access increasingly sophisticated mathematical concepts. Maintaining his strong foundation in written methods while building speed and accuracy with number facts will serve him well in Year 5.",
         "learner_21c": "Diyan, you are developing well as a 21st Century Learner and there are clear signs of growth throughout Year 4. Your resilience is building and you are becoming more willing to persist when learning feels challenging. You show good independence in your learning and are capable of following instructions and completing tasks without constant guidance. Your collaboration with others is developing nicely – you listen respectfully and contribute appropriately in group work. The key area for you to focus on is developing your curiosity and willingness to participate more actively in discussions and learning activities. Growing in confidence to ask questions, share your ideas and take learning risks will help you show more of what you are capable of. Building your effort and engagement across all areas will be crucial in Year 5. You have strong foundations to build on, Diyan.",
         "rights": "Diyan, you show a developing understanding of your rights and responsibilities as a learner in the Maple Learning Zone. You listen respectfully to others and follow the routines and expectations of your learning zone with consistency. Your ability to work both independently and collaboratively is growing, and you show consideration for others in your interactions. You are becoming more confident in contributing to class discussions and are developing your ability to focus during learning activities. Growing in your willingness to participate actively and share your thinking will be an important next step in Year 5. Your respectful attitude and developing independence are real strengths that will serve you well as you continue to grow as a learner."
-      }
+      },
+      "states_of_being": [
+        {
+          "state": "Computer Scientist",
+          "enquiry": "How computers are connected",
+          "skills": [
+            "Collaboration"
+          ]
+        }
+      ]
     },
     {
       "id": "ch16",
