@@ -870,7 +870,23 @@
         "mathematician": "Ziyad has achieved the age-related standard in mathematics and in some aspects has been learning at greater depth. He is an excellent mathematician who demonstrates strong fluency across all areas of the Year 4 curriculum. Ziyad's multiplication tables knowledge is secure and this underpins his confident work with fractions, decimals and division. His written calculation methods are accurate and efficient, and he applies these skills well when tackling multi-step problems. Ziyad's mathematical reasoning is clear and he can explain his thinking with confidence. He approaches unfamiliar and complex problems with enthusiasm and shows real perseverance when exploring different approaches. His problem-solving skills are strong and he demonstrates genuine mathematical thinking. Continuing to challenge himself with increasingly complex problems and deepening his understanding of mathematical relationships will be important in Year 5.",
         "learner_21c": "Ziyad, you have shown real development as a 21st Century Learner throughout Year 4 and your natural curiosity is one of your greatest strengths. You bring genuine interest to your learning and ask thoughtful questions that show you are thinking deeply about new ideas. Your independence is excellent – you are very capable of directing your own learning and tackling challenges without constant support. You are developing your resilience and are becoming more willing to persist when things feel difficult. Building your collaboration skills will be an important focus in Year 5 – listening more carefully to others' ideas and contributing more regularly to group discussions. Your effort is growing and you are beginning to show more consistency in applying yourself fully to all areas of learning. Keep building on these qualities, Ziyad, and remember to take greater care with the presentation of your work.",
         "rights": "Ziyad, you show a developing understanding of your rights and responsibilities as a learner and are growing in your consistency. You are becoming more reliable in your learning dispositions and show respect for the learning environment. Your ability to focus during lessons is developing well and you contribute thoughtfully when you choose to share your ideas. You show good appreciation for the diverse contributions of others in the Maple Learning Zone. An important next step for you in Year 5 is to show more consistency in your character – being the same thoughtful, engaged learner every day, regardless of the subject or activity. When you apply yourself fully, the quality of your contributions is excellent. Keep building these positive habits, Ziyad. You have a lot to offer."
-      }
+      },
+      "states_of_being": [
+        {
+          "state": "Historian",
+          "enquiry": "How learning flourished in The Golden Age of Islam",
+          "skills": [
+            "Collaboration"
+          ]
+        },
+        {
+          "state": "Computer Scientist",
+          "enquiry": "How computers are connected",
+          "skills": [
+            "Curiosity & Imagination"
+          ]
+        }
+      ]
     },
     {
       "id": "ch12",
