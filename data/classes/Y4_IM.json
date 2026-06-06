@@ -226,7 +226,16 @@
         "mathematician": "Amir has achieved the age-related standard in mathematics and in some aspects has been learning at greater depth. He is an excellent mathematician who demonstrates strong skills across all areas of the Year 4 curriculum. Amir's times table fluency is outstanding and provides a solid foundation for his work with fractions, decimals and division. His written calculation methods are accurate and efficient, and he approaches mathematical reasoning and problem-solving with genuine enthusiasm and skill. Amir shows particular strength in tackling complex and multi-step problems, applying his knowledge flexibly and explaining his thinking clearly. His understanding of fractions and decimals is secure and he can work confidently with these concepts. Amir's mathematical discussions are thoughtful and he contributes valuable insights that support the learning of others. Continuing to seek out increasingly challenging mathematical investigations will build on his strong foundations as he moves into Year 5.",
         "learner_21c": "Amir, you have made strong progress as a 21st Century Learner throughout Year 4 and your commitment to learning is evident every day. Your effort is excellent and you approach every challenge with determination and focus. You are highly independent in your learning and show real resilience when facing difficult problems – particularly in mathematics where your problem-solving approach is genuinely impressive. Your contributions to class discussions are thoughtful and valuable, and you participate enthusiastically in all aspects of learning. The key areas for you to develop further are your curiosity and collaboration with others. Asking more questions and exploring ideas beyond the immediate task will deepen your learning, while listening more actively to others' contributions will strengthen your collaborative skills. I am certain that building these qualities in Year 5 will unlock even more of your potential, Amir.",
         "rights": "Amir, you show a good understanding of your rights and responsibilities as a learner and are developing in your learning dispositions. You are growing in your ability to listen carefully to others and show respect for different viewpoints, though this is an area where you can continue to build. Your focus during learning is strong and you take responsibility for your own progress with real maturity. You are becoming more consistent in showing appreciation for the contributions of those around you, and this developing awareness of others is really positive to see. Your enthusiasm for participating in learning is one of your greatest strengths and something that benefits everyone in the Maple Learning Zone. Keep working on being an even more thoughtful listener and collaborator in Year 5, Amir. These qualities will serve you very well alongside your academic strengths."
-      }
+      },
+      "states_of_being": [
+        {
+          "state": "Historian",
+          "enquiry": "Legacy of the Mayan Civilisation",
+          "skills": [
+            "Curiosity & Imagination"
+          ]
+        }
+      ]
     },
     {
       "id": "ch04",
