@@ -152,7 +152,7 @@ st.markdown(
     f'''<div style="display:flex;align-items:center;gap:14px;padding-bottom:12px;border-bottom:3px solid {BLUE};margin-bottom:8px;">
       <span style="background:{BLUE};color:white;font-weight:900;font-size:17px;padding:6px 13px;border-radius:6px;">WFA</span>
       <span style="color:{NAVY};font-weight:700;font-size:24px;">Report Manager</span>
-      <span style="margin-left:auto;color:#94a3b8;font-size:12px;font-family:monospace;">v26.06.06f</span>
+      <span style="margin-left:auto;color:#94a3b8;font-size:12px;font-family:monospace;">v26.06.06g</span>
     </div>''',
     unsafe_allow_html=True,
 )
@@ -651,18 +651,32 @@ if nav == "✍️ Generate":
 
         c1, c2 = st.columns(2)
 
+        SECTION_LABELS_BULK = {
+            "reader":        "📖 Being a reader",
+            "writer":        "✏️ Being a writer",
+            "mathematician": "🔢 Being a mathematician",
+            "learner_21c":   "🎓 21st Century Learner",
+            "rights":        "⚖️ Rights & Responsibilities",
+        }
+
         with c1:
             st.markdown("#### Generate for all pupils")
-            st.caption("Generates all 5 sections for every pupil. Takes ~10 minutes for a class of 30.")
+            st.caption("Select sections to generate for every pupil. Takes ~2 min per section for a class of 30.")
+
+            bulk_sections = [
+                k for k in ALL_SECTIONS
+                if st.checkbox(SECTION_LABELS_BULK[k], value=True, key=f"bulk_sec_{k}")
+            ]
+
             overwrite = st.checkbox("Overwrite existing comments", value=False, key="gen_overwrite")
-            if st.button("Generate all", type="primary", key="gen_all"):
+
+            if st.button("Generate all", type="primary", key="gen_all", disabled=not bulk_sections):
                 to_generate = sorted_pupils if overwrite else [
                     p for p in sorted_pupils
-                    if not any(p.get("comments",{}).get(k)
-                               for k in ["reader","writer","mathematician","learner_21c","rights"])
+                    if not any(p.get("comments",{}).get(k) for k in bulk_sections)
                 ]
                 if not to_generate:
-                    st.info("All pupils already have comments. Tick 'Overwrite' to regenerate.")
+                    st.info("All pupils already have those sections. Tick 'Overwrite' to regenerate.")
                 else:
                     prog = st.progress(0.0)
                     status = st.empty()
@@ -670,8 +684,9 @@ if nav == "✍️ Generate":
                     for i, p in enumerate(to_generate):
                         status.markdown(f"Generating: **{p['full_name']}** ({i+1}/{len(to_generate)})")
                         try:
-                            result = generate_comments(p)
-                            p["comments"] = result
+                            result = generate_comments(p, sections=bulk_sections)
+                            comments = p.setdefault("comments", {})
+                            comments.update(result)
                             for j, existing in enumerate(cd["pupils"]):
                                 if existing["id"] == p["id"]:
                                     cd["pupils"][j] = p; break
@@ -684,7 +699,7 @@ if nav == "✍️ Generate":
                         time.sleep(0.3)
                     status.empty()
                     save_and_confirm()
-                    st.success(f"Done — {ok_count} generated, {fail_count} failed.")
+                    st.success(f"Done — {ok_count} generated ({len(bulk_sections)} section(s) each), {fail_count} failed.")
 
         with c2:
             st.markdown("#### Generate for one pupil")
