@@ -1273,7 +1273,23 @@
         "mathematician": "Emilia has achieved the age-related standard in mathematics. She is a confident and capable mathematician who brings excellent focus and determination to every lesson. Emilia has developed strong fluency with her times tables up to 12×12, which is a real strength and provides a solid foundation for all her mathematical learning. She is developing her written calculation methods and is growing in confidence with column addition, subtraction and short multiplication. Emilia is building her mathematical reasoning skills and is becoming more able to explain her thinking and approach to problems. Her understanding of fractions and decimals is developing well, supported by her strong times table knowledge. Continuing to deepen her problem-solving strategies and mathematical reasoning will be important focuses as she moves into the more demanding curriculum of Year 5.",
         "learner_21c": "Emilia, you have made excellent progress as a 21st Century Learner throughout Year 4 and your enthusiasm for learning is one of your greatest strengths. You participate actively in every lesson and your genuine engagement with new ideas is wonderful to see. Your effort and commitment are exceptional – you bring real determination to everything you do and this shows in the progress you are making. Your resilience is excellent and you never give up when faced with a challenge, which is something to be very proud of. You collaborate beautifully with others and are always supportive and encouraging to those around you. Building your independence and curiosity further will be important next steps – continue to ask questions and push your thinking deeper. Keep bringing that fantastic enthusiasm to Year 5, Emilia.",
         "rights": "Emilia, you have an excellent understanding of your rights and responsibilities as a learner and this shows consistently in your approach to learning in the Maple Learning Zone. You listen with real care and respect to others and contribute thoughtfully to discussions and group learning. Your commitment to your learning every single day is noticed and appreciated by everyone around you. You show genuine respect for the learning environment and support others brilliantly in their learning journey. You are developing your confidence in speaking up and sharing your ideas, which is great to see. These strong foundations will serve you very well in Year 5. Keep being the engaged and thoughtful learner you are, Emilia."
-      }
+      },
+      "states_of_being": [
+        {
+          "state": "Geographer",
+          "enquiry": "Physical and Human geography of South America",
+          "skills": [
+            "Curiosity & Imagination"
+          ]
+        },
+        {
+          "state": "Scientist",
+          "enquiry": "How sound travels",
+          "skills": [
+            "Collaboration"
+          ]
+        }
+      ]
     },
     {
       "id": "ch17",
