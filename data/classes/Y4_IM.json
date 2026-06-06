@@ -786,7 +786,23 @@
         "mathematician": "Phoebe has achieved the age-related standard in mathematics. She approaches mathematical learning with focus and commitment, showing steady progress across all areas of the Year 4 curriculum. Phoebe is developing her understanding of multiplication and division facts, which will be central to her continued progress in Year 5, particularly in fractions and more complex calculations. Her written calculation methods are developing well and she shows growing confidence with column addition and subtraction. Phoebe's mathematical reasoning is progressing steadily and she is becoming more able to explain her thinking and approach to problem solving. Her work on fractions and decimals shows good understanding of the underlying concepts. Building greater fluency with her times tables will unlock more complex mathematical thinking and support her problem-solving confidence as she moves into Year 5.",
         "learner_21c": "Phoebe, you have made excellent progress as a 21st Century Learner throughout Year 4 and your enthusiasm for learning is one of your greatest strengths. You bring wonderful energy and engagement to every lesson and this genuine enthusiasm enhances the learning of everyone around you. Your resilience is impressive — when faced with challenges, you persevere with determination and a positive attitude. You show excellent independence in directing your own learning and your character and effort are consistently strong. Your curiosity is developing well and you are growing in confidence to ask questions and explore ideas further. Your collaboration with others and your spoken contributions in discussions are areas to continue building in Year 5. Keep channelling that fantastic enthusiasm, Phoebe — it will take you far.",
         "rights": "Phoebe, you demonstrate an excellent understanding of your rights and responsibilities as a learner and this shows consistently in your approach to learning. You listen with genuine respect and show real appreciation for the ideas and contributions of others in the Maple Learning Zone. The commitment and positive attitude you bring to your learning every day is noticed and valued by everyone. You participate actively and thoughtfully in discussions and show real care for creating a positive learning environment for everyone. You are developing well in your ability to contribute your own ideas confidently while supporting others around you. These wonderful qualities will serve you exceptionally well in Year 5, Phoebe. Keep being the engaged and thoughtful learner you are."
-      }
+      },
+      "states_of_being": [
+        {
+          "state": "Computer Scientist",
+          "enquiry": "How computers are connected",
+          "skills": [
+            "Independence"
+          ]
+        },
+        {
+          "state": "Scientist",
+          "enquiry": "How electricity flows in a circuit",
+          "skills": [
+            "Curiosity & Imagination"
+          ]
+        }
+      ]
     },
     {
       "id": "ch11",
