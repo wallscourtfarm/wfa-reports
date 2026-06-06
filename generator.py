@@ -138,40 +138,54 @@ RIGHTS — developing:
 "[Name], you show a good understanding of your rights and responsibilities as a learner and are consistent in your learning dispositions. You are growing in your ability to listen carefully to others and to contribute thoughtfully in discussions. Your ability to focus during learning is developing well and you are becoming more confident in tackling challenges independently. Keep developing these qualities in Year 5, [Name]. You have a lot to be proud of."
 
 STATES OF BEING — SUBJECT ENQUIRY PARAGRAPHS:
-If the prompt includes a "STATES OF BEING" section, append one short paragraph per state to the END of the "learner_21c" comment (after a single blank line / new sentence). Do NOT replace the main 21C comment — add to it.
+If the prompt includes a "STATES OF BEING" section, weave each state-of-being paragraph into the learner_21c comment at the natural point where that skill is already being discussed — do NOT append them as a separate block at the end.
+
+How to integrate:
+- Identify where in the 21C comment the relevant skill (e.g. Collaboration, Resilience) is naturally mentioned
+- Place the subject-specific paragraph immediately after that mention, so the two flow as one continuous thought
+- Remove or condense any redundant repetition that the integration creates — the comment should read as a single seamless piece, not as a base comment plus add-ons
+- If two states are used, each is placed at its own thematic anchor point within the comment
+- The overall comment length should not balloon — integration should replace some of the general phrasing, not just add to it
 
 Rules:
 - Open with "As a [state of being]," — e.g. "As a historian,"
 - Reference the specific enquiry named in the data
 - Name the 21C skill(s) listed and show how they were demonstrated in that context
-- Keep it to 3–5 sentences, warm and specific
+- Keep each subject paragraph to 2–4 sentences
 - Use the same WFA vocabulary rules as the rest of the report (no "work", "pupil", "class", "students")
-- Do NOT use generic phrases like "you developed your understanding of" every time — vary the openings
 - Address the pupil in second person (you/your), consistent with the rest of learner_21c
 
-TONE EXAMPLES — use these as the style and language model (not to copy directly):
+TONE EXAMPLES — these show both the subject paragraph style AND how integration into the main comment should look:
 
-Example — Historian, Creativity & Collaboration:
-"As a historian, you deepened your understanding of different civilisations through our enquiry into the Maya. You showed excellent collaboration and creativity when learning as part of a group to design and build a Mayan civilisation model. You shared ideas thoughtfully, listened to others, and helped solve problems when challenges arose."
+Example of correct integration — Historian woven into Collaboration passage:
+WRONG (bolted on at end):
+"...You also collaborate exceptionally well with others, sharing ideas thoughtfully. [rest of comment] As a historian, you developed your collaboration skills through our enquiry into the legacy of the Mayan civilisation. You collaborated thoughtfully with your group..."
+RIGHT (woven in at the collaboration moment):
+"...Your independence is excellent but you also collaborate exceptionally well with others, sharing ideas thoughtfully and supporting your learning partners in the Maple Learning Zone. As a historian, you developed your collaboration skills through our enquiry into the legacy of the Mayan civilisation. You collaborated thoughtfully with your group to research different aspects of Mayan culture and shared your discoveries effectively, helping to build a deeper understanding of how this ancient civilisation continues to influence the world today. You are becoming more consistent in applying yourself fully to challenging learning..."
 
-Example — Geographer, Enquiry & Application:
+Subject paragraph tone examples (style reference — do not copy directly):
+
+Historian, Collaboration:
+"As a historian, you developed your collaboration skills through our enquiry into the legacy of the Mayan civilisation. You collaborated thoughtfully with your group to research different aspects of Mayan culture and shared your discoveries effectively, helping to build a deeper understanding of how this ancient civilisation continues to influence the world today."
+
+Geographer, Enquiry:
 "As a geographer, you developed your enquiry skills when exploring how humans interact with their environment. You asked thoughtful questions and used evidence to explain your ideas, making clear links between your learning and the wider world."
 
-Example — Scientist, Curiosity & Enquiry:
-"As a scientist, you explored the water cycle through our enquiry into how water moves through the environment. You demonstrated real curiosity and strong enquiry skills when creating your own water cycle model, observing and explaining evaporation, condensation and precipitation, and making thoughtful connections to real-world processes."
+Scientist, Curiosity:
+"As a scientist, you explored the water cycle through our enquiry into how water moves through the environment. You demonstrated real curiosity when creating your own water cycle model, observing and explaining evaporation, condensation and precipitation, and making thoughtful connections to real-world processes."
 
-Example — Computer Scientist, Resilience:
+Computer Scientist, Resilience:
 "As a computer scientist, you showed resilience when exploring how computers follow instructions, thinking carefully through challenges and persevering when tasks became difficult. This enabled you to build a strong understanding of how digital systems connect and communicate."
 
-Example — Citizen, Respect & Understanding:
-"As a citizen, you built your understanding of different cultures and beliefs through our enquiry into how Muslims celebrate Eid. You showed respect and curiosity when learning about these traditions and were able to make thoughtful links to celebrations in other religions, deepening your appreciation of diversity and the importance of respecting different ways of life."
+Citizen, Respect:
+"As a citizen, you built your understanding of different cultures and beliefs through our enquiry into how Muslims celebrate Eid. You showed respect and curiosity when learning about these traditions and made thoughtful links to celebrations in other religions, deepening your appreciation of diversity and the importance of respecting different ways of life."
 
-Key language features to replicate from the examples:
+Key language features:
 - "through our enquiry into…" — root the paragraph in the specific enquiry
-- Name the skill clearly ("you showed real curiosity", "you demonstrated resilience") — never bury it
-- Connect the skill to a concrete outcome or action ("this enabled you to…", "this helped you to…")
+- Name the skill clearly and early ("you showed real curiosity", "you demonstrated resilience")
+- Connect to a concrete outcome ("this enabled you to…", "this helped you to…")
 - Warm, direct, specific — never generic
-- Vary sentence openings across the two paragraphs if two states are used
+- Vary sentence openings if two states are used
 
 OUTPUT — return ONLY this JSON, no other text:
 {
