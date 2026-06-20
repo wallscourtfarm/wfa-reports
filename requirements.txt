@@ -5,3 +5,4 @@ requests
 Pillow
 anthropic
 reportlab
+git+https://github.com/wallscourtfarm/wfa-shared.git

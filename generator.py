@@ -6,6 +6,7 @@ import json
 import re
 import anthropic
 import streamlit as st
+from wfa_shared.api import create_message
 
 # ── Year-group enquiry data (update each year) ────────────────────────────────
 ENQUIRIES = {
@@ -411,8 +412,8 @@ def generate_comments(p: dict, sections: list | None = None) -> dict:
         requested = ", ".join(section_labels[s] for s in sections if s in section_labels)
         prompt += f"\n\nONLY generate these sections: {requested}. Return JSON with only those keys."
 
-    response = client.messages.create(
-        model="claude-sonnet-4-5",
+    response = create_message(
+        client,
         max_tokens=4000,
         system=SYSTEM_PROMPT,
         messages=[{"role": "user", "content": prompt}],
@@ -432,8 +433,8 @@ def generate_comments(p: dict, sections: list | None = None) -> dict:
             result = json.loads(cleaned)
         except json.JSONDecodeError:
             # Last resort: ask Claude to fix its own output
-            fix_response = client.messages.create(
-                model="claude-sonnet-4-5",
+            fix_response = create_message(
+                client,
                 max_tokens=4000,
                 messages=[{
                     "role": "user",
