@@ -412,7 +412,7 @@ def generate_comments(p: dict, sections: list | None = None) -> dict:
         prompt += f"\n\nONLY generate these sections: {requested}. Return JSON with only those keys."
 
     response = client.messages.create(
-        model="claude-sonnet-4-20250514",
+        model="claude-sonnet-4-5",
         max_tokens=4000,
         system=SYSTEM_PROMPT,
         messages=[{"role": "user", "content": prompt}],
@@ -433,7 +433,7 @@ def generate_comments(p: dict, sections: list | None = None) -> dict:
         except json.JSONDecodeError:
             # Last resort: ask Claude to fix its own output
             fix_response = client.messages.create(
-                model="claude-sonnet-4-20250514",
+                model="claude-sonnet-4-5",
                 max_tokens=4000,
                 messages=[{
                     "role": "user",
