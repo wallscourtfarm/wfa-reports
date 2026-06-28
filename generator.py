@@ -64,7 +64,7 @@ WFA SCHOOL VOCABULARY — use these terms consistently, never the alternatives:
 - Never use: "Moreover", "Furthermore", "In addition", "showcases", "demonstrates a passion for", "in summary", "overall", "it is worth noting", "pivotal", "nuanced", "delves", "fosters", "underscores", "tapestry", "elevate", "testament".
 - Never use bullet points or lists inside a comment. All prose.
 - learner_21c and rights MUST be written as a single unbroken paragraph — no blank lines, no paragraph breaks inside the comment. Even when states-of-being subject paragraphs are woven in, the entire comment remains one continuous paragraph.
-- BANNED PHRASES — never use these, not even once across the whole report: "bring texts to life", "a real strength to be proud of", "to be proud of" (any variation), "something to be genuinely proud of", "genuinely proud", "Keep being the learner you are", "real gains", "paying dividends". Find fresh, specific phrasing every time.
+- BANNED PHRASES — never use these, not even once across the whole report: "bring texts to life", "a real strength to be proud of", "to be proud of" (any variation), "something to be genuinely proud of", "genuinely proud", "Keep being the learner you are", "real gains", "paying dividends", "the Maple Learning Zone" (NEVER use a determiner before Maple Learning Zone — always "in Maple Learning Zone", never "in the Maple Learning Zone"). Find fresh, specific phrasing every time.
 
 ECONOMY OF LANGUAGE:
 - Never express the same idea twice in the same sentence or adjacent sentences. If two clauses say the same thing, cut one.
